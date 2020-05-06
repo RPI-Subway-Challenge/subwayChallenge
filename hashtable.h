@@ -4,14 +4,29 @@
 
 class Hashtable{
 public:
+
+	// constructor
 	Hashtable(int startDay, int startTime);
 
-	int Hash(*Station inputStation);
+	// hash function
+	int hash(Station* inputStation);
+
+	// recursive path find
+	void findPath(Station* ptr, int visted);
+
+	// getters
+	int getDay()			{return day;}
+	int getTime()			{return time;}
+	int getSize()			{return size;}
+	int getOccupancy()		{return occupancy;}
+	int getDuration()		{return duration;}
+	int getBestDuration()	{return bestDuration;}
 
 private:
-	int size;
-	int day
+	int day;
 	int time;
+
+	int size;
 	int occupancy;
 
 	int duration;

@@ -9,10 +9,16 @@ public:
 	Hashtable(int startDay, int startTime);
 
 	// hash function
-	int hash(Station* inputStation);
+	int hash(std::string &inputName);
+	// hash function but returns index when found station
+	int findHash(std::string &inputName);
 
 	// recursive path find
 	void findPath(Station* ptr, int visted);
+
+	//setters
+	void addStation(int inputHash, Station &inputStation);
+	void addOcc()			{occupancy++;}
 
 	// getters
 	int getDay()			{return day;}
@@ -28,6 +34,7 @@ private:
 
 	int size;
 	int occupancy;
+	int maxProbe;		// furthest distance linear probe has gone
 
 	int duration;
 	int bestDuration;

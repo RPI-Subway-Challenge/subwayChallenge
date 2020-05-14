@@ -8,12 +8,20 @@
 
 // command line:	./main.out input.txt output.txt
 
+
 int main(int argc, char* argv[]){
 
-	Hashtable table(0, 200);
+	Time startTime (0, 2, 0);	// start sunday at 2am
 
+	Hashtable table(startTime);
 
 //																					I N P U T
+
+	if(argc != 3){
+		std::cerr << "You provided " << argc << "arguments intead of 3.\n";
+		exit(1);
+	}
+
 	std::ifstream in_str(argv[1]);
 
 	if (!in_str.good()) {
@@ -24,7 +32,7 @@ int main(int argc, char* argv[]){
 	std::string text;
 	std::string inputName;
 	std::list<std::string> inputLines;
-	std::vector<std::pair<int,int>> inputHours(7);
+	std::vector<std::pair<Time,Time>> inputHours;
 
 	while (in_str >> text) {
 
@@ -39,24 +47,28 @@ int main(int argc, char* argv[]){
 		}
 
 		// H O U R S
-		int inputCloseHour;
+		int inputHour;
+		int inputMinute;
 		for(int i = 0; i != 7; i++){
-			in_str >> text;
-			in_str >> inputCloseHour;
-			inputHours[i] = std::make_pair(stoi(text),inputCloseHour);
+			in_str >> inputHour;
+			in_str >> inputMinute;
+			Time inputOpenTime (i, inputHour,inputMinute);		// open time
+			in_str >> inputHour;
+			in_str >> inputMinute;
+			Time inputCloseTime (i, inputHour,inputMinute);	// close time
+			inputHours[i] = std::make_pair(inputOpenTime,inputCloseTime);
 		}
 
 		// R O U T E S
 
-		std::list<std::pair<int,int>> inputTrains;
-		std::list<std::pair<int,int>> inputWalks;
+		std::list<std::pair<int,Time>> inputTrains;
+		std::list<std::pair<int,Time>> inputWalks;
 
 		while(text != "end"){
 
-			int routeDuration;
-			std::string connectName;				// name of connected station
-			int connectHash;						// hash of connected station if needs to be added
-			int foundHash;							// hash of connected station if already added
+			int routeMinutes;
+			std::string connectName;
+			int connectHash;
 			bool walk;
 
 			in_str >> text;
@@ -65,78 +77,99 @@ int main(int argc, char* argv[]){
 			if(text == "w"){
 				walk = true;
 
-				in_str >> routeDuration;
+				in_str >> routeMinutes;
 				in_str >> connectName;
 
-				std::pair<int,int> walk;
+				std::pair<int,Time> walk;
 
-				foundHash = table.findHash(connectName);
+				connectHash = table.findHash(connectName);
 
 				// if station doesn't exist
-				if(foundHash == -1){
+				if(connectHash == -1){
 					// make station & put in table
 					connectHash = table.hash(connectName);
 					Station connectStation (connectName, connectHash);
 					table.addStation(connectHash, connectStation);
 					// pair for inputWalks list
 					walk.first = connectHash;
-					walk.second = routeDuration;
+					Time routeTime (0,0, routeMinutes);		// assumes all routes under 60 min
+					walk.second = routeTime;
 					inputWalks.push_back(walk);
-					table.addOcc();
-
 				// if station exists
 				}else{
 					// pair for inputWalks list
-					walk.first = foundHash;
-					walk.second = routeDuration;
+					walk.first = connectHash;
+					Time routeTime (0,0, routeMinutes);
+					walk.second = routeTime;
 					inputWalks.push_back(walk);
-					table.addOcc();
 				}
 
 			// T R A I N S
 			}else{
 				walk = false;
 
-				in_str >> routeDuration;
+				in_str >> routeMinutes;
 				in_str >> connectName;
 
-				std::pair<int,int> train;
+				std::pair<int,Time> train;
 
-				foundHash = table.findHash(connectName);
+				connectHash = table.findHash(connectName);
 				// if station doesn't exist
-				if(foundHash == -1){
+				if(connectHash == -1){
 					// make station & put in table
 					connectHash = table.hash(connectName);
 					Station connectStation (connectName, connectHash);
 					table.addStation(connectHash, connectStation);
 					// pair for inputTrains list
 					train.first = connectHash;
-					train.second = routeDuration;
+					Time routeTime (0,0, routeMinutes);
+					train.second = routeTime;
 					inputTrains.push_back(train);
-					table.addOcc();
 				//if station exists
 				}else{
 					// pair for inputTrains list
-					train.first = foundHash;
-					train.second = routeDuration;
+					train.first = connectHash;
+					Time routeTime (0,0, routeMinutes);
+					train.second = routeTime;
 					inputTrains.push_back(train);
-					table.addOcc();
 				}
 			}
 		}
 
-		int inputHash = table.hash(inputName);
-		// create new station
-		Station newStation(inputName, inputHash, inputLines, inputHours, inputTrains, inputWalks);
-		// put station in table
-		table.addStation(inputHash, newStation);
+		int inputHash = table.findHash(inputName);
+		// if not already in table make station
+		if(inputHash == -1){
+			inputHash = table.hash(inputName);
+			Station newStation(inputName, inputHash, inputLines, inputHours, inputTrains, inputWalks);
+			table.addStation(inputHash, newStation);
+		// if in table update lines hours trains & walks
+		}else{
+			table.updateStation(inputHash, inputLines, inputHours, inputTrains, inputWalks);
+		}
 	}
 
+	std::cout << "INPUT COMPLETE\n";
 
 
-	return 0;
+
+//																					S O L V E
+	std::string startString = "Far_Rockaway_Mott";
+	int startHash = table.findHash(startString);
+
+	if(startHash == -1){
+		std::cerr << "Cannot find start: Far_Rockaway_Mott\n";
+		exit(1);
+	}
+
+	// set ptr to starting station
+	Station* ptr =  & table.getStation(startHash);
+
+	std::list<std::pair<std::string,bool>> emptyRoute;	// list<name,walkBool>
+
+	//table.findPath(ptr, 0, emptyRoute);
 
 
 //																					O U T P U T
+	return 0;
 
 }

@@ -6,7 +6,7 @@ class Hashtable{
 public:
 
 	// constructor
-	Hashtable(int startDay, int startTime);
+	Hashtable(Time startTime);
 
 	// hash function
 	int hash(std::string &inputName);
@@ -14,30 +14,32 @@ public:
 	int findHash(std::string &inputName);
 
 	// recursive path find
-	void findPath(Station* ptr, int visted);
+	void findPath(Station* &ptr, int visted, Route &route);
 
 	//setters
 	void addStation(int inputHash, Station &inputStation);
-	void addOcc()			{occupancy++;}
+	void updateStation(int inputHash, std::list<std::string> &inputLines, std::vector<std::pair<Time,Time>> &inputHours,
+						std::list<std::pair<int,Time>> &inputTrains, std::list<std::pair<int,Time>> &inputWalks);
 
 	// getters
-	int getDay()			{return day;}
-	int getTime()			{return time;}
-	int getSize()			{return size;}
-	int getOccupancy()		{return occupancy;}
-	int getDuration()		{return duration;}
-	int getBestDuration()	{return bestDuration;}
+	Time getTime()						{return time;}
+	int getSize()						{return size;}
+	int getOccupancy()					{return occupancy;}
+	Time getDuration()					{return duration;}
+	Time getBestDuration()				{return bestDuration;}
+	Station & getStation(int inputHash)	{return table[inputHash];}
 
 private:
-	int day;
-	int time;
+	Time time;
 
 	int size;
 	int occupancy;
 	int maxProbe;		// furthest distance linear probe has gone
 
-	int duration;
-	int bestDuration;
+	Time duration;
+	Time bestDuration;
+
+	Route bestRoute;
 
 	std::vector<Station> table;
 

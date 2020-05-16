@@ -33,9 +33,9 @@ Station::Station(std::string &inputName, int inputHash, std::list<std::string> &
 
 // default constructor
 Time::Time(){
-	day = -7;
-	hour = -7;
-	minute = -7;
+	day = 0;
+	hour = 0;
+	minute = 0;
 
 }
 

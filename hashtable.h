@@ -1,5 +1,8 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
+#ifndef hashtable_h_
+#define hashtable_h_
+
 #include "station.h"
 
 class Hashtable{
@@ -14,7 +17,7 @@ public:
 	int findHash(std::string &inputName);
 
 	// recursive path find
-	void findPath(Station* &ptr, int visted, Route &route);
+	void findPath(Station* & ptr, int visted, Route &route);
 
 	//setters
 	void addStation(int inputHash, Station &inputStation);
@@ -27,6 +30,7 @@ public:
 	int getOccupancy()					{return occupancy;}
 	Time getDuration()					{return duration;}
 	Time getBestDuration()				{return bestDuration;}
+	Route & getBestRoute()				{return bestRoute;}
 	Station & getStation(int inputHash)	{return table[inputHash];}
 
 private:
@@ -46,3 +50,6 @@ private:
 
 
 };
+
+
+#endif

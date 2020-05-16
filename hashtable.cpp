@@ -96,7 +96,7 @@ void Hashtable::updateStation(int inputHash, std::list<std::string> &inputLines,
 
 
 // recursive path finding algorithm
-void Hashtable::findPath(Station* &ptr, int visted, Route &route){
+void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 
 	// fail base case
 	if( ptr->getHours(time.getDay()).first > time || time > ptr->getHours(time.getDay()).second || duration > bestDuration ){	// end if station is closed
@@ -135,12 +135,20 @@ void Hashtable::findPath(Station* &ptr, int visted, Route &route){
 		}
 		// walks
 		for(iter == ptr->getWalks().begin(); iter != ptr->getWalks().end(); iter++){
+			// change pointer
 			next = & getStation(iter->first);
+			// add to route
 			nextMove.first = next->getName();
 			nextMove.second = true;
 			route.addStation(nextMove);
+			// advance time
+			time = time + iter->second;
+			// recursion
 			findPath(next, visted, route);
+			// revert route
 			route.popStation();
+			// revert time
+			time = time - iter->second;
 		}
 	}
 }

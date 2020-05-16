@@ -1,5 +1,8 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
+#ifndef station_h_
+#define station_h_
+
 #include <iostream>
 #include <utility>
 #include <string>
@@ -109,3 +112,4 @@ private:
 
 
 
+#endif

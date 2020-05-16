@@ -148,6 +148,8 @@ int main(int argc, char* argv[]){
 		}
 	}
 
+	in_str.close();
+
 	std::cout << "INPUT COMPLETE\n";
 
 
@@ -162,14 +164,35 @@ int main(int argc, char* argv[]){
 	}
 
 	// set ptr to starting station
-	Station* ptr =  & table.getStation(startHash);
+	Station* ptr = & table.getStation(startHash);
 
-	std::list<std::pair<std::string,bool>> emptyRoute;	// list<name,walkBool>
+	Route emptyRoute = Route();
 
-	//table.findPath(ptr, 0, emptyRoute);
+	table.findPath(ptr, 0, emptyRoute);
 
 
 //																					O U T P U T
-	return 0;
+	
+	std::ofstream out_str(argv[2]);
 
+	if(!out_str.good()){
+		std::cerr << "Failed to open " << argv[2];
+	}
+
+	out_str << "BEST TIME: " << table.getBestDuration().getHour() << " " << table.getBestDuration().getMinute() << std::endl;
+	out_str << std::endl << "STOPS:" << std::endl;
+	std::list<std::pair<std::string,bool>>::iterator iter;
+	// loop through bestRoute
+	for(iter = table.getBestRoute().getRoute().begin(); iter != table.getBestRoute().getRoute().end(); iter++){
+		// if walkbool print walk before destination
+		if(iter->second){
+			out_str << "walk" << std::endl;
+		}
+		// print next stop name
+		out_str << iter->first << std::endl;
+	}
+
+	out_str.close();
+
+	return 0;
 }

@@ -24,12 +24,13 @@ Hashtable::Hashtable(Time startTime){
 
 // hash function
 int Hashtable::hash(std::string &inputName){
-	int hash;
+	int hash = 0;
 	int probeCount = 0;
 
 	for(int i = 0; i != inputName.size(); i++){
 		hash = hash + int(inputName[i]);
 	}
+	hash = hash % size;
 
 	// linear probing to insert
 	while(table[hash].getName() != "NONE"){
@@ -55,6 +56,12 @@ int Hashtable::findHash(std::string &inputName){
 	int hash1 = 0;
 	int probeCount = 0;
 
+	// find hash w/o probe
+	for(int i = 0; i != inputName.size(); i++){
+		hash1 = hash1 + int(inputName[i]);
+	}
+	hash1 = hash1 % size;
+
 	// linear prob till find station or probeMax hit
 	while(table[hash1].getName() != inputName && probeCount != maxProbe){
 		if(hash1 == size){
@@ -65,8 +72,8 @@ int Hashtable::findHash(std::string &inputName){
 		probeCount++;
 	}
 
-	// if not found return -1
-	if(probeCount == maxProbe){
+	// if not found at max probe return -1
+	if(probeCount == maxProbe && table[hash1].getName() != inputName){
 		return -1;
 	}
 
@@ -117,9 +124,11 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 		std::pair<std::string,bool> nextMove;
 		visted++;
 		// trains
-		for(iter == ptr->getTrains().begin(); iter != ptr->getTrains().end(); iter++){
-			// change pointer
-			next = & getStation(iter->first);
+		std::cout << ptr->getTrains().size() << std::endl;
+		for(iter == ptr->getTrains().begin(); iter != ptr->getTrains().end(); ++iter){
+			std::cout << iter->first << std::endl;
+			// assign next pointer
+			next = & table[iter->first];
 			// add to route
 			nextMove.first = next->getName();
 			nextMove.second = false;
@@ -136,7 +145,7 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 		// walks
 		for(iter == ptr->getWalks().begin(); iter != ptr->getWalks().end(); iter++){
 			// change pointer
-			next = & getStation(iter->first);
+			next = & table[iter->first];
 			// add to route
 			nextMove.first = next->getName();
 			nextMove.second = true;

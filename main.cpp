@@ -56,13 +56,16 @@ int main(int argc, char* argv[]){
 			in_str >> inputHour;
 			in_str >> inputMinute;
 			Time inputCloseTime (i, inputHour,inputMinute);	// close time
-			inputHours[i] = std::make_pair(inputOpenTime,inputCloseTime);
+			std::pair<Time,Time> inputTimePair = std::make_pair(inputOpenTime,inputCloseTime);
+			inputHours.push_back(inputTimePair);
 		}
 
 		// R O U T E S
 
 		std::list<std::pair<int,Time>> inputTrains;
 		std::list<std::pair<int,Time>> inputWalks;
+
+		in_str >> text;
 
 		while(text != "end"){
 
@@ -71,14 +74,13 @@ int main(int argc, char* argv[]){
 			int connectHash;
 			bool walk;
 
-			in_str >> text;
-
 			// W A L K S
 			if(text == "w"){
 				walk = true;
 
 				in_str >> routeMinutes;
 				in_str >> connectName;
+				in_str >> text;
 
 				std::pair<int,Time> walk;
 
@@ -110,6 +112,7 @@ int main(int argc, char* argv[]){
 
 				in_str >> routeMinutes;
 				in_str >> connectName;
+				in_str >> text;
 
 				std::pair<int,Time> train;
 
@@ -125,6 +128,7 @@ int main(int argc, char* argv[]){
 					Time routeTime (0,0, routeMinutes);
 					train.second = routeTime;
 					inputTrains.push_back(train);
+
 				//if station exists
 				}else{
 					// pair for inputTrains list
@@ -155,18 +159,22 @@ int main(int argc, char* argv[]){
 
 
 //																					S O L V E
-	std::string startString = "Far_Rockaway_Mott";
+	std::string startString = "Penn_Station";
 	int startHash = table.findHash(startString);
 
 	if(startHash == -1){
-		std::cerr << "Cannot find start: Far_Rockaway_Mott\n";
+		std::cerr << "Cannot find start: " << startString << std::endl;
 		exit(1);
 	}
+
+	std::cout << "START FOUND\n";
 
 	// set ptr to starting station
 	Station* ptr = & table.getStation(startHash);
 
 	Route emptyRoute = Route();
+
+	std::cout << "RECURSION STARTED...\n";
 
 	table.findPath(ptr, 0, emptyRoute);
 

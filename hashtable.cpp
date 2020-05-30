@@ -124,9 +124,7 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 		std::pair<std::string,bool> nextMove;
 		visted++;
 		// trains
-		std::cout << ptr->getTrains().size() << std::endl;
-		for(iter == ptr->getTrains().begin(); iter != ptr->getTrains().end(); ++iter){
-			std::cout << iter->first << std::endl;
+		for(iter = ptr->getTrains().begin(); iter != ptr->getTrains().end(); iter++){
 			// assign next pointer
 			next = & table[iter->first];
 			// add to route
@@ -143,7 +141,7 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 			time = time - iter->second;
 		}
 		// walks
-		for(iter == ptr->getWalks().begin(); iter != ptr->getWalks().end(); iter++){
+		for(iter = ptr->getWalks().begin(); iter != ptr->getWalks().end(); iter++){
 			// change pointer
 			next = & table[iter->first];
 			// add to route

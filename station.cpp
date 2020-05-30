@@ -101,13 +101,13 @@ bool Time::operator > (Time comparedTime){
 		std::cout << "Sunday > Saturtday returned true\n";
 		return true;
 	}
-	if(day > comparedTime.getDay()){
+	else if(day > comparedTime.getDay()){
 		return true;
 	}
-	if(day == comparedTime.getDay() && hour > comparedTime.getHour()){
+	else if(day == comparedTime.getDay() && hour > comparedTime.getHour()){
 		return true;
 	}
-	if(day == comparedTime.getDay() && hour > comparedTime.getHour() && minute > comparedTime.getMinute()){
+	else if(day == comparedTime.getDay() && hour > comparedTime.getHour() && minute > comparedTime.getMinute()){
 		return true;
 	}
 	return false;

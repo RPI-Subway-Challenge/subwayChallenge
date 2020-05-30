@@ -1,0 +1,54 @@
+Penn_Station
+a b c
+Times
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+t 10 15th_Street
+w 15 5th_Avenue
+t 25 JFK
+end
+
+15th_Street
+a
+Times
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+t 10 Penn_Station
+end
+
+5th_Avenue
+b
+Times
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+w 15 Penn_Station
+end
+
+JFK
+c
+Times
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+0 0 24 59
+t 25 Penn_Station
+end
+

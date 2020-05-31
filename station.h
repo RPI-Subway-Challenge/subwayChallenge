@@ -57,12 +57,13 @@ public:
 
 	// setters
 	void addDuration(Time inputDuration)						{duration = duration + inputDuration;}
+	void subDuration(Time inputDuration)						{duration = duration - inputDuration;}
 	void addStation(std::pair<std::string,bool> inputStation)	{path.push_back(inputStation);}
 	void popStation()											{path.pop_back();}
 
 	// getters
-	Time & getDuration()									{return duration;}
-	std::list<std::pair<std::string, bool>> & getRoute()	{return path;}
+	Time & getDuration()										{return duration;}
+	std::list<std::pair<std::string, bool>> & getPath()			{return path;}
 
 private:
 	Time duration;
@@ -90,6 +91,8 @@ public:
 	void setHours(std::vector<std::pair<Time,Time>> &inputHours)	{hours = inputHours;}
 	void setTrains(std::list<std::pair<int,Time>> &inputTrains)		{trains = inputTrains;}
 	void setWalks(std::list<std::pair<int,Time>> &inputWalks)		{walks = inputWalks;}
+	void setVisited()												{visited = true;}
+	void setUnvisited()												{visited = false;}
 
 	// getters
 	std::string & getName()										{return name;}
@@ -97,6 +100,7 @@ public:
 	std::pair<Time,Time> & getHours(int day)					{return hours[day];}
 	std::list<std::pair<int,Time>> & getTrains()				{return trains;}
 	std::list<std::pair<int,Time>> & getWalks()					{return trains;}
+	bool getVisited()											{return visited;}
 
 
 private:
@@ -106,7 +110,7 @@ private:
 	std::vector<std::pair<Time,Time>> hours;	// vector size 7 for days
 	std::list<std::pair<int,Time>> trains;		// list of pairs containing hash of next stations & train duration
 	std::list<std::pair<int,Time>> walks;		// list of pairs containing hash of next stations & walk duration
-
+	bool visited;
 };
 
 

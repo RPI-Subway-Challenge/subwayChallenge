@@ -28,7 +28,6 @@ public:
 	Time getTime()						{return time;}
 	int getSize()						{return size;}
 	int getOccupancy()					{return occupancy;}
-	Time getDuration()					{return duration;}
 	Time getBestDuration()				{return bestDuration;}
 	Route & getBestRoute()				{return bestRoute;}
 	Station & getStation(int inputHash)	{return table[inputHash];}
@@ -40,7 +39,6 @@ private:
 	int occupancy;
 	int maxProbe;		// furthest distance linear probe has gone
 
-	Time duration;
 	Time bestDuration;
 
 	Route bestRoute;

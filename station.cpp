@@ -12,6 +12,7 @@ Station::Station(){
 Station::Station(std::string &inputName, int inputHash){
 	name = inputName;
 	hash = inputHash;
+	visited = false;
 	lines.push_back("NONE");	// indicator of incomplete station in hashtable
 }
 
@@ -26,6 +27,7 @@ Station::Station(std::string &inputName, int inputHash, std::list<std::string> &
 	hours = inputHours;
 	trains = inputTrains;
 	walks = inputWalks;
+	visited = false;
 }
 
 
@@ -125,6 +127,6 @@ Route::Route(){
 // operator =
 void Route::operator = (Route &route){
 	duration = route.getDuration();
-	path = route.getRoute();
+	path = route.getPath();
 }
 

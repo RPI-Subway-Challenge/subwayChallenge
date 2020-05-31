@@ -8,12 +8,9 @@ Hashtable::Hashtable(Time startTime){
 	size = 1000;
 	occupancy = 0;
 	maxProbe = 0;
-	duration.setDay(0);
-	duration.setHour(0);
-	duration.setMinute(0);
 	bestDuration.setDay(0);
-	bestDuration.setHour(22);
-	bestDuration.setMinute(30);
+	bestDuration.setHour(2);
+	bestDuration.setMinute(0);
 
 	std::vector<Station> tempTable (size);
 	table = tempTable;		// is this copying?
@@ -102,27 +99,51 @@ void Hashtable::updateStation(int inputHash, std::list<std::string> &inputLines,
 
 
 
+
+
 // recursive path finding algorithm
-void Hashtable::findPath(Station* & ptr, int visted, Route &route){
+void Hashtable::findPath(Station* & ptr, int visited, Route &route){
+
+	if( visited > occupancy ){
+		std::cerr << "ERROR: Visited station count is greater than total num of stations\n";
+		exit(1);
+	}
 
 	// fail base case
-	if( ptr->getHours(time.getDay()).first > time || time > ptr->getHours(time.getDay()).second || duration > bestDuration ){	// end if station is closed
+	else if( ptr->getHours(time.getDay()).first > time || time > ptr->getHours(time.getDay()).second || route.getDuration() > bestDuration ){	// end if station is closed
 		return;
 	}
 
+
 	// success base case
-	else if( visted == occupancy ){
-		bestDuration = duration;
+	else if( visited == occupancy && bestDuration > route.getDuration()){
+		bestDuration = route.getDuration();
 		bestRoute = route;
 		std::cout << "BEST ROUTE FOUND    " << bestDuration.getHour() << ':' << bestDuration.getMinute() << std::endl;
 		return;
 
+
 	// else move on
 	}else{
+		// if new increase visited count and set station visited
+		if(ptr->getVisited() == false){
+			visited++;
+			ptr->setVisited();
+		}
+
+		// print path
+		std::cout << visited << ' ';
+		std::list<std::pair<std::string,bool>>::iterator pathIter;
+		for(pathIter = route.getPath().begin(); pathIter != route.getPath().end(); pathIter++){
+			std::cout << pathIter->first << ' ';
+		}
+		std::cout << std::endl;
+
+		// initializations
 		std::list<std::pair<int,Time>>::iterator iter;	// iter through train and walk lists
 		Station* next;
 		std::pair<std::string,bool> nextMove;
-		visted++;
+
 		// trains
 		for(iter = ptr->getTrains().begin(); iter != ptr->getTrains().end(); iter++){
 			// assign next pointer
@@ -133,13 +154,18 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 			route.addStation(nextMove);
 			// advance time
 			time =  time + iter->second;
+			route.addDuration(iter->second);
 			// recursion
-			findPath(next, visted, route);
+			findPath(next, visited, route);
 			// revert route
 			route.popStation();
+			// revert visited
+			ptr->setUnvisited();
 			// revert time
 			time = time - iter->second;
+			route.subDuration(iter->second);
 		}
+
 		// walks
 		for(iter = ptr->getWalks().begin(); iter != ptr->getWalks().end(); iter++){
 			// change pointer
@@ -150,12 +176,13 @@ void Hashtable::findPath(Station* & ptr, int visted, Route &route){
 			route.addStation(nextMove);
 			// advance time
 			time = time + iter->second;
+			route.addDuration(iter->second);
 			// recursion
-			findPath(next, visted, route);
+			findPath(next, visited, route);
 			// revert route
 			route.popStation();
-			// revert time
 			time = time - iter->second;
+			route.subDuration(iter->second);
 		}
 	}
 }

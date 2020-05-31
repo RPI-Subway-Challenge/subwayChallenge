@@ -154,7 +154,7 @@ int main(int argc, char* argv[]){
 
 	in_str.close();
 
-	std::cout << "INPUT COMPLETE\n";
+	std::cout << "INPUT COMPLETE:    " << table.getOccupancy() << " stations represented\n";
 
 
 
@@ -172,12 +172,18 @@ int main(int argc, char* argv[]){
 	// set ptr to starting station
 	Station* ptr = & table.getStation(startHash);
 
+	// make route with just starting station
 	Route emptyRoute = Route();
+	std::pair<std::string,bool> start;
+	start.first = startString;
+	start.second = false;
+	emptyRoute.addStation(start);
 
 	std::cout << "RECURSION STARTED...\n";
 
 	table.findPath(ptr, 0, emptyRoute);
 
+	std::cout << "RECURSION ENDED\n";
 
 //																					O U T P U T
 	
@@ -188,19 +194,22 @@ int main(int argc, char* argv[]){
 	}
 
 	out_str << "BEST TIME: " << table.getBestDuration().getHour() << " " << table.getBestDuration().getMinute() << std::endl;
-	out_str << std::endl << "STOPS:" << std::endl;
+	out_str << std::endl << "STOPS:\n";
 	std::list<std::pair<std::string,bool>>::iterator iter;
 	// loop through bestRoute
-	for(iter = table.getBestRoute().getRoute().begin(); iter != table.getBestRoute().getRoute().end(); iter++){
+	for(iter = table.getBestRoute().getPath().begin(); iter != table.getBestRoute().getPath().end(); iter++){
 		// if walkbool print walk before destination
 		if(iter->second){
-			out_str << "walk" << std::endl;
+			out_str << "walk\n";
 		}
 		// print next stop name
 		out_str << iter->first << std::endl;
 	}
 
 	out_str.close();
+
+	std::cout << "DONE" << std::endl;
+
 
 	return 0;
 }

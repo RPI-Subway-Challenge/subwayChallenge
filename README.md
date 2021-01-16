@@ -3,9 +3,11 @@ NOT FINISHED
 
 Finds fastest path through all 472 NYC subway stations.
 
-Recursively finds optimal path through hashtable representation of New York subway system.
-Data webscraped from google maps.
+Recursively finds optimal path through representation of New York subway system.
+Data provide by MTA & webscraped from google maps.
 Written in C++ and python.
+
+This was orginally built as a hashtable / linked list hybrid thing but it was unncessearily complicated so I burned it down and started fresh.
 
 Down with Matthew Ahn.
 

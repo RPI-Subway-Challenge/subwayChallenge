@@ -7,7 +7,7 @@ Recursively finds optimal path through representation of New York subway system.
 Data provide by MTA & webscraped from google maps.
 Written in C++ and python.
 
-This was orginally built as a hashtable / linked list hybrid thing but it was unncessearily complicated so I burned it down and started fresh.
+This was orginally built as a hashtable / linked list hybrid thing but it was unncessearily complicated so I burned it down and started fresh in v2 branch.
 
 Down with Matthew Ahn.
 

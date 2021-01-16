@@ -1,3 +1,4 @@
+//																	D O W N    W I T H    M A T T H E W    A H N
 
 #include "line.h"
 #include <fstream>
@@ -5,7 +6,7 @@
 // Ahn's starting point:		Far Rockaway Mott		2:02am
 // Ahn's ending point:			Flushing Main Street
 
-// command line:	./main.out stations.txt lines.txt output.txt
+// command line:	./main.out stationData.txt lineData.txt output.txt
 
 
 int main(int argc, char* argv[]){
@@ -15,7 +16,6 @@ int main(int argc, char* argv[]){
 		std::cerr << "You provided " << argc << "arguments intead of 4.\n";
 		exit(1);
 	}
-
 
 
 	//															S T A T I O N S   T E X T
@@ -50,6 +50,10 @@ int main(int argc, char* argv[]){
 	}
 
 	std::vector<Line> lines(36);
+
+	for (i = 0; i != 473; i++){
+		std::cout << i << ' ' << stations[i].getName() << std::endl;
+	}
 
 	std::cout << "Done.\n";
 

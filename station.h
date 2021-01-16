@@ -1,3 +1,4 @@
+//																	D O W N    W I T H    M A T T H E W    A H N
 
 #ifndef station_h_
 #define station_h_
@@ -5,12 +6,12 @@
 #include <iostream>
 #include <utility>	// pair
 #include <string>
-#include <list>
 #include <vector>
+#include <list>
 
 
 
-class Time{
+/*class Time{
 public:
 	// default constructor
 	Time();
@@ -31,7 +32,7 @@ private:
 	int day;	// days are 1-7
 	int hour;	// 24 hour format
 	int min;
-};
+};*/
 
 
 
@@ -55,8 +56,8 @@ private:
 	std::string name;
 	std::list<std::pair<int, int>> linePos;
 
-	std::vector<Time>weekday;
-	std::vector<Time>weekend;
+//	std::vector<Time>weekday;
+//	std::vector<Time>weekend;
 
 };
 

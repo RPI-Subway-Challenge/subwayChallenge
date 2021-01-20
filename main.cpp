@@ -38,6 +38,7 @@ int main(int argc, char* argv[]){
 		i++;
 	}
 
+	in_str.close();
 
 
 	//															L I N E S   T E X T
@@ -49,13 +50,28 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 
-	std::vector<Line> lines(36);
 
+	std::vector<Line> lines;
+
+
+
+	i = 0;
+	// read text and make new station in vector with that name
+/*	while (in_str2 >> text) {
+		while (text != "end"){
+
+		}
+		
+
+	}
+*/
+
+	// print stations
 	for (i = 0; i != 473; i++){
 		std::cout << i << ' ' << stations[i].getName() << std::endl;
 	}
 
-	std::cout << "Done.\n";
+	std::cout << "Done\n";
 
 
 	return 0;

@@ -11,7 +11,7 @@
 
 
 
-/*class Time{
+class Time{
 public:
 	// default constructor
 	Time();
@@ -32,7 +32,7 @@ private:
 	int day;	// days are 1-7
 	int hour;	// 24 hour format
 	int min;
-};*/
+};
 
 
 
@@ -56,8 +56,8 @@ private:
 	std::string name;
 	std::list<std::pair<int, int>> linePos;
 
-//	std::vector<Time>weekday;
-//	std::vector<Time>weekend;
+/*	std::vector<Time> weekday;
+	std::vector<Time> weekend;*/
 
 };
 

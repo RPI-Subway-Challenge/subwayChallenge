@@ -2,7 +2,7 @@
 
 #include "station.h"
 
-/*Time::Time(){
+Time::Time(){
 	day = 0;
 	hour = 0;
 	min = 0;
@@ -13,7 +13,7 @@ Time::Time(int inputDay, int inputHour, int inputMin){
 	day = inputDay;
 	hour = inputHour;
 	min = inputMin;
-}*/
+}
 
 Station::Station(){
 	name = "NONE";

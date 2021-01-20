@@ -1,4 +1,3 @@
-#subwayChallenge
 NOT YET FINISHED
 
 

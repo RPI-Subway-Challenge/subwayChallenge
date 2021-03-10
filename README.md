@@ -4,10 +4,7 @@ NOT YET FINISHED
 
 Finds fastest path through all 472 NYC subway stations for the [NYC Subway Challenge](https://en.wikipedia.org/wiki/Subway_Challenge).
 
-Recursively finds optimal path through representation of New York subway system. Data provided by MTA & webscraped from google maps. Written in C++ and python.
-
-This was orginally built with a combination hashtable / linked list structure but it was unncessearily complicated so I burned it down and started fresh in v2 branch.
-
+Uses Dijkstra’s algorithm to find optimal path through representation of New York subway system. Data provided by MTA & webscraped from google maps. Written in C++ and python.
 
 
 Should be compiled with g++ and run in a linux terminal as following:

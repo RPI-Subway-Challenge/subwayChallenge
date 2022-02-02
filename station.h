@@ -3,36 +3,10 @@
 #ifndef station_h_
 #define station_h_
 
-#include <iostream>
+#include "trip.h"
 #include <utility>	// pair
 #include <string>
 #include <vector>
-#include <list>
-
-
-
-class Time{
-public:
-	// default constructor
-	Time();
-	// constructor
-	Time(int inputDay, int inputHour, int inputMin);
-
-	//operators
-	Time operator + (Time xTime);
-	Time operator - (Time xTime);
-	void operator = (Time xTime);
-	bool operator > (Time xTime);
-
-	// getters
-	int getDay()	{return day;}
-	int getHour()	{return min;}
-	int getMin()	{return hour;}
-private:
-	int day;	// days are 1-7
-	int hour;	// 24 hour format
-	int min;
-};
 
 
 
@@ -42,22 +16,27 @@ public:
 	Station();
 
 	// constructor
-	Station(std::string inputName);
+	Station(std::string inName, int inIndex, double lat, double lon, std::list<std::string> inLines);
 
 	// setters
-	void addLine(int lineNum, int position);
+	void setTrips(std::list<Trip> inTrips);
 
 	// getters
-	std::string getName(){return name;}
-
-
+	int getIndex()						{return index;}
+	std::string getName()				{return name;}
+	std::pair <double,double> getCords(){return cords;}
+	std::list<std::string> getLines()	{return lines;}
+	std::list<Trip> getTrips()			{return trips;}
+	bool getOpen()						{return open;}
 
 private:
+	int index;
 	std::string name;
-	std::list<std::pair<int, int>> linePos;
-
-/*	std::vector<Time> weekday;
-	std::vector<Time> weekend;*/
+	std::pair <double,double> cords;
+	std::list<std::string> lines;
+	std::list<Trip> trips;
+	bool open;
+	// ? possibly operating hours
 
 };
 

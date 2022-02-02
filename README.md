@@ -10,6 +10,7 @@ Uses a semi-greedy AI agent to find optimal path through representation of New Y
 Should be compiled with g++ and run in a linux terminal as following:
 
 g++ main.cpp -o main.out
+
 ./main.out data.csv
 
 

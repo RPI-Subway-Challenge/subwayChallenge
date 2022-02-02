@@ -4,14 +4,13 @@ NOT YET FINISHED
 
 Finds fastest path through all 472 NYC subway stations for the [NYC Subway Challenge](https://en.wikipedia.org/wiki/Subway_Challenge).
 
-Uses a greedy AI agent to find optimal path through representation of New York subway system. Data provided by MTA & webscraped from google maps. Written in C++ and python.
+Uses a semi-greedy AI agent to find optimal path through representation of New York City subway system. Data provided by MTA & webscraped from Google Maps. Written in C++ and Python.
 
 
 Should be compiled with g++ and run in a linux terminal as following:
 
-g++ station.cpp line.cpp main.cpp -o main.out
-
-./main.out stationData.txt lineData.txt output.txt
+g++ main.cpp -o main.out
+./main.out data.csv
 
 
 
@@ -22,7 +21,6 @@ Down with Matthew Ahn.
 Data from:
 
 https://data.cityofnewyork.us/Transportation/Subway-Stations/arq3-7z49#Discuss
-
 https://new.mta.info/schedules/subway
 
 

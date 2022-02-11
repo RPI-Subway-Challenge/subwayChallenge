@@ -47,16 +47,17 @@ int main(int argc, char* argv[]){
 
 			// Getline will get parts of a string based on char seperators
 			getline(ss, stationName, ',');
-			std::cout << stationName << "\n";
-
 			getline(ss, longitude, ',');
+			getline(ss, latitude, ',');
+
 			// Erase extra garbage from our floats
 			longitude.erase(0,2);
-			std::cout << longitude << "\n";
-
-			getline(ss, latitude, ',');
 			latitude.erase(0,1);
 			latitude.erase(latitude.size()-2);
+
+			// Print out all of our information
+			std::cout << stationName << "\n";
+			std::cout << longitude << "\n";
 			std::cout << latitude << "\n";
 		}
 

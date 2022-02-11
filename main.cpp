@@ -1,13 +1,21 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
-#include "station.h"
+// #include "station.h"
 #include <fstream>
+// #include <istream>
+#include <string>
+// #include <vector>
+#include <iostream>
+#include <bits/stdc++.h>
 
 // Ahn's starting point:		Far Rockaway Mott		2:02am
 // Ahn's ending point:			Flushing Main Street
 
 // compile:		g++ main.cpp -o main.out
 // run:			./main.out data.csv
+
+
+
 
 
 int main(int argc, char* argv[]){
@@ -19,8 +27,41 @@ int main(int argc, char* argv[]){
 	}
 
 
-	//																R E A D    D A T A
+	// Read in the data via a .txt file
+	// 	Reading in from a CSV is garbage if you ever want to use commas anywhere else
+	//	So we will be using a raw text file copy and pasted from the master CSV
+	std::fstream file;
+	file.open(argv[1], std::ios::in);
 
+	if (file.is_open()) {
+		// This string will hold each entire line
+		std::string timetable;
+		while(getline(file, timetable)) {
+
+			// Convert the whole line to a stream so we can use getline()
+			std::stringstream ss(timetable);
+
+			std::string stationName;
+			std::string longitude;
+			std::string latitude;
+
+			// Getline will get parts of a string based on char seperators
+			getline(ss, stationName, ',');
+			std::cout << stationName << "\n";
+
+			getline(ss, longitude, ',');
+			// Erase extra garbage from our floats
+			longitude.erase(0,2);
+			std::cout << longitude << "\n";
+
+			getline(ss, latitude, ',');
+			latitude.erase(0,1);
+			latitude.erase(latitude.size()-2);
+			std::cout << latitude << "\n";
+		}
+
+		file.close();
+	}
 
 
 	//															P R I N T    S T A T I O N S

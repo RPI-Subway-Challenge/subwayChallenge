@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="subwayChallenge"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="subwayChallenge">
+				<Option output="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/subwayChallenge" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/."/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 subwayChallenge"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="subwayChallenge/fast">
+				<Option output="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/subwayChallenge" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/."/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 subwayChallenge/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/main.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/station.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/station.h">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.h">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/trip.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/trip.h">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

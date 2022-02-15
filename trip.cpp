@@ -7,8 +7,6 @@ Trip::Trip(){
     endIndex = -1;
 }
 
-
-
 Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time> inWeekend, std::list<Time> inWeekday){
 	startIndex = inStart;
 	endIndex = inEnd;

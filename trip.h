@@ -24,7 +24,6 @@ public:
 	
 
 private:
-
 	int startIndex;              // index of station at start & end, simplier than pointers
 	int endIndex;
 	int duration;

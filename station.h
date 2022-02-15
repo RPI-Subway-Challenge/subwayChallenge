@@ -5,8 +5,8 @@
 
 #include "trip.h"
 #include <utility>	// pair
-#include <string>
 #include <vector>
+#include "time.h"
 
 
 
@@ -16,13 +16,13 @@ public:
 	Station();
 
 	// constructor
-	Station(std::string inName, int inIndex, double lat, double lon, std::list<std::string> inLines);
+	Station(int id, const std::string& inName, double lat, double lon, const std::list<std::string>& inLines);
 
 	// setters
-	void setTrips(std::list<Trip> inTrips);
+	void setTrips(const std::list<Trip>& inTrips);
 
 	// getters
-	int getIndex()						{return index;}
+	int getId()							{return id;}
 	std::string getName()				{return name;}
 	std::pair <double,double> getCords(){return cords;}
 	std::list<std::string> getLines()	{return lines;}
@@ -30,14 +30,13 @@ public:
 	bool getOpen()						{return open;}
 
 private:
-	int index;
+	int id;
 	std::string name;
 	std::pair <double,double> cords;
 	std::list<std::string> lines;
 	std::list<Trip> trips;
 	bool open;
 	// ? possibly operating hours
-
 };
 
 #endif

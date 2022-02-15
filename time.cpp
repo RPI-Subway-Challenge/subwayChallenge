@@ -1,17 +1,19 @@
-//																	D O W N    W I T H    M A T T H E W    A H N
-
 #include "time.h"
+#include <string>     // std::string, std::stoi
 
 Time::Time(){
-	day = 0;
 	hour = 0;
 	min = 0;
 }
 
-
-Time::Time(int inputDay, int inputHour, int inputMin){
-	day = inputDay;
+Time::Time(int inputHour, int inputMin){
 	hour = inputHour;
-	min = inputMin;
+    min = inputMin;
 }
 
+Time::Time(const std::string& input){
+    double tempMin  = std::stoi(input.substr(3, 2));
+    double tempSeconds = std::stoi(input.substr(6,  2)) / 60;
+    min = tempMin + tempSeconds;
+    hour = std::stoi(input.substr(0, 2));
+}

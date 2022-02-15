@@ -9,17 +9,17 @@ Station::Station(){
 }
 
 
-Station::Station(std::string inName, int inIndex, double lat, double lon, std::list<std::string> inLines){
+Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::string>& inLines){
+	id = id; // pop
 	name = inName;
-	index = inIndex;
 	cords.first = lat;
 	cords.second = lon;
 	lines = inLines;
-	open = True;				// defaults to open
-	trips = NULL;				// list of trips assigned in setTrips not constructor
+	open = true;				// defaults to open
+	//list has default constructor, so we should be good on this end
 }
 
-void Station::setTrips(){
-
+void Station::setTrips(const std::list<Trip>& inTrips){
+	trips = inTrips;
 }
 

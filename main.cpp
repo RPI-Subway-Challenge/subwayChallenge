@@ -1,6 +1,8 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
-// #include "station.h"
+#include "station.h"
+#include "time.h"
+#include "assert.h"
 #include <fstream>
 // #include <istream>
 #include <string>
@@ -14,11 +16,10 @@
 // compile:		g++ main.cpp -o main.out
 // run:			./main.out data.csv
 
-
-
-
-
+bool timeUnitTests();
 int main(int argc, char* argv[]){
+    assert(timeUnitTests());
+}
 
 	// check for 4 arguments
 	if(argc != 2){
@@ -70,7 +71,8 @@ int main(int argc, char* argv[]){
 	std::cout << "COMPLETE\n";
 
 	return 0;
-}
+
+
 
 /*
 Read stations

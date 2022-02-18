@@ -14,7 +14,3 @@ CMakeFiles/subwayChallenge.dir/station.cpp.o: \
 CMakeFiles/subwayChallenge.dir/time.cpp.o: \
  ../time.cpp \
  ../time.h
-CMakeFiles/subwayChallenge.dir/trip.cpp.o: \
- ../time.h \
- ../trip.cpp \
- ../trip.h

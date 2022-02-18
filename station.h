@@ -16,18 +16,20 @@ public:
 	Station();
 
 	// constructor
-	Station(int id, const std::string& inName, double lat, double lon, const std::list<std::string>& inLines);
+	Station(int id, const std::string& inName, double lon, double LAT, const std::list<std::string>& inLines);
+    Station(int id, const std::string& inName, double lon, double lat);
 
 	// setters
 	void setTrips(const std::list<Trip>& inTrips);
 
 	// getters
-	int getId()							{return id;}
-	std::string getName()				{return name;}
-	std::pair <double,double> getCords(){return cords;}
-	std::list<std::string> getLines()	{return lines;}
-	std::list<Trip> getTrips()			{return trips;}
-	bool getOpen()						{return open;}
+	int getId() const 	 	 				    {return id;}
+	std::string getName() const 		        {return name;}
+    std::list<std::string> getLines() const	    {return lines;}
+    std::list<Trip> getTrips() const			{return trips;}
+	bool getOpen() const						{return open;}
+
+    std::string getCords() const;
 
 private:
 	int id;
@@ -38,5 +40,6 @@ private:
 	bool open;
 	// ? possibly operating hours
 };
+std::ostream& operator<<(std::ostream& os, const Station& s);
 
 #endif

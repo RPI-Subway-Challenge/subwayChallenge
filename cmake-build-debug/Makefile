@@ -201,30 +201,6 @@ time.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/time.cpp.s
 .PHONY : time.cpp.s
 
-trip.o: trip.cpp.o
-.PHONY : trip.o
-
-# target to build an object file
-trip.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.o
-.PHONY : trip.cpp.o
-
-trip.i: trip.cpp.i
-.PHONY : trip.i
-
-# target to preprocess a source file
-trip.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.i
-.PHONY : trip.cpp.i
-
-trip.s: trip.cpp.s
-.PHONY : trip.s
-
-# target to generate assembly for a file
-trip.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.s
-.PHONY : trip.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -243,9 +219,6 @@ help:
 	@echo "... time.o"
 	@echo "... time.i"
 	@echo "... time.s"
-	@echo "... trip.o"
-	@echo "... trip.i"
-	@echo "... trip.s"
 .PHONY : help
 
 

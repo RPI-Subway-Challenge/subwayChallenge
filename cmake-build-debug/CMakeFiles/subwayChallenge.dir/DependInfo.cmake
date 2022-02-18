@@ -11,7 +11,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/main.cpp" "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles/subwayChallenge.dir/main.cpp.o"
   "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/station.cpp" "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles/subwayChallenge.dir/station.cpp.o"
   "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.cpp" "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles/subwayChallenge.dir/time.cpp.o"
-  "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/trip.cpp" "/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles/subwayChallenge.dir/trip.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

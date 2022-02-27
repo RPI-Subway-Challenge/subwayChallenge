@@ -21,7 +21,7 @@ public:
 
 	// setters
 	void setTrips(const std::list<Trip>& inTrips);
-	// TODO addLine fuction
+	void addLine(std::string inStr, int inIndex);
 
 	// getters
 	int getId() const 	 	 				    				{return id;}
@@ -30,8 +30,8 @@ public:
     std::list<Trip> getTrips() const							{return trips;}
 	bool getOpen() const										{return open;}
     std::pair <double,double> getCords() const					{return cords;}
-	
 	std::string getCordStr() const;
+	
 
 private:
 	int id;

@@ -2,6 +2,8 @@
 
 #include "station.h"
 
+//                                          C O N S T R U C T O R S
+
 Station::Station(){
 	name = "NONE";
 }
@@ -25,18 +27,35 @@ Station::Station(int inId, const std::string& inName, double lon, double lat){
     //list has default constructor, so we should be good on this end
 }
 
+
+
+//                                          G E T T E R S
+
+std::string Station::getCordStr() const {
+    return "(" + std::to_string(cords.first) + ", " + std::to_string(cords.second) + ")";
+}
+
+
+
+//                                          S E T T E R S
+
 void Station::setTrips(const std::list<Trip>& inTrips){
 	trips = inTrips;
 }
+
+void Station::addLine(std::string inStr, int inIndex){
+    lines.push_back(std::make_pair(inStr, inIndex));
+}
+
+
+
+//                                          O P E R A T O R S
+
 std::ostream& operator<<(std::ostream& os, const Station& s){
     os << s.getId() << " | ";
     os << s.getName()<< " | ";
     os << s.getCordStr() << std::endl;
 
     return os;
-}
-
-std::string Station::getCordStr() const {
-    return "(" + std::to_string(cords.first) + ", " + std::to_string(cords.second) + ")";
 }
 

@@ -7,7 +7,6 @@ include_directories(.)
 
 add_executable(subwayChallenge
         main.cpp
-        algos.cpp
         station.cpp
         station.h
         time.cpp

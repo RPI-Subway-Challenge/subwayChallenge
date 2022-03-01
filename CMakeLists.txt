@@ -10,4 +10,6 @@ add_executable(subwayChallenge
         station.cpp
         station.h
         time.cpp
-        time.h)
+        time.h
+        line.cpp
+        line.h)

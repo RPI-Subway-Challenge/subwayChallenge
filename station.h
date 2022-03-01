@@ -21,6 +21,7 @@ public:
 
 	// setters
 	void setTrips(const std::list<Trip>& inTrips);
+	void addTrip(Trip& inTrip);
 	void addLine(std::string inStr, int inIndex);
 
 	// getters
@@ -29,7 +30,6 @@ public:
     std::list<std::pair<std::string,int> > getLines() const	    {return lines;}
     std::list<Trip> getTrips() const							{return trips;}
 	bool getOpen() const										{return open;}
-    std::pair <double,double> getCords() const					{return cords;}
 	std::string getCordStr() const;
 
     const std::pair<double, double>& getCords()                 {return cords;}

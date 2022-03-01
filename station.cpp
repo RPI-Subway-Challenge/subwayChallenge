@@ -43,6 +43,10 @@ void Station::setTrips(const std::list<Trip>& inTrips){
 	trips = inTrips;
 }
 
+void Station::addTrip(Trip& inTrip){
+    trips.push_back(inTrip);
+}
+
 void Station::addLine(std::string inStr, int inIndex){
     lines.push_back(std::make_pair(inStr, inIndex));
 }

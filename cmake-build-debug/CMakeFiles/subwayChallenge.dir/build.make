@@ -79,22 +79,9 @@ CMakeFiles/subwayChallenge.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subwayChallenge.dir/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/main.cpp -o CMakeFiles/subwayChallenge.dir/main.cpp.s
 
-CMakeFiles/subwayChallenge.dir/algos.cpp.o: CMakeFiles/subwayChallenge.dir/flags.make
-CMakeFiles/subwayChallenge.dir/algos.cpp.o: ../algos.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/subwayChallenge.dir/algos.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/subwayChallenge.dir/algos.cpp.o -c /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.cpp
-
-CMakeFiles/subwayChallenge.dir/algos.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/subwayChallenge.dir/algos.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.cpp > CMakeFiles/subwayChallenge.dir/algos.cpp.i
-
-CMakeFiles/subwayChallenge.dir/algos.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subwayChallenge.dir/algos.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.cpp -o CMakeFiles/subwayChallenge.dir/algos.cpp.s
-
 CMakeFiles/subwayChallenge.dir/station.cpp.o: CMakeFiles/subwayChallenge.dir/flags.make
 CMakeFiles/subwayChallenge.dir/station.cpp.o: ../station.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/subwayChallenge.dir/station.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/subwayChallenge.dir/station.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/subwayChallenge.dir/station.cpp.o -c /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/station.cpp
 
 CMakeFiles/subwayChallenge.dir/station.cpp.i: cmake_force
@@ -107,7 +94,7 @@ CMakeFiles/subwayChallenge.dir/station.cpp.s: cmake_force
 
 CMakeFiles/subwayChallenge.dir/time.cpp.o: CMakeFiles/subwayChallenge.dir/flags.make
 CMakeFiles/subwayChallenge.dir/time.cpp.o: ../time.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/subwayChallenge.dir/time.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/subwayChallenge.dir/time.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/subwayChallenge.dir/time.cpp.o -c /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.cpp
 
 CMakeFiles/subwayChallenge.dir/time.cpp.i: cmake_force
@@ -118,20 +105,33 @@ CMakeFiles/subwayChallenge.dir/time.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subwayChallenge.dir/time.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.cpp -o CMakeFiles/subwayChallenge.dir/time.cpp.s
 
+CMakeFiles/subwayChallenge.dir/line.cpp.o: CMakeFiles/subwayChallenge.dir/flags.make
+CMakeFiles/subwayChallenge.dir/line.cpp.o: ../line.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/subwayChallenge.dir/line.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/subwayChallenge.dir/line.cpp.o -c /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/line.cpp
+
+CMakeFiles/subwayChallenge.dir/line.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/subwayChallenge.dir/line.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/line.cpp > CMakeFiles/subwayChallenge.dir/line.cpp.i
+
+CMakeFiles/subwayChallenge.dir/line.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subwayChallenge.dir/line.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/line.cpp -o CMakeFiles/subwayChallenge.dir/line.cpp.s
+
 # Object files for target subwayChallenge
 subwayChallenge_OBJECTS = \
 "CMakeFiles/subwayChallenge.dir/main.cpp.o" \
-"CMakeFiles/subwayChallenge.dir/algos.cpp.o" \
 "CMakeFiles/subwayChallenge.dir/station.cpp.o" \
-"CMakeFiles/subwayChallenge.dir/time.cpp.o"
+"CMakeFiles/subwayChallenge.dir/time.cpp.o" \
+"CMakeFiles/subwayChallenge.dir/line.cpp.o"
 
 # External object files for target subwayChallenge
 subwayChallenge_EXTERNAL_OBJECTS =
 
 subwayChallenge: CMakeFiles/subwayChallenge.dir/main.cpp.o
-subwayChallenge: CMakeFiles/subwayChallenge.dir/algos.cpp.o
 subwayChallenge: CMakeFiles/subwayChallenge.dir/station.cpp.o
 subwayChallenge: CMakeFiles/subwayChallenge.dir/time.cpp.o
+subwayChallenge: CMakeFiles/subwayChallenge.dir/line.cpp.o
 subwayChallenge: CMakeFiles/subwayChallenge.dir/build.make
 subwayChallenge: CMakeFiles/subwayChallenge.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable subwayChallenge"

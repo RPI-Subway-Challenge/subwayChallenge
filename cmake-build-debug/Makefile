@@ -129,29 +129,29 @@ subwayChallenge/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/build
 .PHONY : subwayChallenge/fast
 
-algos.o: algos.cpp.o
-.PHONY : algos.o
+line.o: line.cpp.o
+.PHONY : line.o
 
 # target to build an object file
-algos.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.o
-.PHONY : algos.cpp.o
+line.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/line.cpp.o
+.PHONY : line.cpp.o
 
-algos.i: algos.cpp.i
-.PHONY : algos.i
+line.i: line.cpp.i
+.PHONY : line.i
 
 # target to preprocess a source file
-algos.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.i
-.PHONY : algos.cpp.i
+line.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/line.cpp.i
+.PHONY : line.cpp.i
 
-algos.s: algos.cpp.s
-.PHONY : algos.s
+line.s: line.cpp.s
+.PHONY : line.s
 
 # target to generate assembly for a file
-algos.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.s
-.PHONY : algos.cpp.s
+line.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/line.cpp.s
+.PHONY : line.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -234,9 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... subwayChallenge"
-	@echo "... algos.o"
-	@echo "... algos.i"
-	@echo "... algos.s"
+	@echo "... line.o"
+	@echo "... line.i"
+	@echo "... line.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

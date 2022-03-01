@@ -8,7 +8,7 @@ Station::Station(){
 	name = "NONE";
 }
 
-Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int>>& inLines){
+Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int> >& inLines){
 	id = inId; // pop
 	name = inName;
 	cords.first = lat;
@@ -27,9 +27,6 @@ Station::Station(int inId, const std::string& inName, double lon, double lat){
     //list has default constructor, so we should be good on this end
 }
 
-<<<<<<< Updated upstream
-
-
 //                                          G E T T E R S
 
 std::string Station::getCordStr() const {
@@ -37,15 +34,11 @@ std::string Station::getCordStr() const {
 }
 
 
-
-//                                          S E T T E R S
-
-=======
 void Station::addLine(const std::pair<std::string, int> &line) {
     lines.push_back(line);
 }
 
->>>>>>> Stashed changes
+
 void Station::setTrips(const std::list<Trip>& inTrips){
 	trips = inTrips;
 }
@@ -53,10 +46,6 @@ void Station::setTrips(const std::list<Trip>& inTrips){
 void Station::addLine(std::string inStr, int inIndex){
     lines.push_back(std::make_pair(inStr, inIndex));
 }
-
-
-
-//                                          O P E R A T O R S
 
 std::ostream& operator<<(std::ostream& os, const Station& s){
     os << s.getId() << " | ";

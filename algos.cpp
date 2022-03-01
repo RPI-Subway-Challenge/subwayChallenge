@@ -11,13 +11,17 @@ double manhattanDistance(Station s1, Station s2){
     return diffX+diffY;
 }
 
-
-
 // return actual distance between two stations using pythagorean theorem
 double realDistance(Station s1, Station s2){
     double diffX = std::abs( s1.getCords().first - s2.getCords().first );
     double diffY = std::abs( s1.getCords().second - s2.getCords().second );
     return std::sqrt( std::pow(diffX,2) + std::pow(diffX,2) );
+}
+
+// returns an estimated time to travel the given distance using proportional constant (k)
+double timeDistance(double distance, int k){
+    double travelTime = distance * k;
+    return travelTime;
 }
 
 
@@ -85,4 +89,30 @@ std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std:
         }
     }
     return walkable;
+}
+
+// create trip for all walkable station from a station for all stations given from walkableNumber
+// O(x*num of stations^2) for all stations
+void createStations(int x, int k, std::vector<Station> & stationVec){
+
+    // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
+    // Creating basic time vector full of transportation data. (temporary filler data)
+    std::list<Time> weekdayTimes;
+    std::list<Time> weekendsTimes;
+    for(int i=0; i<24; i++){ // for every hour
+        for(int j=0; j<5; j++){ // day
+            weekdayTimes.push_back(Time(j, i, 0));
+        }
+        for(int j=5; j<7; j++){
+            weekendsTimes.push_back(Time(j, i, 0));
+        }
+    }
+    // create trips for each station to their walkable stations
+    for(int i=0; i<stationVec.size(); i++){
+        std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
+        for(int j=0; j<walkableStations.size(); j++){
+            int duration = (int) timeDistance(walkableStations[i].second, k);
+            Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
+        }
+    }
 }

@@ -18,17 +18,10 @@ double realDistance(Station s1, Station s2){
     return std::sqrt( std::pow(diffX,2) + std::pow(diffX,2) );
 }
 
-// standard implementation of a sigmoid function.
-double sigmoid(double x){
-	return 1/(1 + exp(x));
-}
-
 // returns an estimated time to travel the given distance using proportional constant (k)
-Time timeDistance(double distance, int k){
-    int day = (int) (sigmoid(distance) * 6);
-    int hour = (int) (sigmoid(distance) * 24) * k;
-    int minute = (int) (sigmoid(distance) * 60) * k;
-    return Time(day, hour, minute);
+double timeDistance(double distance, int k){
+    double travelTime = distance * k;
+    return travelTime;
 }
 
 
@@ -48,7 +41,7 @@ std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Stati
 
 
 // takes vector of pairs walkable and returns index with longest distance
-int findLongest(std::vector<std::pair<int,double> > walkable){
+int findLongest(std::vector<std::pair<int,double>> walkable){
     int longest = 0;
     for(int i = 1; i != walkable.size(); i++){
         if(walkable[i].second > walkable[longest].second){ longest = i; }
@@ -60,9 +53,9 @@ int findLongest(std::vector<std::pair<int,double> > walkable){
 
 // takes station returns vector of x nearest stations indicies
 // O(x*num of stations) for single station
-std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std::vector<Station> & stationVec){
+std::vector<std::pair<int,double>> walkableNumber(int stationIndex, int x, std::vector<Station> & stationVec){
 
-    std::vector<std::pair<int,double> > walkable(x);      // pair < neighborIndex, distance >
+    std::vector<std::pair<int,double>> walkable(x);      // pair < neighborIndex, distance >
     int longest = 0;                                     // index in walkable of farthest away neighbor
 
     if(x < 1){std::cerr << "ERROR: X in walkableNumber must be >= 1\n"; return walkable;}
@@ -118,7 +111,7 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
     for(int i=0; i<stationVec.size(); i++){
         std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
         for(int j=0; j<walkableStations.size(); j++){
-            Time duration = timeDistance(walkableStations[i].second, k);
+            int duration = (int) timeDistance(walkableStations[i].second, k);
             Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
         }
     }

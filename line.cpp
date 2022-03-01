@@ -1,18 +1,22 @@
+//																	D O W N    W I T H    M A T T H E W    A H N
+
 #include "line.h"
 
-
-Line::Line(){
-    id = -1;
-    numStations = 0;
+//                                          C O N S T R U C T O R S
+Line(){
+    name = NULL;
+    int = -1
 }
 
 Line::Line(int inID, const std::string& inName){
     id = inID;
     name = inName;
-    numStations = 0;
 }
 
+
+
+//                                          S E T T E R S
+
 void Line::addStation(const int stationIndex){
-    lineVec.push_back(stationIndex);
-    numStations++;
+    lines.push_back(stationIndex);
 }

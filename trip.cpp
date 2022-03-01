@@ -9,11 +9,12 @@ Trip::Trip(){
     endIndex = -1;
 }
 
-Trip::Trip(int inStart, int inEnd, Time inDuration, char inType, std::list<Time>& inWeekend, std::list<Time>& inWeekday){
+Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>& inWeekend, std::list<Time>& inWeekday){
 	startIndex = inStart;
 	endIndex = inEnd;
 	duration = inDuration;
 	type = inType;
+	weekday = inWeekend;
 	weekend = inWeekday;				// defaults to open
 	open = true;				// list of trips assigned in setTrips not constructor
 }
@@ -26,27 +27,28 @@ char Trip::setType(char inType){
 	return type;
 }
 
-void Trip::updateTrip(char inType, Time inDuration){
+void Trip::updateTrip(char inType, int inDuration){
 	// updates the trip type and duration
 	type = inType;
 	duration = inDuration;
 }
 
 Time Trip::timeToNextDeparture(Time current){
-	// only works if called on open trip and has a time avaible after it.
+	// only works if called on open trip
 	
 	std::list<Time>::iterator weekday_it = weekday.begin();
 	Time ClosestTime = *weekday_it;
 	for(std::list<Time>::iterator weekday_it = weekday.begin(); weekday_it != weekday.end(); ++weekday_it){
-		if (ClosestTime > current - *weekday_it){
+		if (ClosestTime > *weekday_it){
 			ClosestTime = *weekday_it;
 		}
 	}
 	for(std::list<Time>::iterator weekend_it = weekend.begin(); weekend_it != weekend.end(); ++weekend_it){
-		if (ClosestTime > current - *weekend_it){
+		if (ClosestTime > *weekend_it){
 			ClosestTime = *weekend_it;
 		}
 	}
+
 	return ClosestTime;
 }
 

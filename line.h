@@ -3,6 +3,7 @@
 #ifndef line_h_
 #define line_h_
 
+#include <utility>	// pair
 #include <vector>
 #include "time.h"
 
@@ -23,17 +24,15 @@ public:
 	int getId() const 	 	 				    				{return id;}
 	std::string getName() const 		        				{return name;}
     int getStation(int index) const	                            {return lineVec[index];}
+	int getSize() const											{return lineVec.size();}
 	bool getOpen() const										{return open;}
-    int getNumStations() const                                  {return numStations;}
 	
 
 private:
 	int id;
-    int numStations;
 	std::string name;
 	std::vector<int> lineVec;
 	bool open;
 };
-
 
 #endif

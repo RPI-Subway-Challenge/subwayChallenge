@@ -82,9 +82,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.cpp">
-			<Option target="subwayChallenge"/>
-		</Unit>
 		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/main.cpp">
 			<Option target="subwayChallenge"/>
 		</Unit>

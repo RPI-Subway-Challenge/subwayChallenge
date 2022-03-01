@@ -24,7 +24,6 @@ public:
 	void addLine(std::string inStr, int inIndex);
 
 	// getters
-<<<<<<< Updated upstream
 	int getId() const 	 	 				    				{return id;}
 	std::string getName() const 		        				{return name;}
     std::list<std::pair<std::string,int>> getLines() const	    {return lines;}
@@ -33,28 +32,12 @@ public:
     std::pair <double,double> getCords() const					{return cords;}
 	std::string getCordStr() const;
 	
-=======
-	int getId() const 	 	 				                     {return id;}
-	std::string getName() const 		                         {return name;}
-    std::list<std::pair<std::string, int>> getLines() const	     {return lines;}
-    std::list<Trip> getTrips() const			                 {return trips;}
-	bool getOpen() const						                 {return open;}
-    const std::pair<double, double>& getCords()                  {return cords;}
-
-    void addLine(const std::pair<std::string, int>& line);
-
-    std::string getCords() const;
->>>>>>> Stashed changes
 
 private:
 	int id;
 	std::string name;
 	std::pair <double,double> cords;
-<<<<<<< Updated upstream
 	std::list<std::pair<std::string,int>> lines;
-=======
-	std::list<std::pair<std::string, int>> lines; //for this pair, first is e name of the line, second is the index of the station on the line.
->>>>>>> Stashed changes
 	std::list<Trip> trips;
 	bool open;
 	// ? possibly operating hours

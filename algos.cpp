@@ -18,10 +18,17 @@ double realDistance(Station s1, Station s2){
     return std::sqrt( std::pow(diffX,2) + std::pow(diffX,2) );
 }
 
+// standard implementation of a sigmoid function.
+double sigmoid(double x){
+	return 1/(1 + exp(x));
+}
+
 // returns an estimated time to travel the given distance using proportional constant (k)
-double timeDistance(double distance, int k){
-    double travelTime = distance * k;
-    return travelTime;
+Time timeDistance(double distance, int k){
+    int day = (int) (sigmoid(distance) * 6);
+    int hour = (int) (sigmoid(distance) * 24) * k;
+    int minute = (int) (sigmoid(distance) * 60) * k;
+    return Time(day, hour, minute);
 }
 
 
@@ -111,7 +118,7 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
     for(int i=0; i<stationVec.size(); i++){
         std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
         for(int j=0; j<walkableStations.size(); j++){
-            int duration = (int) timeDistance(walkableStations[i].second, k);
+            Time duration = timeDistance(walkableStations[i].second, k);
             Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
         }
     }

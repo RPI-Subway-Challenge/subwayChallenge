@@ -129,6 +129,30 @@ subwayChallenge/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/build
 .PHONY : subwayChallenge/fast
 
+algos.o: algos.cpp.o
+.PHONY : algos.o
+
+# target to build an object file
+algos.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.o
+.PHONY : algos.cpp.o
+
+algos.i: algos.cpp.i
+.PHONY : algos.i
+
+# target to preprocess a source file
+algos.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.i
+.PHONY : algos.cpp.i
+
+algos.s: algos.cpp.s
+.PHONY : algos.s
+
+# target to generate assembly for a file
+algos.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.s
+.PHONY : algos.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -210,6 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... subwayChallenge"
+	@echo "... algos.o"
+	@echo "... algos.i"
+	@echo "... algos.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

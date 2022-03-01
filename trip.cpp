@@ -11,9 +11,13 @@ Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>&
 	startIndex = inStart;
 	endIndex = inEnd;
 	duration = inDuration;
+<<<<<<< Updated upstream
 	type = inType;
 	weekday = inWeekend;
 	weekend = inWeekday;				// defaults to open
+=======
+	type = inType;				// defaults to open
+>>>>>>> Stashed changes
 	open = true;				// list of trips assigned in setTrips not constructor
 }
 

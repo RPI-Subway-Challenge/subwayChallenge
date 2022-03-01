@@ -27,6 +27,7 @@ Station::Station(int inId, const std::string& inName, double lon, double lat){
     //list has default constructor, so we should be good on this end
 }
 
+<<<<<<< Updated upstream
 
 
 //                                          G E T T E R S
@@ -39,6 +40,12 @@ std::string Station::getCordStr() const {
 
 //                                          S E T T E R S
 
+=======
+void Station::addLine(const std::pair<std::string, int> &line) {
+    lines.push_back(line);
+}
+
+>>>>>>> Stashed changes
 void Station::setTrips(const std::list<Trip>& inTrips){
 	trips = inTrips;
 }

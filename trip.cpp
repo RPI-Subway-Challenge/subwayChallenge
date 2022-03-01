@@ -2,6 +2,8 @@
 
 #include "trip.h"
 
+//												C O N S T R U C T O R S
+
 Trip::Trip(){
 	startIndex = -1;
     endIndex = -1;
@@ -16,6 +18,9 @@ Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>&
 	weekend = inWeekday;				// defaults to open
 	open = true;				// list of trips assigned in setTrips not constructor
 }
+
+
+//												S E T T E R S
 
 char Trip::setType(char inType){
 	// return type of transportation used
@@ -46,6 +51,9 @@ Time Trip::timeToNextDeparture(Time current){
 
 	return ClosestTime;
 }
+
+
+//												O P E R A T O R S
 
 bool Trip::operator > (Trip& xTrip){
 	// currently only comparing time, but should consider cost and other variables in future iterations

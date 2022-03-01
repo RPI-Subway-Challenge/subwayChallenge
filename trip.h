@@ -22,14 +22,14 @@ public:
 	void updateTrip(char inType, int inDuration);
 
 	// getters
-	inline int getStart(){return startIndex;}
-	inline int getEnd(){return endIndex;}
-	inline int getDuration(){return duration;}
-	inline int getType(){return type;}
-	inline bool isOpenWeekdays(){return weekday.size();}
-	inline bool isOpenWeekends(){return weekend.size();}
-	inline int isOpen(Time current){return (open && isOpenWeekdays() && isOpenWeekends());}
-	inline Time timeToNextDeparture(Time current);			// only works on open stations
+	int getStart()								{return startIndex;}
+	int getEnd()								{return endIndex;}
+	int getDuration()							{return duration;}
+	int getType()								{return type;}
+	bool isOpenWeekdays()						{return weekday.size();}
+	bool isOpenWeekends()						{return weekend.size();}
+	int isOpen(Time current)					{return (open && isOpenWeekdays() && isOpenWeekends());}
+	Time timeToNextDeparture(Time current);		// only works on open stations
 	
 	// operators
 	bool operator > (Trip& xTrip);

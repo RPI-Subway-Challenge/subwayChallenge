@@ -21,6 +21,7 @@ public:
 
 	// setters
 	void setTrips(const std::list<Trip>& inTrips);
+	void addTrip(Trip& inTrip);
 	void addLine(std::string inStr, int inIndex);
 
 	// getters

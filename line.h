@@ -23,7 +23,8 @@ public:
 	// getters
 	int getId() const 	 	 				    				{return id;}
 	std::string getName() const 		        				{return name;}
-    int getLines(int index) const	                            {return lineVec[index];}
+    int getStation(int index) const	                            {return lineVec[index];}
+	int getSize() const											{return lineVec.size();}
 	bool getOpen() const										{return open;}
 	
 

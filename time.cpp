@@ -20,7 +20,6 @@ Time::Time(const std::string& input){
     hour = std::stoi(input.substr(0, 2));
 }
 
-
 Time Time::operator + (Time& xTime){
     unsigned int newDay = day+xTime.getDay();
     unsigned int newHour = hour+xTime.getHour();

@@ -28,6 +28,8 @@ public:
     unsigned int getHour()	{return hour;}
     unsigned int getMin()	{return (int)min;}
     double getMinSec() 		{return min;}
+	bool isWeekday()		{return (day <= 4);}
+	bool isWeekend()		{return !(day > 4);}		
 
 	// operators
 	Time operator + (Time& xTime);

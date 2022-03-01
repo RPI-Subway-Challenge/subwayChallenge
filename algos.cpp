@@ -93,7 +93,7 @@ std::vector<std::pair<int,double>> walkableNumber(int stationIndex, int x, std::
 
 // create trip for all walkable station from a station for all stations given from walkableNumber
 // O(x*num of stations^2) for all stations
-void createStationTrips(int x, int k, std::vector<Station> & stationVec){
+void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
     // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
     // Creating basic time vector full of transportation data. (temporary filler data)

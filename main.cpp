@@ -99,5 +99,8 @@ int main(int argc, char* argv[]) {
         }
     }
     std::cout << "COMPLETE\n";
+
+    Time clock(0,0,0);      // global clock set to midnight Saturday
+
     return 0;
 }

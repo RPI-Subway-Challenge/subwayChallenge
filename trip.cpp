@@ -14,7 +14,6 @@ Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>&
 	endIndex = inEnd;
 	duration = inDuration;
 	type = inType;
-	weekday = inWeekend;
 	weekend = inWeekday;				// defaults to open
 	open = true;				// list of trips assigned in setTrips not constructor
 }

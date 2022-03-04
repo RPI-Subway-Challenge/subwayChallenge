@@ -1,6 +1,7 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 #include <iostream>
 #include <cmath>
+#include <math>
 #include "station.h"
 
 
@@ -11,11 +12,20 @@ double manhattanDistance(Station s1, Station s2){
     return diffX+diffY;
 }
 
-// return actual distance between two stations using pythagorean theorem
+// Return actual distance (in MILES) between two stations
+//  Distance between LONGITUDE and LATITDUE coords is as follows
+//  3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
+//  .first  gives longitude
+//  .second gives latitude
 double realDistance(Station s1, Station s2){
-    double diffX = std::abs( s1.getCords().first - s2.getCords().first );
-    double diffY = std::abs( s1.getCords().second - s2.getCords().second );
-    return std::sqrt( std::pow(diffX,2) + std::pow(diffX,2) );
+    double lat1 = s1.getCords().second;
+    double lat2 = s2.getCords().second;
+    double long1 = s1.getCords().first;
+    double long2 = s2.getCords().first;
+    double sinPart = sin(lat1) * sin(lat2);
+    double cosPart = cos(lat1) * cos(lat2) * cos(long2-long1);
+    double d = 3963.0 * acos(sinPart + cosPart);
+    return d;
 }
 
 // returns an estimated time to travel the given distance using proportional constant (k)

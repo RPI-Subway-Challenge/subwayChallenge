@@ -81,12 +81,12 @@ clean: CMakeFiles/subwayChallenge.dir/clean
 CMakeFiles/subwayChallenge.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target subwayChallenge"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target subwayChallenge"
 .PHONY : CMakeFiles/subwayChallenge.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/subwayChallenge.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/subwayChallenge.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/subwayChallenge.dir/rule

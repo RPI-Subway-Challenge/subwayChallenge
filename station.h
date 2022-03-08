@@ -32,7 +32,8 @@ public:
 	bool getOpen() const										{return open;}
 	std::string getCordStr() const;
 
-    const std::pair<double, double>& getCords()                 {return cords;}
+
+    const std::pair<double, double>& getCords()const                {return cords;}
     void addLine(const std::pair<std::string, int>& line);
 
 private:

@@ -3,10 +3,12 @@
 #include "station.h"
 #include "time.h"
 #include "assert.h"
+#include "algos.h"
 #include <fstream>
 // #include <istream>
 #include <string>
-// #include <vector>
+#include <iostream>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include "line.h"
@@ -19,6 +21,11 @@
 
 std::vector<Station> stations;
 std::vector<Line> lines;
+
+
+
+void createTrips();
+
 int main(int argc, char* argv[]) {
 
     // check for 4 arguments
@@ -66,6 +73,8 @@ int main(int argc, char* argv[]) {
     //bitbucket for collecting all sttrings
     std::string bitbucket;
     //ifstream of stationData based on the second argument
+
+
     std::ifstream stationData(argv[2]);
     //start at -1 so that we can increment here.
     int stationId = -1;
@@ -86,6 +95,8 @@ int main(int argc, char* argv[]) {
             lines[stationId].addStation(std::stoi(bitbucket));
         }
     }
+
+    createTrips();
     //printing method for varifying loading in data
     for(unsigned int i = 0; i < lines.size(); i++){
 
@@ -99,8 +110,25 @@ int main(int argc, char* argv[]) {
         }
     }
     std::cout << "COMPLETE\n";
-
-    Time clock(0,0,0);      // global clock set to midnight Saturday
-
     return 0;
+
 }
+
+void createTrips(){
+    for(int i = 0; i < lines.size(); i++){
+        for(int j = 0; j < lines[i].getNumStations()-1; j++){
+            //get each station
+           int stationOne =  lines[i].getStation(j);
+           int stationTwo = lines[i].getStation(j+1);
+           double distance = realDistance(stations[stationOne],stations[stationTwo]);
+
+           double duration = distance / 18; // arbitrary until we figure out normal speed
+            Trip h (stationOne, stationTwo, duration, 't');
+
+           //add trips to the first station.
+           stations[stationOne].addTrip(h);
+        }
+    }
+
+}
+

@@ -8,8 +8,12 @@ include_directories(.)
 add_executable(subwayChallenge
         main.cpp
         station.cpp
+        algos.h
+        algos.cpp
         station.h
         time.cpp
+        trip.h
+        trip.cpp
         time.h
         line.cpp
         line.h)

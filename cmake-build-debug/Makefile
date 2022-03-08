@@ -129,6 +129,30 @@ subwayChallenge/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/build
 .PHONY : subwayChallenge/fast
 
+algos.o: algos.cpp.o
+.PHONY : algos.o
+
+# target to build an object file
+algos.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.o
+.PHONY : algos.cpp.o
+
+algos.i: algos.cpp.i
+.PHONY : algos.i
+
+# target to preprocess a source file
+algos.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.i
+.PHONY : algos.cpp.i
+
+algos.s: algos.cpp.s
+.PHONY : algos.s
+
+# target to generate assembly for a file
+algos.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/algos.cpp.s
+.PHONY : algos.cpp.s
+
 line.o: line.cpp.o
 .PHONY : line.o
 
@@ -225,6 +249,30 @@ time.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/time.cpp.s
 .PHONY : time.cpp.s
 
+trip.o: trip.cpp.o
+.PHONY : trip.o
+
+# target to build an object file
+trip.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.o
+.PHONY : trip.cpp.o
+
+trip.i: trip.cpp.i
+.PHONY : trip.i
+
+# target to preprocess a source file
+trip.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.i
+.PHONY : trip.cpp.i
+
+trip.s: trip.cpp.s
+.PHONY : trip.s
+
+# target to generate assembly for a file
+trip.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subwayChallenge.dir/build.make CMakeFiles/subwayChallenge.dir/trip.cpp.s
+.PHONY : trip.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -234,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... subwayChallenge"
+	@echo "... algos.o"
+	@echo "... algos.i"
+	@echo "... algos.s"
 	@echo "... line.o"
 	@echo "... line.i"
 	@echo "... line.s"
@@ -246,6 +297,9 @@ help:
 	@echo "... time.o"
 	@echo "... time.i"
 	@echo "... time.s"
+	@echo "... trip.o"
+	@echo "... trip.i"
+	@echo "... trip.s"
 .PHONY : help
 
 

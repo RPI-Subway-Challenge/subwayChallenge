@@ -55,6 +55,14 @@ std::ostream& operator<<(std::ostream& os, const Station& s){
     os << s.getId() << " | ";
     os << s.getName()<< " | ";
     os << s.getCordStr() << std::endl;
+    os << "            Trips";
+    os << "            ";
+
+    std::list<Trip> t  = s.getTrips(); // local copy will be deleted
+    for(std::list<Trip>::iterator i = t.begin(); i != t.end(); i++){
+        os << "            "  << i->getStart()  << "------>" << i->getEnd()  << "   Type: " << i->getType() << std::endl;
+    }
+
 
     return os;
 }

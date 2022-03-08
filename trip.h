@@ -16,6 +16,7 @@ public:
 
 	// contructor
 	Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>& inWeekend, std::list<Time>& inWeekday);
+    Trip(int inStart, int inEnd, int inDuration, char inType);
 
 	// setters
 	char setType(char inType);

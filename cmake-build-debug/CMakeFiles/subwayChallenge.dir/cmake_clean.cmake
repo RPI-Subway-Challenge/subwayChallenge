@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/subwayChallenge.dir/algos.cpp.o"
   "CMakeFiles/subwayChallenge.dir/line.cpp.o"
   "CMakeFiles/subwayChallenge.dir/main.cpp.o"
   "CMakeFiles/subwayChallenge.dir/station.cpp.o"
   "CMakeFiles/subwayChallenge.dir/time.cpp.o"
+  "CMakeFiles/subwayChallenge.dir/trip.cpp.o"
   "subwayChallenge"
   "subwayChallenge.pdb"
 )

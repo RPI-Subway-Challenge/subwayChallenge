@@ -1,7 +1,6 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 #include <iostream>
 #include <cmath>
-#include <math>
 #include "station.h"
 
 
@@ -17,7 +16,7 @@ double manhattanDistance(Station s1, Station s2){
 //  3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
 //  .first  gives longitude
 //  .second gives latitude
-double realDistance(Station s1, Station s2){
+double realDistance(const Station& s1,const Station& s2){
     double lat1 = s1.getCords().second;
     double lat2 = s2.getCords().second;
     double long1 = s1.getCords().first;

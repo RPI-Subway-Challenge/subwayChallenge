@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/algos.h">
+			<Option target="subwayChallenge"/>
+		</Unit>
 		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/line.cpp">
 			<Option target="subwayChallenge"/>
 		</Unit>
@@ -101,6 +107,12 @@
 			<Option target="subwayChallenge"/>
 		</Unit>
 		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/time.h">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/trip.cpp">
+			<Option target="subwayChallenge"/>
+		</Unit>
+		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/trip.h">
 			<Option target="subwayChallenge"/>
 		</Unit>
 		<Unit filename="/Users/simonsandrew/Documents/RPI/RPI/RCOS/nyc-subway-challenge/subwayChallenge/CMakeLists.txt">

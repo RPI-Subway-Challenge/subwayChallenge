@@ -3,21 +3,29 @@
 #include "trip.h"
 
 //												C O N S T R U C T O R S
-
 Trip::Trip(){
 	startIndex = -1;
     endIndex = -1;
 }
 
 Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>& inWeekend, std::list<Time>& inWeekday){
-	startIndex = inStart;
-	endIndex = inEnd;
-	duration = inDuration;
-	type = inType;
+	startIndex = inStart; // start index of station
+	endIndex = inEnd; // end index of station
+	duration = inDuration; // is going to be random number
+	type = inType; // train bus etc
 	weekend = inWeekday;				// defaults to open
 	open = true;				// list of trips assigned in setTrips not constructor
 }
 
+
+
+Trip::Trip(int inStart, int inEnd, int inDuration, char inType){
+    startIndex = inStart; // start index of station
+    endIndex = inEnd; // end index of station
+    duration = inDuration; // is going to be random number
+    type = inType; // train bus etc
+    open = true; // default to open
+}
 
 //												S E T T E R S
 

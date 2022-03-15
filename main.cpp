@@ -109,9 +109,50 @@ int main(int argc, char* argv[]) {
             std::cout << "          "<<stations[lines[i].getStation(j)];
         }
     }
-    std::cout << "COMPLETE\n";
-    return 0;
+    std::cout << "COMPLETE\n\n\n";
 
+
+	int c;
+    std::cout << "Please enter the id of a starting station\n";
+    int curr;
+    std::cin >> curr;
+
+    Station startStation;
+    int timeTravel = 0;
+	do {
+        startStation = stations[curr];
+
+        std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
+        std::cout << "Enter -1 to quit\n";
+        std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
+        std::cout << "Here are all of the following trips you can take!\n";
+
+        std::list<Trip> canGo = startStation.getTrips();
+        std::list<Trip>::iterator it;
+        for (it = canGo.begin(); it != canGo.end(); it++){
+            std::cout   << "Starting ID: "      << (*it).getStart() 
+                        << " to ending ID: "    << (*it).getEnd() 
+                        << " with time: "       << (*it).getDuration() << "\n";
+        }
+
+        std::cout << "Enter the ID of the station you would like to travel to\n";
+        std::cin >> c;
+
+        if (c != -1) {
+            for (it = canGo.begin(); it != canGo.end(); it++){
+                if ((*it).getEnd() == c) {
+                    timeTravel += (*it).getDuration();
+                }
+            }
+        }
+
+
+        curr = c;
+
+	} while(c != -1);
+
+
+    return 0;
 }
 
 void createTrips(){

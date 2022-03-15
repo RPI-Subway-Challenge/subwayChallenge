@@ -16,8 +16,8 @@
 // Ahn's starting point:		Far Rockaway Mott		2:02am
 // Ahn's ending point:			Flushing Main Street
 
-// compile:		g++ main.cpp -o main.out
-// run:			./main.out data.csv
+// compile:		g++ *.cpp -o main.out
+// run:			./main.out data.txt lineData.txt
 
 std::vector<Station> stations;
 std::vector<Line> lines;
@@ -35,8 +35,8 @@ int main(int argc, char* argv[]) {
     }
 
     // Read in the data via a .txt file
-    // 	Reading in from a CSV is garbage if you ever want to use commas anywhere else
-    //	So we will be using a raw text file copy and pasted from the master CSV
+    // Reading in from a CSV is garbage if you ever want to use commas anywhere else
+    // So we will be using a raw text file copy and pasted from the master CSV
     std::fstream file;
     file.open(argv[1], std::ios::in);
 
@@ -69,35 +69,35 @@ int main(int argc, char* argv[]) {
         file.close();
     }
 
-    //im just using the normal read in method for C++, so will differ from above
-    //bitbucket for collecting all sttrings
+    // im just using the normal read in method for C++, so will differ from above
+    // bitbucket for collecting all sttrings
     std::string bitbucket;
-    //ifstream of stationData based on the second argument
+    // ifstream of stationData based on the second argument
 
 
     std::ifstream stationData(argv[2]);
-    //start at -1 so that we can increment here.
+    // start at -1 so that we can increment here.
     int stationId = -1;
 
     while(stationData >> bitbucket){
         if(bitbucket == "Line:"){
-            //feed into bitbucket
+            // feed into bitbucket
             stationData >>  bitbucket;
-            //increase the id
+            // increase the id
             stationId++;
-            //push back into the line vector, matching with the Id.
+            // push back into the line vector, matching with the Id.
             lines.push_back(Line(stationId, bitbucket));
         }
         if(bitbucket == "index:"){
             //place index into bitbucket
             stationData >> bitbucket;
-            //convert bitbucket into int and add to the station
+            // convert bitbucket into int and add to the station
             lines[stationId].addStation(std::stoi(bitbucket));
         }
     }
 
     createTrips();
-    //printing method for varifying loading in data
+    // printing method for varifying loading in data
     for(unsigned int i = 0; i < lines.size(); i++){
 
         std::cout << "Line:  "<<lines[i].getName();
@@ -118,15 +118,16 @@ void createTrips(){
     for(int i = 0; i < lines.size(); i++){
         for(int j = 0; j < lines[i].getNumStations()-1; j++){
             //get each station
-           int stationOne =  lines[i].getStation(j);
-           int stationTwo = lines[i].getStation(j+1);
-           double distance = realDistance(stations[stationOne],stations[stationTwo]);
+            int stationOne =  lines[i].getStation(j);
+            int stationTwo = lines[i].getStation(j+1);
+            double distance = realDistance(stations[stationOne],stations[stationTwo]);
 
-           double duration = distance / 18; // arbitrary until we figure out normal speed
+            double duration = distance / 18; // arbitrary until we figure out normal speed
             Trip h (stationOne, stationTwo, duration, 't');
 
-           //add trips to the first station.
-           stations[stationOne].addTrip(h);
+            // add trips to the first station.
+            stations[stationOne].addTrip(h);
+            stations[stationOne].addLine(lines[i].getName(), i);
         }
     }
 

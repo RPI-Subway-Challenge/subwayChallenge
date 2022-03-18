@@ -165,11 +165,17 @@ void createTrips(){
             double distance = realDistance(stations[stationOne],stations[stationTwo]);
 
             double duration = (1.2*60*distance)/17.4; // arbitrary until we figure out normal speed
-            Trip h (stationOne, stationTwo, duration, 't');
-            h.setLine(lines[i].getName());
+
+            Trip f (stationOne, stationTwo, duration, 't');
+            Trip b (stationTwo, stationOne, duration, 't');
+
+            f.setLine(lines[i].getName());
+            b.setLine(lines[i].getName());
 
             // add trips to the first station.
-            stations[stationOne].addTrip(h);
+            stations[stationOne].addTrip(f);
+            stations[stationTwo].addTrip(b);
+
             stations[stationOne].addLine(lines[i].getName(), i);
         }
     }

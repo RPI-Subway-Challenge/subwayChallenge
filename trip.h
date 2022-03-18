@@ -24,8 +24,8 @@ public:
 	void setLine(std::string inLineName);
 
 	// getters
-	int getStart()								{return startIndex;}
-	int getEnd()								{return endIndex;}
+	int getStart()       						{return startIndex;}
+	int getEnd() 							    {return endIndex;}
 	int getDuration()							{return duration;}
 	std::string getLineName()					{return lineName;}
 	int getType()								{return type;}
@@ -35,7 +35,7 @@ public:
 	Time timeToNextDeparture(Time current);		// only works on open stations
 	
 	// operators
-	bool operator > (Trip& xTrip);
+	bool operator > (Trip& xTrip)  ;
 	bool operator == (Trip& xTrip);
 
 private:

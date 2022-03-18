@@ -71,7 +71,7 @@ bool Trip::operator > (Trip& xTrip){
 	// currently only comparing time, but should consider cost and other variables in future iterations
 	return this->getDuration() > xTrip.getDuration();
 }
-bool Trip::operator == (Trip& xTrip){
+bool Trip::operator == (Trip& xTrip) {
 	return (this->getStart() == xTrip.getStart() && this->getEnd() == xTrip.getEnd() && 
 		this->getDuration() == xTrip.getDuration() && this->getType() == xTrip.getType());
 };

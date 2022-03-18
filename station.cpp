@@ -66,4 +66,3 @@ std::ostream& operator<<(std::ostream& os, const Station& s){
 
     return os;
 }
-

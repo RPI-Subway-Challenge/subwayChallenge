@@ -7,6 +7,7 @@
 #include <utility>	// pair
 #include <vector>
 #include "time.h"
+#include "set"
 
 
 
@@ -33,9 +34,8 @@ public:
 	std::string getCordStr() const;
 
 
-    const std::pair<double, double>& getCords()const                {return cords;}
+    const std::pair<double, double>& getCords()const            {return cords;}
     void addLine(const std::pair<std::string, int>& line);
-
 private:
 	int id;
 	std::string name;
@@ -46,4 +46,5 @@ private:
 	// ? possibly operating hours
 };
 std::ostream& operator<<(std::ostream& os, const Station& s);
+
 #endif

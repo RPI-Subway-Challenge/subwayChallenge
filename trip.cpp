@@ -29,10 +29,15 @@ Trip::Trip(int inStart, int inEnd, int inDuration, char inType){
 
 //												S E T T E R S
 
-char Trip::setType(char inType){
+void Trip::setType(char inType){
 	// return type of transportation used
-	return type;
+	type = inType;
 }
+
+void Trip::setLine(std::string inLineName){
+	lineName = inLineName;
+}
+
 
 void Trip::updateTrip(char inType, int inDuration){
 	// updates the trip type and duration

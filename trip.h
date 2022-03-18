@@ -19,13 +19,15 @@ public:
     Trip(int inStart, int inEnd, int inDuration, char inType);
 
 	// setters
-	char setType(char inType);
+	void setType(char inType);
 	void updateTrip(char inType, int inDuration);
+	void setLine(std::string inLineName);
 
 	// getters
 	int getStart()								{return startIndex;}
 	int getEnd()								{return endIndex;}
 	int getDuration()							{return duration;}
+	std::string getLineName()					{return lineName;}
 	int getType()								{return type;}
 	bool isOpenWeekdays()						{return weekday.size();}
 	bool isOpenWeekends()						{return weekend.size();}
@@ -40,6 +42,7 @@ private:
 	int startIndex;                 // index of station at start & end, simplier than pointers
 	int endIndex;
 	int duration;
+	std::string lineName;
 	char type;						// method of transportation e.g. 0: subway, 1: walking, 2: bus
 	std::list<Time> weekday;		// when trains leave from start on weekdays
 	std::list<Time> weekend;		// when trains leave from start on weekends

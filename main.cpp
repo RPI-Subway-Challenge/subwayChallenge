@@ -132,7 +132,8 @@ int main(int argc, char* argv[]) {
         for (it = canGo.begin(); it != canGo.end(); it++){
             std::cout   << "Starting ID: "      << (*it).getStart() 
                         << " to ending ID: "    << (*it).getEnd() 
-                        << " with time: "       << (*it).getDuration() << "\n";
+                        << " with time: "       << (*it).getDuration()
+                        << " in line: "         << (*it).getLineName() << "\n";
         }
 
         std::cout << "Enter the ID of the station you would like to travel to\n";
@@ -165,6 +166,7 @@ void createTrips(){
 
             double duration = (1.2*60*distance)/17.4; // arbitrary until we figure out normal speed
             Trip h (stationOne, stationTwo, duration, 't');
+            h.setLine(lines[i].getName());
 
             // add trips to the first station.
             stations[stationOne].addTrip(h);

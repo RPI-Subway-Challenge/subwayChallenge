@@ -2,7 +2,9 @@
 #include <iostream>
 #include <cmath>
 #include "station.h"
-
+#include <queue>
+#include <set>
+#include <utility>
 
 // return manhattan distance between two stations
 double manhattanDistance(Station s1, Station s2){
@@ -124,4 +126,40 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
             Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
         }
     }
+}
+
+
+
+std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID) {
+    std::queue <std::pair <Station, std::vector <Station> > > q;
+    std::set<Station> visited;
+
+    Station initStation = stations[startingID];
+    std::vector<Station> initList;
+
+    std::pair<Station, std::vector<Station>> initPair;
+    initPair = std::make_pair(initStation, initList);
+
+    q.push(initPair);
+
+    while (!q.empty()) {
+        // Get the last element and pop it
+        std::pair <Station, std::vector <Station> > curr = q.back();
+        q.pop();
+
+        // Split the pair into station and path parts
+        Station currStation = curr.first;
+        std::vector<Station> currPath = curr.second;
+
+        // Core of BFS. Check not visited, check if goal, add to queue
+        if ((visited.find(currStation)->getId()) != (visited.end()->getId())) {
+            continue;
+        } else if (currStation.getId() == goalID) {
+            return currPath;
+        } else {
+            visited.insert(currStation);
+        }
+    }
+
+    return initList;
 }

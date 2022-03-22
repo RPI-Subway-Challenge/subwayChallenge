@@ -153,6 +153,10 @@ int main(int argc, char* argv[]) {
 	} while(c != -1);
 
 
+    // for( int i = 0; i != stations.size(); i++){
+    //     stations[i].removeDups();
+    // }
+
     return 0;
 }
 

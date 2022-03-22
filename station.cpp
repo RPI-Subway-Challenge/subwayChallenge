@@ -51,6 +51,16 @@ void Station::addLine(std::string inStr, int inIndex){
     lines.push_back(std::make_pair(inStr, inIndex));
 }
 
+void Station::removeDups(){
+    for(std::list<Trip>::iterator iter1 = trips.begin(); iter1 != trips.end(); iter1++){
+        for(std::list<Trip>::iterator iter2 = iter1; iter2 != trips.end(); iter2++){
+            if( iter1->isDup(*iter2) ){
+                // trips.remove(*iter2);
+            }
+        }
+    }
+}
+
 std::ostream& operator<<(std::ostream& os, const Station& s){
     os << s.getId() << " | ";
     os << s.getName()<< " | ";

@@ -24,6 +24,8 @@ public:
 	void setTrips(const std::list<Trip>& inTrips);
 	void addTrip(Trip& inTrip);
 	void addLine(std::string inStr, int inIndex);
+	// void removeTrip(Trip& t)									{trips.remove(t);}
+	void removeDups();
 
 	// getters
 	int getId() const 	 	 				    				{return id;}
@@ -32,7 +34,6 @@ public:
     std::list<Trip> getTrips() const							{return trips;}
 	bool getOpen() const										{return open;}
 	std::string getCordStr() const;
-
 
     const std::pair<double, double>& getCords()const            {return cords;}
     void addLine(const std::pair<std::string, int>& line);

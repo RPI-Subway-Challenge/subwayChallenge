@@ -65,6 +65,17 @@ Time Trip::timeToNextDeparture(Time current){
 }
 
 
+// duplicate if all same but lineName
+bool Trip::isDup(Trip& t){
+	if( this->getStart()==t.getStart() && this->getEnd()==t.getEnd() && this->getDuration()==t.getDuration() && this->getType()==t.getType() ){
+		if( lineName == t.getLineName() ){
+			return true;
+		}
+	}
+	return false;
+}
+
+
 //												O P E R A T O R S
 
 bool Trip::operator > (Trip& xTrip){
@@ -73,5 +84,5 @@ bool Trip::operator > (Trip& xTrip){
 }
 bool Trip::operator == (Trip& xTrip) {
 	return (this->getStart() == xTrip.getStart() && this->getEnd() == xTrip.getEnd() && 
-		this->getDuration() == xTrip.getDuration() && this->getType() == xTrip.getType());
+		this->getDuration() == xTrip.getDuration() && this->getType() == xTrip.getType() && this->getLineName() == xTrip.getLineName());
 };

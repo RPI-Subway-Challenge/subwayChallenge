@@ -33,6 +33,7 @@ public:
 	bool isOpenWeekends()						{return weekend.size();}
 	int isOpen(Time current)					{return (open && isOpenWeekdays() && isOpenWeekends());}
 	Time timeToNextDeparture(Time current);		// only works on open stations
+	bool isDup(Trip& t);						// duplicate if all same but lineName
 	
 	// operators
 	bool operator > (Trip& xTrip)  ;

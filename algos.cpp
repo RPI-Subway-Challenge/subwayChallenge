@@ -151,13 +151,16 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
         std::vector<Station> currPath = curr.second;
 
         // Core of BFS. Check not visited, check if goal, add to queue
+        std::cout   << "Station ID: "      << (currStation).getId() 
+        << " Name: " << (currStation).getName() << "\n";
+
         if (currStation.isVisited()) {
+
             continue;
         } else if (currStation.getId() == goalID) {
             return currPath;
         } else {
             currStation.setVisited(true);
-            std::cout   << "Howdy"      << "\n";
 
             std::list<Trip> canGo = currStation.getTrips();
             std::list<Trip>::iterator it;
@@ -168,7 +171,7 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
                 std::vector<Station> modifiedPath = currPath;
                 modifiedPath.push_back(nextStation);
 
-                std::pair <Station, std::vector <Station> > newPair = std::make_pair(currStation, modifiedPath);
+                std::pair <Station, std::vector <Station> > newPair = std::make_pair(nextStation, modifiedPath);
                 q.push(newPair);
             }
         }

@@ -159,9 +159,8 @@ int main(int argc, char* argv[]) {
 
 	// } while(c != -1);
 
-    std::cout   << "Howdy"      << "\n";
 
-    std::vector<Station> myPath = BFS(stations, 0, 422);
+    std::vector<Station> myPath = BFS(stations, 412, 417);
     std::list<Station>::iterator it;
 
     int tr = 0;

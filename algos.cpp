@@ -132,7 +132,6 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
 std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID) {
     std::queue <std::pair <Station, std::vector <Station> > > q;
-    std::set<Station> visited;
 
     Station initStation = stations[startingID];
     std::vector<Station> initList;
@@ -152,12 +151,12 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
         std::vector<Station> currPath = curr.second;
 
         // Core of BFS. Check not visited, check if goal, add to queue
-        if ((visited.find(currStation)->getId()) != (visited.end()->getId())) {
+        if (currStation.isVisited()) {
             continue;
         } else if (currStation.getId() == goalID) {
             return currPath;
         } else {
-            visited.insert(currStation);
+            currStation.setFalse(false);
 
             std::list<Trip> canGo = currStation.getTrips();
             std::list<Trip>::iterator it;

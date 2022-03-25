@@ -134,7 +134,7 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
     std::queue <std::pair <Station, std::vector <Station> > > q;
 
     Station initStation = stations[startingID];
-    std::vector<Station> initList;
+    std::vector<Station> initList = {};
 
     std::pair<Station, std::vector<Station>> initPair;
     initPair = std::make_pair(initStation, initList);
@@ -157,6 +157,7 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
             return currPath;
         } else {
             currStation.setVisited(true);
+            std::cout   << "Howdy"      << "\n";
 
             std::list<Trip> canGo = currStation.getTrips();
             std::list<Trip>::iterator it;

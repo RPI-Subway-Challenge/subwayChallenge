@@ -6,6 +6,7 @@
 
 Station::Station(){
 	name = "NONE";
+    visited = false;
 }
 
 Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int> >& inLines){
@@ -15,6 +16,7 @@ Station::Station(int inId, const std::string& inName, double lat, double lon, co
 	cords.second = lon;
 	lines = inLines;
 	open = true;				// defaults to open
+    visited = false;
 	//list has default constructor, so we should be good on this end
 }
 
@@ -24,6 +26,7 @@ Station::Station(int inId, const std::string& inName, double lon, double lat){
     cords.first = lat;
     cords.second = lon;
     open = true;				// defaults to open
+    visited = false;
     //list has default constructor, so we should be good on this end
 }
 

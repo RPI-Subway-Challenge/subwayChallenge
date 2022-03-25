@@ -27,8 +27,6 @@ Trip::Trip(int inStart, int inEnd, int inDuration, char inType){
     open = true; // default to open
 }
 
-//												S E T T E R S
-
 void Trip::setType(char inType){
 	// return type of transportation used
 	type = inType;
@@ -37,7 +35,6 @@ void Trip::setType(char inType){
 void Trip::setLine(std::string inLineName){
 	lineName = inLineName;
 }
-
 
 void Trip::updateTrip(char inType, int inDuration){
 	// updates the trip type and duration
@@ -64,11 +61,10 @@ Time Trip::timeToNextDeparture(Time current){
 	return ClosestTime;
 }
 
-
 // duplicate if all same but lineName
 bool Trip::isDup(Trip& t){
 	if( this->getStart()==t.getStart() && this->getEnd()==t.getEnd() && this->getDuration()==t.getDuration() && this->getType()==t.getType() ){
-		if( lineName == t.getLineName() ){
+		if( lineName != t.getLineName() ){
 			return true;
 		}
 	}
@@ -82,7 +78,7 @@ bool Trip::operator > (Trip& xTrip){
 	// currently only comparing time, but should consider cost and other variables in future iterations
 	return this->getDuration() > xTrip.getDuration();
 }
-bool Trip::operator == (Trip& xTrip) {
-	return (this->getStart() == xTrip.getStart() && this->getEnd() == xTrip.getEnd() && 
-		this->getDuration() == xTrip.getDuration() && this->getType() == xTrip.getType() && this->getLineName() == xTrip.getLineName());
+bool Trip::operator== (const Trip& xTrip) const {
+	return (startIndex == xTrip.startIndex && endIndex == xTrip.endIndex &&
+		duration == xTrip.duration && type == xTrip.type);
 };

@@ -37,7 +37,7 @@ public:
 	
 	// operators
 	bool operator > (Trip& xTrip)  ;
-	bool operator == (Trip& xTrip);
+	bool operator == (const Trip& xTrip) const;
 
 private:
 	int startIndex;                 // index of station at start & end, simplier than pointers

@@ -97,6 +97,10 @@ int main(int argc, char* argv[]) {
     }
 
     createTrips();
+    for( int i = 0; i != stations.size(); i++){
+        stations[i].removeDups();
+    }
+
     // printing method for varifying loading in data
     for(unsigned int i = 0; i < lines.size(); i++){
 
@@ -120,6 +124,9 @@ int main(int argc, char* argv[]) {
     Station startStation;
     int timeTravel = 0;
 	do {
+
+
+
         startStation = stations[curr];
 
         std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
@@ -153,9 +160,6 @@ int main(int argc, char* argv[]) {
 	} while(c != -1);
 
 
-    // for( int i = 0; i != stations.size(); i++){
-    //     stations[i].removeDups();
-    // }
 
     return 0;
 }

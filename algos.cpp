@@ -156,7 +156,7 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
         } else if (currStation.getId() == goalID) {
             return currPath;
         } else {
-            currStation.setFalse(false);
+            currStation.setVisited(true);
 
             std::list<Trip> canGo = currStation.getTrips();
             std::list<Trip>::iterator it;

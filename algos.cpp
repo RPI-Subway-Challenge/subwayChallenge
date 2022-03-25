@@ -158,6 +158,19 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
             return currPath;
         } else {
             visited.insert(currStation);
+
+            std::list<Trip> canGo = currStation.getTrips();
+            std::list<Trip>::iterator it;
+
+            for (it = canGo.begin(); it != canGo.end(); it++) {
+                Station nextStation = stations[(*it).getEnd()];
+            
+                std::vector<Station> modifiedPath = currPath;
+                modifiedPath.push_back(nextStation);
+
+                std::pair <Station, std::vector <Station> > newPair = std::make_pair(currStation, modifiedPath);
+                q.push(newPair);
+            }
         }
     }
 

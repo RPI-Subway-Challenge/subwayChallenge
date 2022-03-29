@@ -116,6 +116,8 @@ int main(int argc, char* argv[]) {
     std::cout << "COMPLETE\n\n\n";
 
 
+    // //                                                          M A N U A L   T R A V E R S A L
+
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";
     // int curr;
@@ -124,7 +126,6 @@ int main(int argc, char* argv[]) {
     // Station startStation;
     // int timeTravel = 0;
 	// do {
-
 
 
     //     startStation = stations[curr];
@@ -160,6 +161,8 @@ int main(int argc, char* argv[]) {
 	// } while(c != -1);
 
 
+    //                                                      B R E A D T H - F I R S T   S E A R C H
+
     std::vector<Station> myPath = BFS(stations, 412, 417);
     std::list<Station>::iterator it;
 
@@ -168,7 +171,20 @@ int main(int argc, char* argv[]) {
         std::cout   << "Station ID: "      << (*it).getId() 
             << " Name: " << (*it).getName() << "\n";
     }
+
+    
     return 0;
+
+    // std::list<int> path = BFS2(stations, 412, 417);
+
+
+    // for(std::list<int>::iterator iter = path.begin(); iter != path.end(); iter++){
+    //     std::cout << *iter << ", ";
+    // }
+    // std::cout << std::endl;
+
+    
+    // return 0;
 }
 
 void createTrips(){

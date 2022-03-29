@@ -130,11 +130,11 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
 
 
-std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID) {
+std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID) {           // ? pass stations by reference
     std::queue <std::pair <Station, std::vector <Station> > > q;
 
-    Station initStation = stations[startingID];
-    std::vector<Station> initList = {};
+    Station initStation = stations[startingID];             // ? making a copy of start station
+    std::vector<Station> initList = {};                     // ? whyb not list
 
     std::pair<Station, std::vector<Station>> initPair;
     initPair = std::make_pair(initStation, initList);
@@ -178,4 +178,59 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
     }
 
     return initList;
+}
+
+
+
+std::list<int> BFS2(std::vector<Station> & stations, int startingID, int goalID) {
+    std::list <int> q;
+    std::list <int> output;
+
+    int current = startingID;
+
+    // put start in queue and mark visited
+    q.push_back(startingID);
+    stations[startingID].setVisited(true);
+
+    while (!q.empty()) {
+
+        current = q.front();
+        output.push_back(current);
+        q.pop_front();
+
+
+        // Core of BFS. Check not visited, check if goal, add to queue
+        std::cout   << "Station ID: "      << (stations[current]).getId() 
+        << " Name: " << (stations[current]).getName() << "\n";
+
+        // check if goal
+        if( current == goalID ){
+            return output;
+        }
+
+        for(std::list<Trip>::iterator iter = stations[current].getTrips().begin(); iter != stations[current].getTrips().end(); iter++){
+            if(stations[iter->getEnd()].isVisited() == false){
+                stations[iter->getEnd()].setVisited(true);
+                q.push_back(iter->getEnd());
+            }
+        }
+    }
+
+    return output;
+}
+
+
+
+
+// takes station and returns value
+int heuristic(std::vector<Station> & stations, int id){
+    int sum = 0;
+    std::list<Trip> trips = stations[id].getTrips();
+    for(std::list<Trip>::iterator iter = trips.begin(); iter != trips.end(); iter++){
+        if( stations[iter->getEnd()].isVisited() == false ){
+            sum += 4;       // add 4 for every unvisited neighboring station
+        }
+        sum++;              // add 1 for every neighboring station
+    }
+    return sum;
 }

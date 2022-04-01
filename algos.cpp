@@ -155,7 +155,6 @@ std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goal
         << " Name: " << (currStation).getName() << "\n";
 
         if (currStation.isVisited()) {
-
             continue;
         } else if (currStation.getId() == goalID) {
             return currPath;
@@ -208,11 +207,14 @@ std::list<int> BFS2(std::vector<Station> & stations, int startingID, int goalID)
             return output;
         }
 
+        int i = 0;
         for(std::list<Trip>::iterator iter = stations[current].getTrips().begin(); iter != stations[current].getTrips().end(); iter++){
             if(stations[iter->getEnd()].isVisited() == false){
                 stations[iter->getEnd()].setVisited(true);
                 q.push_back(iter->getEnd());
             }
+            std::cout << i << " HELLo\n";
+            i++;
         }
     }
 
@@ -225,12 +227,28 @@ std::list<int> BFS2(std::vector<Station> & stations, int startingID, int goalID)
 // takes station and returns value
 int heuristic(std::vector<Station> & stations, int id){
     int sum = 0;
-    std::list<Trip> trips = stations[id].getTrips();
-    for(std::list<Trip>::iterator iter = trips.begin(); iter != trips.end(); iter++){
-        if( stations[iter->getEnd()].isVisited() == false ){
-            sum += 4;       // add 4 for every unvisited neighboring station
-        }
-        sum++;              // add 1 for every neighboring station
+
+    // add 10 if not visited
+    if(stations[id].isVisited() == false){
+        sum += 10;
     }
+    
+    // add 1 for visited neighbor, 5 for unvisited neighbor
+    std::list<Trip> trips = stations[id].getTrips();
+    std::list<Trip>::iterator iterT;
+    for(iterT = trips.begin(); iterT != trips.end(); iterT++){
+        if( stations[iterT->getEnd()].isVisited() == false ){
+            sum += 4;               // add 4 for every unvisited neighboring station
+        }
+        sum++;                      // add 1 for every neighboring station
+    }
+
+    // add 1 for every line
+    std::list<std::pair<std::string,int>> lines = stations[id].getLines();
+    std::list<std::pair<std::string,int>>::iterator iterL;
+    for(iterL = lines.begin(); iterL != lines.end(); iterL++){
+        sum++;
+    }
+
     return sum;
 }

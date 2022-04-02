@@ -7,5 +7,6 @@
 double realDistance(const Station& s1,const Station& s2);
 std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID);
 std::list<int> BFS2(std::vector<Station> & stations, int startingID, int goalID);
+std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID);
 int heuristic(std::vector<Station> & stations, int id);
 #endif //SUBWAYCHALLENGE_ALGOS_H

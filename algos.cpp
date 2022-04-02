@@ -5,6 +5,9 @@
 #include <queue>
 #include <set>
 #include <utility>
+#include<unordered_map>
+
+typedef std::pair<Station, int > pair;
 
 // return manhattan distance between two stations
 double manhattanDistance(Station s1, Station s2){
@@ -128,15 +131,73 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
     }
 }
 
+//caped-doshi version of BFS
+std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID){ 
+    std::queue<pair> bfs_queue;
 
+    Station init_station = stations[startingID];
+
+    pair init_pair;
+    init_pair.first = init_station;
+    init_pair.second = -1;
+
+    std::unordered_map<int, int> parents;
+
+    std::set<int> visited; //all ids that have been visited
+
+    pair end_pair;
+
+    bfs_queue.push(init_pair);
+
+    while(1){   // loop until find goal id
+        pair q_front = bfs_queue.front();
+        bfs_queue.pop();
+        int start_id = q_front.first.getId();
+
+        if (start_id == goalID){
+            std::cout << "Found the goal" << std::endl;
+            //std::cout << visited.size() << std::endl;
+            end_pair = q_front;
+            break;
+        }
+        else{
+            visited.insert(q_front.first.getId());
+            std::vector<Station> children;
+            std::list<Trip> trips = q_front.first.getTrips();
+
+            for(Trip t: trips){
+                int end_index = t.getEnd();
+                //std::cout << end_index << std::endl;
+                if (visited.find(end_index) == visited.end()){
+                    parents[end_index] = start_id;
+                    bfs_queue.push(std::make_pair(stations[end_index], start_id));
+                }
+                parents[end_index] = start_id;
+                //std::cout << bfs_queue.size() << std::endl;
+            }
+        }
+    }
+
+    //reverse engineer path from the parents unordered map 
+    std::list<int> path;
+    int curr_index = goalID;
+    path.push_back(curr_index);
+    while(curr_index != startingID){
+        curr_index = parents[curr_index];
+        path.push_front(curr_index);
+    }
+
+    return path;
+
+}
 
 std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID) {           // ? pass stations by reference
     std::queue <std::pair <Station, std::vector <Station> > > q;
 
     Station initStation = stations[startingID];             // ? making a copy of start station
-    std::vector<Station> initList = {};                     // ? whyb not list
+    std::vector<Station> initList;                     // ? whyb not list
 
-    std::pair<Station, std::vector<Station>> initPair;
+    std::pair<Station, std::vector<Station> > initPair;
     initPair = std::make_pair(initStation, initList);
 
     q.push(initPair);
@@ -207,14 +268,14 @@ std::list<int> BFS2(std::vector<Station> & stations, int startingID, int goalID)
             return output;
         }
 
-        int i = 0;
-        for(std::list<Trip>::iterator iter = stations[current].getTrips().begin(); iter != stations[current].getTrips().end(); iter++){
+        std::list<Trip>::iterator iter;
+        for(iter = stations[current].getTrips().begin(); iter != stations[current].getTrips().end(); iter++){
             if(stations[iter->getEnd()].isVisited() == false){
                 stations[iter->getEnd()].setVisited(true);
                 q.push_back(iter->getEnd());
             }
-            std::cout << i << " HELLo\n";
-            i++;
+            //std::cout << i << " HELLo\n";
+            //i++;
         }
     }
 
@@ -244,8 +305,8 @@ int heuristic(std::vector<Station> & stations, int id){
     }
 
     // add 1 for every line
-    std::list<std::pair<std::string,int>> lines = stations[id].getLines();
-    std::list<std::pair<std::string,int>>::iterator iterL;
+    std::list<std::pair<std::string,int> > lines = stations[id].getLines();
+    std::list<std::pair<std::string,int> >::iterator iterL;
     for(iterL = lines.begin(); iterL != lines.end(); iterL++){
         sum++;
     }

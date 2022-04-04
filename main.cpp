@@ -184,6 +184,8 @@ int main(int argc, char* argv[]) {
         std::cout << i;
         if (++c < path.size()) {std::cout << " -> ";}
     }
+    if(path.size() == 0)
+        std::cout << "No path was found.";
     std::cout << "\n";
 
     // for(std::list<int>::iterator iter = path.begin(); iter != path.end(); iter++){

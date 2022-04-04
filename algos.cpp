@@ -134,6 +134,7 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 //caped-doshi version of BFS
 std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID){ 
     std::queue<pair> bfs_queue;
+    bool goal_found = false;
 
     Station init_station = stations[startingID];
 
@@ -149,7 +150,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
 
     bfs_queue.push(init_pair);
 
-    while(1){   // loop until find goal id
+    while(bfs_queue.size() > 0){   // loop until find goal id
         pair q_front = bfs_queue.front();
         bfs_queue.pop();
         int start_id = q_front.first.getId();
@@ -158,6 +159,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
             std::cout << "Found the goal" << std::endl;
             //std::cout << visited.size() << std::endl;
             end_pair = q_front;
+            goal_found = true;
             break;
         }
         else{
@@ -180,13 +182,15 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
 
     //reverse engineer path from the parents unordered map 
     std::list<int> path;
-    int curr_index = goalID;
-    path.push_back(curr_index);
-    while(curr_index != startingID){
-        curr_index = parents[curr_index];
-        path.push_front(curr_index);
+    if(goal_found){
+        int curr_index = goalID;
+        path.push_back(curr_index);
+        while(curr_index != startingID){
+            curr_index = parents[curr_index];
+            path.push_front(curr_index);
+        }
     }
-
+    
     return path;
 
 }

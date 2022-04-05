@@ -176,7 +176,7 @@ int main(int argc, char* argv[]) {
     
     // return 0;
 
-    std::list<int> path = BFS_3(stations, 413, 433);
+    std::list<int> path = BFS_3(stations, 1, 417);
     //output the path index by index
     std::cout << "Size of path: " << path.size() << std::endl;
     int c = 0;

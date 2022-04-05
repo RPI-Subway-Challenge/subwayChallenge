@@ -163,7 +163,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
             break;
         }
         else{
-            visited.insert(q_front.first.getId());
+            visited.insert(start_id);
             std::vector<Station> children;
             std::list<Trip> trips = q_front.first.getTrips();
 
@@ -174,8 +174,9 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
                     parents[end_index] = start_id;
                     bfs_queue.push(std::make_pair(stations[end_index], start_id));
                 }
-                parents[end_index] = start_id;
-                //std::cout << bfs_queue.size() << std::endl;
+                if(parents[start_id] != end_index)
+                    parents[end_index] = start_id;
+                    //std::cout << bfs_queue.size() << std::endl;
             }
         }
     }
@@ -186,6 +187,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
         int curr_index = goalID;
         path.push_back(curr_index);
         while(curr_index != startingID){
+            std::cout << curr_index << std::endl;
             curr_index = parents[curr_index];
             path.push_front(curr_index);
         }

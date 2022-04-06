@@ -176,25 +176,25 @@ int main(int argc, char* argv[]) {
 
     /////// BFS TESTING ////////
 
-    // std::list<int> path = BFS_3(stations, 1, 417);
-    // //output the path index by index
-    // std::cout << "Size of path: " << path.size() << std::endl;
-    // int c = 0;
-    // for(int i: path){
-    //     std::cout << i;
-    //     if (++c < path.size()) {std::cout << " -> ";}
-    // }
-    // if(path.size() == 0)
-    //     std::cout << "No path was found.";
-    // std::cout << "\n";
-
-    /////// BFS TESTING ////////
-
-    std::vector<double> dists = Dijkstra(stations, 413, 433);
-    for(int i = 0; i < dists.size(); i++){
-        if(dists[i] < 1000000)
-            std::cout << i << ": " << dists[i] << std::endl;
+    std::list<int> path = BFS_3(stations, 1, 417);
+    //output the path index by index
+    std::cout << "Size of path: " << path.size() << std::endl;
+    int c = 0;
+    for(int i: path){
+        std::cout << i;
+        if (++c < path.size()) {std::cout << " -> ";}
     }
+    if(path.size() == 0)
+        std::cout << "No path was found.";
+    std::cout << "\n";
+
+    /////// Dijkstra TESTING ////////
+
+    std::vector<double> dists = Dijkstra(stations, 1, 417);
+    // for(int i = 0; i < dists.size(); i++){
+    //     // if(dists[i] < 1000000)
+    //     std::cout << i << ": " << dists[i] << std::endl;
+    // }
 
     // for(std::list<int>::iterator iter = path.begin(); iter != path.end(); iter++){
     //     std::cout << *iter << ", ";

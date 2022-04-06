@@ -133,6 +133,8 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
 std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, int goalID){
     std::vector<double> dists;
+    std::unordered_map<int, int> parents;
+
     for(int i = 0; i < stations.size(); i++)
         dists.push_back(1000000);
     dists[startingID] = 0; //initialize start to 0
@@ -142,15 +144,14 @@ std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, in
     while(visited.size() < stations.size()){
         //get adjacent vertices of curr vertex
         std::list<Trip> trips = stations[curr_id].getTrips();
-        int c = 0;
         for (Trip t: trips){
             int t_index = t.getEnd();
             double temp_dist = realDistance(stations[curr_id], stations[t_index]);
             if(dists[curr_id] + temp_dist < dists[t_index]){
                 //if the dist is smaller, update
                 dists[t_index] = dists[curr_id] + temp_dist;
+                parents[t_index] = curr_id;
             }
-            c++;
         }
         visited.insert(curr_id);
 
@@ -165,6 +166,34 @@ std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, in
             }
         }
         //resulting curr id has the min dist
+    }
+
+    std::list<int> path;
+    bool path_found = true;
+    int curr = goalID;
+    path.push_back(curr);
+    while(curr != startingID){
+        if(parents.find(curr) == parents.end()){
+            std::cout << "No path exists" << std::endl;
+            path_found = false;
+            break;
+        }
+        else{
+            curr = parents[curr];
+            path.push_front(curr);
+        }
+    }
+
+    if(path_found){
+        std::cout << "Found the goal with Dijkstra's" << std::endl;
+        std::cout << "Size of path: " << path.size() << std::endl;
+        int c = 0;
+        for (int i : path){
+            std::cout << i;
+            if(++c < path.size())
+                std::cout << " -> ";
+        }
+        std::cout << std::endl;
     }
     //currently returns distances from start
     return dists;
@@ -195,7 +224,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
         int start_id = q_front.first.getId();
 
         if (start_id == goalID){
-            std::cout << "Found the goal" << std::endl;
+            std::cout << "Found the goal with BFS" << std::endl;
             //std::cout << visited.size() << std::endl;
             end_pair = q_front;
             goal_found = true;
@@ -226,7 +255,7 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
         int curr_index = goalID;
         path.push_back(curr_index);
         while(curr_index != startingID){
-            std::cout << curr_index << std::endl;
+            //std::cout << curr_index << std::endl;
             curr_index = parents[curr_index];
             path.push_front(curr_index);
         }

@@ -176,21 +176,13 @@ int main(int argc, char* argv[]) {
 
     /////// BFS TESTING ////////
 
-    std::list<int> path = BFS_3(stations, 1, 417);
+    std::list<int> path = BFS_3(stations, 1, 270);
     //output the path index by index
-    std::cout << "Size of path: " << path.size() << std::endl;
-    int c = 0;
-    for(int i: path){
-        std::cout << i;
-        if (++c < path.size()) {std::cout << " -> ";}
-    }
-    if(path.size() == 0)
-        std::cout << "No path was found.";
-    std::cout << "\n";
 
+    std::cout << std::endl;
     /////// Dijkstra TESTING ////////
 
-    std::vector<double> dists = Dijkstra(stations, 1, 417);
+    std::vector<double> dists = Dijkstra(stations, 1, 270);
     // for(int i = 0; i < dists.size(); i++){
     //     // if(dists[i] < 1000000)
     //     std::cout << i << ": " << dists[i] << std::endl;

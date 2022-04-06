@@ -132,6 +132,8 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 }
 
 std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, int goalID){
+    std::cout << "From " << stations[startingID].getName() << 
+        " to " << stations[goalID].getName() << std::endl;
     std::vector<double> dists;
     std::unordered_map<int, int> parents;
 
@@ -187,6 +189,7 @@ std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, in
     if(path_found){
         std::cout << "Found the goal with Dijkstra's" << std::endl;
         std::cout << "Size of path: " << path.size() << std::endl;
+        std::cout << "Distance via subway (Dijkstra): " << dists[goalID] << std::endl;
         int c = 0;
         for (int i : path){
             std::cout << i;
@@ -201,6 +204,8 @@ std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, in
 
 //caped-doshi version of BFS
 std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID){ 
+    std::cout << "From " << stations[startingID].getName() << 
+        " to " << stations[goalID].getName() << std::endl;
     std::queue<pair> bfs_queue;
     bool goal_found = false;
 
@@ -260,6 +265,25 @@ std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID
             path.push_front(curr_index);
         }
     }
+    double dist = 0;
+    int prev = -1;
+    if(goal_found){
+        std::cout << "Size of path: " << path.size() << std::endl;
+        int c = 0;
+        for(int i: path){
+            std::cout << i;
+            if (++c < path.size()) {std::cout << " -> ";}
+            if(prev != -1){
+                dist = dist + (realDistance(stations[i], stations[prev]));
+            }
+            prev = i;
+        }
+        std::cout << std::endl;
+        std::cout << "Distance via Subway (BFS): " << dist << std::endl;
+    }
+    else
+        std::cout << "No path was found.";
+    std::cout << "\n";
     
     return path;
 

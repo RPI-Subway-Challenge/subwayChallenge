@@ -131,6 +131,45 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
     }
 }
 
+std::vector<double> Dijkstra(std::vector<Station> & stations, int startingID, int goalID){
+    std::vector<double> dists;
+    for(int i = 0; i < stations.size(); i++)
+        dists.push_back(1000000);
+    dists[startingID] = 0; //initialize start to 0
+
+    std::set<int> visited; //set containing vertices where shortest path has been found
+    int curr_id = startingID;
+    while(visited.size() < stations.size()){
+        //get adjacent vertices of curr vertex
+        std::list<Trip> trips = stations[curr_id].getTrips();
+        int c = 0;
+        for (Trip t: trips){
+            int t_index = t.getEnd();
+            double temp_dist = realDistance(stations[curr_id], stations[t_index]);
+            if(dists[curr_id] + temp_dist < dists[t_index]){
+                //if the dist is smaller, update
+                dists[t_index] = dists[curr_id] + temp_dist;
+            }
+            c++;
+        }
+        visited.insert(curr_id);
+
+        //find unvisited vertex w smallest distance
+        double minDist = 100000000;
+        for(int i = 0; i < stations.size(); i++){
+            if(visited.find(i) == visited.end()){
+                if(dists[i] < minDist){
+                    curr_id = i;
+                    minDist = dists[i];
+                }
+            }
+        }
+        //resulting curr id has the min dist
+    }
+    //currently returns distances from start
+    return dists;
+}
+
 //caped-doshi version of BFS
 std::list<int> BFS_3(std::vector<Station> & stations, int startingID, int goalID){ 
     std::queue<pair> bfs_queue;

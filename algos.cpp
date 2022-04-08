@@ -411,3 +411,42 @@ int heuristic(std::vector<Station> & stations, int id){
 
     return sum;
 }
+
+
+
+
+
+// def aStarSearch(problem, heuristic=nullHeuristic):
+//     "Search the node that has the lowest combined cost and heuristic first."
+//     "*** YOUR CODE HERE ***"
+//     p_queue     = util.PriorityQueue()
+//     visited     = []
+
+//     init_node = problem.getStartState()
+//     p_queue.push([[init_node, None],[], 0], 0)
+//     # NODE MODEL USED HERE
+//     # [[state, direction, value], [directions to this state], <total value to get to this state>]
+//     while not p_queue.isEmpty():
+
+//         curr = p_queue.pop()
+
+//         if curr[0][0] in visited: 
+//             pass
+
+//         elif problem.isGoalState(curr[0][0]):
+//             curr[1].pop(0) 
+//             curr[1].append(curr[0][1])
+//             return curr[1]
+
+//         else:
+//             visited.append(curr[0][0])
+//             curr[1].append(curr[0][1])
+
+//             for node in problem.getSuccessors(curr[0][0]):
+//                 hn = heuristic(node[0], problem)
+//                 gn = node[2] + curr[2]
+
+//                 x = list(curr[1])
+
+//                 node_to_push = [node, x, gn]
+//                 p_queue.push(node_to_push, gn + hn)

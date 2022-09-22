@@ -5,7 +5,6 @@
 #include "assert.h"
 #include "algos.h"
 #include <fstream>
-// #include <istream>
 #include <string>
 #include <iostream>
 #include <cmath>
@@ -13,7 +12,7 @@
 #include <sstream>
 #include "line.h"
 
-// Ahn's starting point:		Far Rockaway Mott		2:02am
+// Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
 // compile:		g++ *.cpp -o main.out
@@ -70,7 +69,7 @@ int main(int argc, char* argv[]) {
     }
 
     // im just using the normal read in method for C++, so will differ from above
-    // bitbucket for collecting all sttrings
+    // bitbucket for collecting all strings
     std::string bitbucket;
     // ifstream of stationData based on the second argument
 
@@ -118,84 +117,52 @@ int main(int argc, char* argv[]) {
 
     //                                                          M A N U A L   T R A V E R S A L
 
-	// int c;
-    // std::cout << "Please enter the id of a starting station\n";
-    // int curr;
-    // std::cin >> curr;
+	int c;
+    std::cout << "Please enter the id of a starting station\n";
+    int curr;
+    std::cin >> curr;
 
-    // Station startStation;
-    // int timeTravel = 0;
-	// do {
-
-
-    //     startStation = stations[curr];
-
-    //     std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
-    //     std::cout << "Enter -1 to quit\n";
-    //     std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
-    //     std::cout << "Here are all of the following trips you can take!\n";
-
-    //     std::list<Trip> canGo = startStation.getTrips();
-    //     std::list<Trip>::iterator it;
-    //     for (it = canGo.begin(); it != canGo.end(); it++){
-    //         std::cout   << "Starting ID: "      << (*it).getStart() 
-    //                     << " to ending ID: "    << (*it).getEnd() 
-    //                     << " with time: "       << (*it).getDuration()
-    //                     << " in line: "         << (*it).getLineName()
-    //                     << " heuristic: "       << heuristic(stations, (*it).getEnd()) <<  "\n";
-    //     }
-
-    //     std::cout << "Enter the ID of the station you would like to travel to\n";
-    //     std::cin >> c;
-
-    //     if (c != -1) {
-    //         for (it = canGo.begin(); it != canGo.end(); it++){
-    //             if ((*it).getEnd() == c) {
-    //                 timeTravel += (*it).getDuration();
-    //             }
-    //         }
-    //     }
+    Station startStation;
+    int timeTravel = 0;
+	do {
 
 
-    //     curr = c;
+        startStation = stations[curr];
 
-	// } while(c != -1);
-    //                                                      B R E A D T H - F I R S T   S E A R C H
+        std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
+        std::cout << "Enter -1 to quit\n";
+        std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
+        std::cout << "Here are all of the following trips you can take!\n";
 
-    // std::vector<Station> myPath = BFS(stations, 412, 417);
-    // std::list<Station>::iterator it;
+        std::list<Trip> canGo = startStation.getTrips();
+        std::list<Trip>::iterator it;
+        for (it = canGo.begin(); it != canGo.end(); it++){
+            std::cout   << "Starting ID: "      << (*it).getStart() 
+                        << " to ending ID: "    << (*it).getEnd() 
+                        << " with time: "       << (*it).getDuration()
+                        << " in line: "         << (*it).getLineName()
+                        << " heuristic: "       << heuristic(stations, (*it).getEnd()) <<  "\n";
+        }
 
-    // int tr = 0;
-    // for (tr = 0; tr != myPath.size(); it++, tr++) {
-    //     std::cout   << "Station ID: "      << (*it).getId() 
-    //         << " Name: " << (*it).getName() << "\n";
-    // }
+        std::cout << "Enter the ID of the station you would like to travel to\n";
+        std::cin >> c;
 
-    
-    // return 0;
+        if (c != -1) {
+            for (it = canGo.begin(); it != canGo.end(); it++){
+                if ((*it).getEnd() == c) {
+                    timeTravel += (*it).getDuration();
+                }
+            }
+        }
 
-    /////// BFS TESTING ////////
 
-    std::list<int> path = BFS_3(stations, 1, 270);
-    //output the path index by index
+        curr = c;
 
-    std::cout << std::endl;
-    /////// Dijkstra TESTING ////////
+	} while(c != -1);
 
-    std::vector<double> dists = Dijkstra(stations, 1, 270);
-    // for(int i = 0; i < dists.size(); i++){
-    //     // if(dists[i] < 1000000)
-    //     std::cout << i << ": " << dists[i] << std::endl;
-    // }
-
-    // for(std::list<int>::iterator iter = path.begin(); iter != path.end(); iter++){
-    //     std::cout << *iter << ", ";
-    // }
-    // std::cout << std::endl;
-
-    
-    // return 0;
 }
+
+
 
 void createTrips(){
     for(int i = 0; i < lines.size(); i++){

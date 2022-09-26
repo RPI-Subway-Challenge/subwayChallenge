@@ -15,8 +15,6 @@
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
-// compile:		g++ *.cpp -o main.out
-// run:			./main.out data.txt lineData.txt
 
 std::vector<Station> stations;
 std::vector<Line> lines;

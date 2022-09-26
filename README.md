@@ -4,6 +4,12 @@
 Uses A* to find optimal path through representation of New York City subway system. Data provided by MTA & webscraped from Google Maps. Written in C++ and Python. The current apporach is to start at the previous record holder's([Matthew Ahn](https://en.wikipedia.org/wiki/Matthew_Ahn)) start location and time; Far Rockaway-Mott Ave at 2am on a Sunday - there may be a better starting location.
 
 
+## Build and run
+
+compile:		g++ *.cpp -o main.out
+run:			./main.out data.txt lineData.txt
+
+
 ## Notes:
 
 * There are 4 "TimesSq" stations within a block from eachother with distinct services. They are treated as distinct stations but could be treated as one and just and walked between.

@@ -6,8 +6,8 @@ Uses A* to find optimal path through representation of New York City subway syst
 
 ## Build and run
 
-compile:		g++ *.cpp -o main.out
-run:			./main.out data.txt lineData.txt
+* compile:		g++ *.cpp -o main.out
+* run:			./main.out data.txt lineData.txt
 
 
 ## Notes:

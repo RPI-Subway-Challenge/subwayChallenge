@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
                         << " to ending ID: "    << (*it).getEnd() 
                         << " with time: "       << (*it).getDuration()
                         << " in line: "         << (*it).getLineName()
-                        << " heuristic: "       << heuristic(stations, (*it).getEnd()) <<  "\n";
+                        << " heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
         }
 
         std::cout << "Enter the ID of the station you would like to travel to\n";

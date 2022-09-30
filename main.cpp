@@ -68,6 +68,8 @@ int main(int argc, char* argv[]) {
         file.close();
     }
 
+    static unsigned int NUMBER_OF_STATIONS = stations.size(); 
+
     // im just using the normal read in method for C++, so will differ from above
     // bitbucket for collecting all strings
     std::string bitbucket;
@@ -129,29 +131,40 @@ int main(int argc, char* argv[]) {
 
         startStation = stations[curr];
 
+        startStation.setVisited(true); // the station is set as visited now
+        
         std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
         std::cout << "Enter -1 to quit\n";
         std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
-        std::cout << "Here are all of the following trips you can take!\n";
+        std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
 
+
+        // Printing out the possible trip you can take 
         std::list<Trip> canGo = startStation.getTrips();
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
-            std::cout   << "Starting ID: "      << (*it).getStart() 
+
+            std::cout   << "\tStarting ID: "      << (*it).getStart() 
                         << " to ending ID: "    << (*it).getEnd() 
                         << " with time: "       << (*it).getDuration()
                         << " in line: "         << (*it).getLineName()
-                        << " heuristic: "       << heuristic(stations, (*it).getEnd()) <<  "\n";
+                        << " heuristic: "       << heuristic(stations, (*it).getEnd()) << std::endl;
         }
 
-        std::cout << "Enter the ID of the station you would like to travel to\n";
+        std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
         std::cin >> c;
 
         if (c != -1) {
+            bool isInputValid = false; // used to check if user's choice is a trip option suggested
             for (it = canGo.begin(); it != canGo.end(); it++){
                 if ((*it).getEnd() == c) {
                     timeTravel += (*it).getDuration();
+                    isInputValid = true;
+                    break;
                 }
+            }
+            if (isInputValid == false){
+                std::cout<<"---this station number is not a trip suggested above.---"<<std::endl;
             }
         }
 

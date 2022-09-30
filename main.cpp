@@ -15,8 +15,6 @@
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
-// compile:		g++ *.cpp -o main.out
-// run:			./main.out data.txt lineData.txt
 
 std::vector<Station> stations;
 std::vector<Line> lines;
@@ -148,7 +146,7 @@ int main(int argc, char* argv[]) {
                         << " to ending ID: "    << (*it).getEnd() 
                         << " with time: "       << (*it).getDuration()
                         << " in line: "         << (*it).getLineName()
-                        << " heuristic: "       << heuristic(stations, (*it).getEnd()) << std::endl;
+                        << " heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
         }
 
         std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;

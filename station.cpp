@@ -37,7 +37,7 @@ void Station::addTrip(Trip& inTrip){
 }
 
 void Station::addLine(std::string inStr, int inIndex){
-    lines.push_back(std::make_pair(inStr, inIndex));
+    lines.push_back({inStr, inIndex});
 }
 
 void Station::removeDups(){

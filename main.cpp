@@ -15,6 +15,9 @@
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
+// compile:		g++ *.cpp -o main.out
+// run:			./main.out data.txt lineData.txt
+
 
 std::vector<Station> stations;
 std::vector<Line> lines;
@@ -142,11 +145,12 @@ int main(int argc, char* argv[]) {
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
 
-            std::cout   << "\tStarting ID: "      << (*it).getStart() 
-                        << " to ending ID: "    << (*it).getEnd() 
-                        << " with time: "       << (*it).getDuration()
-                        << " in line: "         << (*it).getLineName()
-                        << " heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
+            std::cout   << "\tStart ID: "    << (*it).getStart() 
+                        << "    End ID: "    << (*it).getEnd() 
+                        << "    Time: "       << (*it).getDuration()
+                        << "    Line: "         << (*it).getLineName()  // ! what if its a walking route
+                        << "    Visited: "         << stations[(*it).getEnd()].isVisited()
+                        << "    Heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
         }
 
         std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;

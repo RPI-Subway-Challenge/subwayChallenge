@@ -15,6 +15,9 @@
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
+// compile:		g++ *.cpp -o main.out
+// run:			./main.out data.txt lineData.txt
+
 
 std::vector<Station> stations;
 std::vector<Line> lines;
@@ -65,6 +68,8 @@ int main(int argc, char* argv[]) {
         }
         file.close();
     }
+
+    static unsigned int NUMBER_OF_STATIONS = stations.size(); 
 
     // im just using the normal read in method for C++, so will differ from above
     // bitbucket for collecting all strings
@@ -120,39 +125,44 @@ int main(int argc, char* argv[]) {
     int curr;
     std::cin >> curr;
 
-    Station startStation;
     int timeTravel = 0;
 	do {
 
-
-        startStation = stations[curr];
-
+        stations[curr].setVisited(true); // the station is set as visited now
+        
         std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
         std::cout << "Enter -1 to quit\n";
-        std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
-        std::cout << "Here are all of the following trips you can take!\n";
+        std::cout << "Your current location is " << stations[curr].getName() << " with ID " << curr << "\n";
+        std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
 
-        std::list<Trip> canGo = startStation.getTrips();
+
+        // Printing out the possible trip you can take 
+        std::list<Trip> canGo = stations[curr].getTrips();
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
-            std::cout   << "Starting ID: "      << (*it).getStart() 
-                        << " to ending ID: "    << (*it).getEnd() 
-                        << " with time: "       << (*it).getDuration()
-                        << " in line: "         << (*it).getLineName()
-                        // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
-                        // manual traversal currently passes in the same station for both args
-                        // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
-                        << " heuristic: "       << heuristic(stations, (*it).getStart(), (*it).getStart()) <<  "\n";
+        
+            std::cout   << "\tStart ID: "    << (*it).getStart() 
+                        << "    End ID: "    << (*it).getEnd() 
+                        << "    Time: "       << (*it).getDuration()
+                        << "    Line: "         << (*it).getLineName()  // ! what if its a walking route
+                        << "    Visited: "         << stations[(*it).getEnd()].isVisited()
+                        << "    Heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
         }
 
-        std::cout << "Enter the ID of the station you would like to travel to\n";
+        std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
         std::cin >> c;
 
         if (c != -1) {
+            bool isInputValid = false; // used to check if user's choice is a trip option suggested
             for (it = canGo.begin(); it != canGo.end(); it++){
                 if ((*it).getEnd() == c) {
                     timeTravel += (*it).getDuration();
+                    isInputValid = true;
+                    break;
                 }
+            }
+            if (isInputValid == false){
+                std::cout<<"---this station number is not a trip suggested above.---"<<std::endl;
             }
         }
 

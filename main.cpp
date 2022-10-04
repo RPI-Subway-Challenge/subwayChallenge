@@ -125,23 +125,19 @@ int main(int argc, char* argv[]) {
     int curr;
     std::cin >> curr;
 
-    Station startStation;
     int timeTravel = 0;
 	do {
 
-
-        startStation = stations[curr];
-
-        startStation.setVisited(true); // the station is set as visited now
+        stations[curr].setVisited(true); // the station is set as visited now
         
         std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
         std::cout << "Enter -1 to quit\n";
-        std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
+        std::cout << "Your current location is " << stations[curr].getName() << " with ID " << curr << "\n";
         std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
 
 
         // Printing out the possible trip you can take 
-        std::list<Trip> canGo = startStation.getTrips();
+        std::list<Trip> canGo = stations[curr].getTrips();
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
 

@@ -146,7 +146,10 @@ int main(int argc, char* argv[]) {
                         << "    Time: "       << (*it).getDuration()
                         << "    Line: "         << (*it).getLineName()  // ! what if its a walking route
                         << "    Visited: "         << stations[(*it).getEnd()].isVisited()
-                        << "    Heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
+                        // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
+                        // manual traversal currently passes in the same station for both args
+                        // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
+                        << "    Heuristic: "       << heuristic(stations, (*it).getStart(), (*it).getStart()) <<  "\n";
         }
 
         std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;

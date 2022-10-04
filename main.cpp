@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
         std::list<Trip> canGo = stations[curr].getTrips();
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
-
+        
             std::cout   << "\tStart ID: "    << (*it).getStart() 
                         << "    End ID: "    << (*it).getEnd() 
                         << "    Time: "       << (*it).getDuration()
@@ -172,8 +172,6 @@ int main(int argc, char* argv[]) {
 	} while(c != -1);
 
 }
-
-
 
 void createTrips(){
     for(int i = 0; i < lines.size(); i++){

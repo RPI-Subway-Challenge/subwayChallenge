@@ -137,35 +137,71 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
 // }
 
-
-
-
-// ! Pretty sure this is broken
-// takes station and returns value
-int heuristic(std::vector<Station> & stations, int id){
+// takes current station id and next station id
+//      and returns heuristic value for the next station to visit
+// Lower value is better than higher value (arbitrary penalty value)
+// Function returns heuristic value for next station
+int heuristic(std::vector<Station> & stations, int currId, int nextId){
     int sum = 0;
-
-    // add 10 if not visited
-    if(stations[id].isVisited() == false){
-        sum += 10;
-    }
+    const int lowPenaltyVal = 1;
+    const int penaltyVal = 10;
     
-    // add 1 for visited neighbor, 5 for unvisited neighbor
-    std::list<Trip> trips = stations[id].getTrips();
+    std::list<Trip> trips = stations[nextId].getTrips();
     std::list<Trip>::iterator iterT;
+
+    // low penalty for each visited neighboring station for the next station
     for(iterT = trips.begin(); iterT != trips.end(); iterT++){
-        if( stations[iterT->getEnd()].isVisited() == false ){
-            sum += 4;               // add 4 for every unvisited neighboring station
+        if( stations[iterT->getEnd()].isVisited() == true ){
+            sum += lowPenaltyVal;
         }
-        sum++;                      // add 1 for every neighboring station
     }
 
-    // add 1 for every line
-    std::list<std::pair<std::string,int> > lines = stations[id].getLines();
-    std::list<std::pair<std::string,int> >::iterator iterL;
-    for(iterL = lines.begin(); iterL != lines.end(); iterL++){
-        sum++;
+    // penalty if next station is already visited
+    if(stations[nextId].isVisited() == true){
+        sum += penaltyVal;
     }
+
+    std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
+    std::list<std::pair<std::string,int>> nextLines = stations[nextId].getLines();
+    std::list<std::pair<std::string,int>>::iterator iterCurr;
+    std::list<std::pair<std::string,int>>::iterator iterNext;
+    bool sameLine = false;
+
+    // penalty for switching lines
+    //Loop through all lines for the current station
+    for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+        //Loop through all lines for the next station
+        for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+            //Check if there is a matching line
+            if (iterCurr->first == iterNext->first) {
+                sameLine = true;
+                break;
+            }
+        }
+        //Skip checking the rest of the current stations
+        if (sameLine) {
+            break;
+        }
+    }
+    if (!sameLine) {
+        sum += penaltyVal;
+    }
+
+    // penalty for entering a dead end branch vvvvv
+    // merged with penalty for moving away from large masses of connected stations
+    // -> stations are hard coded from north-west station clockwise
+    // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
+    int branchStarts[] = {
+        26 //3rd Ave - 138th St
+    };
+
+    //Check if the station is going into a dead end branch
+    for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+        if (branchStarts[i] == nextId) {
+            sum += penaltyVal;
+        }
+    }
+
 
     return sum;
 }

@@ -139,7 +139,10 @@ int main(int argc, char* argv[]) {
                         << " to ending ID: "    << (*it).getEnd() 
                         << " with time: "       << (*it).getDuration()
                         << " in line: "         << (*it).getLineName()
-                        << " heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
+                        // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
+                        // manual traversal currently passes in the same station for both args
+                        // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
+                        << " heuristic: "       << heuristic(stations, (*it).getStart(), (*it).getStart()) <<  "\n";
         }
 
         std::cout << "Enter the ID of the station you would like to travel to\n";
@@ -159,8 +162,6 @@ int main(int argc, char* argv[]) {
 	} while(c != -1);
 
 }
-
-
 
 void createTrips(){
     for(int i = 0; i < lines.size(); i++){

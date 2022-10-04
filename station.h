@@ -17,8 +17,7 @@ public:
 	Station();
 
 	// constructor
-	Station(int id, const std::string& inName, double lon, double LAT, const std::list<std::pair<std::string,int> >& inLines);
-    Station(int id, const std::string& inName, double lon, double lat);		// main contructor
+	Station(int id, const std::string& inName, double lon, double LAT, const std::list<std::pair<std::string,int> >& inLines = {});
 
 	// setters
 	void setTrips(const std::list<Trip>& inTrips);
@@ -43,7 +42,7 @@ public:
 private:
 	int id;
 	std::string name;
-	std::pair <double,double> cords;
+	std::pair<double,double> cords;
 	std::list<std::pair<std::string,int> > lines;
 	std::list<Trip> trips;
 	bool open;

@@ -4,30 +4,16 @@
 
 //                                          C O N S T R U C T O R S
 
-Station::Station(){
-	name = "NONE";
-    visited = false;
-}
+Station::Station(): name{"NONE"}, visited{false} {}
 
-Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int> >& inLines){
-	id = inId; // pop
-	name = inName;
-	cords.first = lat;
-	cords.second = lon;
-	lines = inLines;
-	open = true;				// defaults to open
-    visited = false;
-	//list has default constructor, so we should be good on this end
-}
-
-Station::Station(int inId, const std::string& inName, double lon, double lat){
-    id = inId; // pop
-    name = inName;
-    cords.first = lat;
-    cords.second = lon;
-    open = true;				// defaults to open
-    visited = false;
-    //list has default constructor, so we should be good on this end
+Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int> >& inLines):
+    id      {inId},
+    name    {inName},
+    cords   {lat, lon},
+    lines   {inLines},
+    open    {true},
+    visited {false}
+{//list has default constructor, so we should be good on this end
 }
 
 //                                          G E T T E R S
@@ -55,8 +41,8 @@ void Station::addLine(std::string inStr, int inIndex){
 }
 
 void Station::removeDups(){
-    for(std::list<Trip>::iterator iter1 = trips.begin(); iter1 != trips.end(); iter1++){
-        for(std::list<Trip>::iterator iter2 = iter1; iter2 != trips.end(); iter2++){
+    for(auto iter1 = trips.begin(); iter1 != trips.end(); iter1++){
+        for(auto iter2 = iter1; iter2 != trips.end(); iter2++){
             if( iter1->isDup(*iter2) ){
                iter2 = trips.erase(iter2);
             }
@@ -72,7 +58,7 @@ std::ostream& operator<<(std::ostream& os, const Station& s){
     os << "            ";
 
     std::list<Trip> t  = s.getTrips(); // local copy will be deleted
-    for(std::list<Trip>::iterator i = t.begin(); i != t.end(); i++){
+    for(auto i = t.begin(); i != t.end(); i++){
         os << "            "  << i->getStart()  << "------>" << i->getEnd()  << "   Type: " << i->getType() << std::endl;
     }
 

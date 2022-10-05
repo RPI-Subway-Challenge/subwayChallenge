@@ -37,7 +37,7 @@ void Station::addTrip(Trip& inTrip){
 }
 
 void Station::addLine(std::string inStr, int inIndex){
-    lines.push_back({inStr, inIndex});
+    lines.emplace_back(std::move(inStr), inIndex);
 }
 
 void Station::removeDups(){
@@ -57,11 +57,9 @@ std::ostream& operator<<(std::ostream& os, const Station& s){
     os << "            Trips";
     os << "            ";
 
-    std::list<Trip> t  = s.getTrips(); // local copy will be deleted
-    for(auto i = t.begin(); i != t.end(); i++){
-        os << "            "  << i->getStart()  << "------>" << i->getEnd()  << "   Type: " << i->getType() << std::endl;
+    for(const Trip &t: s.getTrips()){
+        os << "            "  << t.getStart()  << "------>" << t.getEnd()  << "   Type: " << t.getType() << std::endl;
     }
-
 
     return os;
 }

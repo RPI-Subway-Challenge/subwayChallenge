@@ -26,19 +26,20 @@ public:
 	// void removeTrip(Trip& t)									{trips.remove(t);}
 	void removeDups();
     void setVisited(bool inVisited)                             {visited = inVisited;}
+    void addLine(const std::pair<std::string, int>& line);
 
 	// getters
 	int getId() const 	 	 				    				{return id;}
-	std::string getName() const 		        				{return name;}
-    std::list<std::pair<std::string,int> > getLines() const	    {return lines;}
-    std::list<Trip> getTrips() const							{return trips;}
-	bool getOpen() const										{return open;}
-    bool isVisited() const                                      {return visited;};
+	const std::string &getName() const 		        			{return name;}
+    const std::list<std::pair<std::string,int>> &getLines() const
+	                                                            {return lines;}
+    const std::list<Trip> &getTrips() const						{return trips;}
+	bool isOpen() const											{return open;}
+    bool isVisited() const                                      {return visited;}
 	std::string getCordStr() const;
 
-    const std::pair<double, double>& getCords()const            {return cords;}
-    void addLine(const std::pair<std::string, int>& line);
-	
+    const std::pair<double, double>& getCords() const           {return cords;}
+
 private:
 	int id;
 	std::string name;

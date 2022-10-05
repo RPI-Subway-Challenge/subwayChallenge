@@ -171,3 +171,20 @@ int heuristic(std::vector<Station> & stations, int id){
 }
 
 
+Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime){
+    // This function takes the list for all station representation in main, start station, a trip object, and the current time.
+    // it is going to update the station traveled, currentTime, and return the station traveled to. It returns nullptr if error.
+
+    //first, check if the startStation is visited
+    if (startStation->isVisited() == false){
+        std::cerr<<"start station of a move is not visited, stationId: "<<startStation->getId()<<std::endl;
+        return nullptr;
+        }
+    
+    stations[tripTaken.getEnd()].setVisited(true); // set the end station as visited
+
+    currentTime += tripTaken.getDuration();
+
+    return &stations[tripTaken.getEnd()]; // return the pointer to the end station 
+}
+

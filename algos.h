@@ -6,4 +6,13 @@
 #define SUBWAYCHALLENGE_ALGOS_H
 double realDistance(const Station& s1,const Station& s2);
 int heuristic(std::vector<Station> & stations, int id);
+
+
+
+// Functions for transversal in main
+
+// This function perform the move from one station to another
+Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime);
+
+
 #endif //SUBWAYCHALLENGE_ALGOS_H

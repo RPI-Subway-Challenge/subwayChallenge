@@ -24,19 +24,19 @@ public:
 	void setLine(std::string inLineName);
 
 	// getters
-	int getStart()       						{return startIndex;}
-	int getEnd() 							    {return endIndex;}
-	int getDuration()							{return duration;}
-	std::string getLineName()					{return lineName;}
-	int getType()								{return type;}
-	bool isOpenWeekdays()						{return weekday.size();}
-	bool isOpenWeekends()						{return weekend.size();}
-	int isOpen(Time current)					{return (open && isOpenWeekdays() && isOpenWeekends());}
+	int getStart() const  						{return startIndex;}
+	int getEnd() const						    {return endIndex;}
+	int getDuration() const						{return duration;}
+	const std::string &getLineName() const		{return lineName;}
+	int getType() const							{return type;}
+	bool isOpenWeekdays() const					{return weekdayStart.size();}
+	bool isOpenWeekends() const					{return weekendStart.size();}
+	int isOpen(Time current) const				{return (open && isOpenWeekdays() && isOpenWeekends());}
 	Time timeToNextDeparture(Time current);		// only works on open stations
 	bool isDup(Trip& t);						// duplicate if all same but lineName
-	
+
 	// operators
-	bool operator > (Trip& xTrip)  ;
+	bool operator > (const Trip& xTrip) const;
 	bool operator == (const Trip& xTrip) const;
 
 private:
@@ -45,11 +45,10 @@ private:
 	int duration;
 	std::string lineName;
 	char type;						// method of transportation e.g. 0: subway, 1: walking, 2: bus
-	std::list<Time> weekday;		// when trains leave from start on weekdays
-	std::list<Time> weekend;		// when trains leave from start on weekends
+	std::list<Time> weekdayStart;	// when trains leave from start on weekdays
+	std::list<Time> weekendStart;	// when trains leave from start on weekends
 	bool open;
 };
-
 
 
 #endif

@@ -24,12 +24,11 @@ public:
 	std::string getName() const 		        				{return name;}
     int getStation(int index) const	                            {return lineVec[index];}
 	bool getOpen() const										{return open;}
-    int getNumStations() const                                  {return numStations;}
+    std::size_t getNumStations() const                          {return lineVec.size();}
 	
 
 private:
 	int id;
-    int numStations;
 	std::string name;
 	std::vector<int> lineVec;
 	bool open;

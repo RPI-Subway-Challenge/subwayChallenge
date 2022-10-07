@@ -10,18 +10,15 @@
 
 class Line{
 public:
-	// defualt constructor
-	Line();
-
 	// constructor
-	Line(int inID, const std::string& inName);
+	Line(int inID = -1, std::string inName = "");
 
 	// setters
 	void addStation(const int stationIndex);
 
 	// getters
 	int getId() const 	 	 				    				{return id;}
-	std::string getName() const 		        				{return name;}
+	const std::string &getName() const 		        			{return name;}
     int getStation(int index) const	                            {return lineVec[index];}
 	bool getOpen() const										{return open;}
     std::size_t getNumStations() const                          {return lineVec.size();}

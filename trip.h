@@ -45,8 +45,8 @@ private:
 	int duration;
 	std::string lineName;
 	char type;						// method of transportation e.g. 0: subway, 1: walking, 2: bus
-	std::list<Time> weekdayStart;	// when trains leave from start on weekdays
 	std::list<Time> weekendStart;	// when trains leave from start on weekends
+	std::list<Time> weekdayStart;	// when trains leave from start on weekdays
 	bool open;
 };
 

@@ -84,11 +84,11 @@ int main(int argc, char* argv[]) {
     while(stationData >> bitbucket){
         if(bitbucket == "Line:"){
             // feed into bitbucket
-            stationData >>  bitbucket;
+            stationData >> bitbucket;
             // increase the id
             stationId++;
             // push back into the line vector, matching with the Id.
-            lines.push_back(Line(stationId, bitbucket));
+            lines.emplace_back(stationId, bitbucket);
         }
         if(bitbucket == "index:"){
             //place index into bitbucket

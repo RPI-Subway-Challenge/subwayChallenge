@@ -36,6 +36,7 @@ public:
     const std::list<Trip> &getTrips() const						{return trips;}
 	bool isOpen() const											{return open;}
     bool isVisited() const                                      {return visited;}
+	int getHeuristic() const {return heuristic;}
 	std::string getCordStr() const;
 
     const std::pair<double, double>& getCords() const           {return cords;}
@@ -48,6 +49,7 @@ private:
 	std::list<Trip> trips;
 	bool open;
     bool visited;
+	int heuristic = 0;
 	// ? possibly operating hours
 };
 std::ostream& operator<<(std::ostream& os, const Station& s);

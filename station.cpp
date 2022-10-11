@@ -13,7 +13,7 @@ Station::Station(int inId, const std::string& inName, double lat, double lon, co
     lines   {inLines},
     open    {true},
     visited {false}
-{//list has default constructor, so we should be good on this end
+{ //list has default constructor, so we should be good on this end
 }
 
 //                                          G E T T E R S

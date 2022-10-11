@@ -125,32 +125,31 @@ int main(int argc, char* argv[]) {
     int curr;
     std::cin >> curr;
 
-    Station startStation;
     int timeTravel = 0;
 	do {
 
-
-        startStation = stations[curr];
-
-        startStation.setVisited(true); // the station is set as visited now
+        stations[curr].setVisited(true); // the station is set as visited now
         
         std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
         std::cout << "Enter -1 to quit\n";
-        std::cout << "Your current location is " << startStation.getName() << " with ID " << startStation.getId() << "\n";
+        std::cout << "Your current location is " << stations[curr].getName() << " with ID " << curr << "\n";
         std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
 
 
         // Printing out the possible trip you can take 
-        std::list<Trip> canGo = startStation.getTrips();
+        std::list<Trip> canGo = stations[curr].getTrips();
         std::list<Trip>::iterator it;
         for (it = canGo.begin(); it != canGo.end(); it++){
-
+        
             std::cout   << "\tStart ID: "    << (*it).getStart() 
                         << "    End ID: "    << (*it).getEnd() 
                         << "    Time: "       << (*it).getDuration()
                         << "    Line: "         << (*it).getLineName()  // ! what if its a walking route
                         << "    Visited: "         << stations[(*it).getEnd()].isVisited()
-                        << "    Heuristic: "       << heuristic(stations, (*it).getStart()) <<  "\n";
+                        // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
+                        // manual traversal currently passes in the same station for both args
+                        // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
+                        << "    Heuristic: "       << heuristic(stations, (*it).getStart(), (*it).getStart()) <<  "\n";
         }
 
         std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
@@ -176,8 +175,6 @@ int main(int argc, char* argv[]) {
 	} while(c != -1);
 
 }
-
-
 
 void createTrips(){
     for(int i = 0; i < lines.size(); i++){

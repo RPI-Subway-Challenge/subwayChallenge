@@ -22,7 +22,7 @@
 std::vector<Station> stations;
 std::vector<Line> lines;
 
-
+using std::size_t;
 
 void createTrips();
 
@@ -99,8 +99,8 @@ int main(int argc, char* argv[]) {
     }
 
     createTrips();
-    for( int i = 0; i != stations.size(); i++){
-        stations[i].removeDups();
+    for(auto &station: stations){
+        station.removeDups();
     }
 
     // printing method for varifying loading in data
@@ -177,8 +177,8 @@ int main(int argc, char* argv[]) {
 }
 
 void createTrips(){
-    for(int i = 0; i < lines.size(); i++){
-        for(int j = 0; j < lines[i].getNumStations()-1; j++){
+    for(size_t i = 0; i < lines.size(); i++){
+        for(size_t j = 0; j < lines[i].getNumStations()-1; j++){
             //get each station
             int stationOne =  lines[i].getStation(j);
             int stationTwo = lines[i].getStation(j+1);

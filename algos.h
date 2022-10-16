@@ -13,4 +13,7 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId);
 // This function perform the move from one station to another
 Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime);
 
+// This function compress continious station with only 2 neibhor station into one station object
+void branchReduction(std::vector<Station>& stations);
+
 #endif //SUBWAYCHALLENGE_ALGOS_H

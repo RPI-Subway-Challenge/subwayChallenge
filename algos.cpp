@@ -207,6 +207,7 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 }
 
 
+
 Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime){
     // This function takes the list for all station representation in main, start station, a trip object, and the current time.
     // it is going to update the station traveled, currentTime, and return the station traveled to. It returns nullptr if error.
@@ -224,3 +225,65 @@ Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip&
     return &stations[tripTaken.getEnd()]; // return the pointer to the end station 
 }
 
+int findstationTrip
+
+// This function compress continious station with only 2 neibhor station into one station object
+void branchReduction(std::vector<Station>& stations){
+    // if station is checked: modify_status[i] == true, and vice versa
+    std::vector<bool> checkedStatusVec(stations.size(), false);
+    for (int i=0; i<stations.size(); i++){
+        if(checkedStatusVec[i] == true){continue;} // we only loop at station hasn't checked
+        else{
+            // checking if this station is non-branching
+            bool nonBranching = false;
+            std::list<Trip>tripsOfThisStation = stations[i].getTrips();
+            if (stations[i].getNumTrainTrips > 2){// a non-branching station
+                checkedStatusVec[i] = true;
+                continue;       
+            }
+
+            // ------------------------- finding the entire reduceable branch -------------------------
+            // stations[i] could be reduced
+            std::vector<int> reducedLineVec = {i};
+            // move on one direction of the trip in tripsOfThisStation
+            int currStationId = i;
+            int nextStationToCheck = tripsOfThisStation[0].getEnd(); 
+            while (stations[i].getNumTrainTrips < 2){
+                checkedStatusVec[nextStationToCheck] = true;
+                // take the first trip in this currStation
+                reducedLineVec.push_back(nextStationToCheck);
+                currStationId = nextStationToCheck;
+                std::vector<Trip> tempTripVec = stations[currStationId].getTrips;
+                if (tempTripVec[0].getEnd() == currStationId){ // if the first trip is not the one we want
+                    nextStationToCheck = tempTripVec[1].getEnd();
+                }
+                else{
+                    nextStationToCheck = tempTripVec[0].getEnd();
+                }
+            }
+
+            if (tripsOfThisStation.size() == 2){ // if the station is has another dir (avoid i being a end station)
+                // move on the other direction of the trip in tripsOfThisStation
+                currStationId = i;
+                nextStationToCheck = tripsOfThisStation[1].getEnd(); 
+                while (stations[i].getNumTrainTrips < 2){
+                    checkedStatusVec[nextStationToCheck] = true;
+                    // take the first trip in this currStation
+                    reducedLineVec.push_back(nextStationToCheck);
+                    currStationId = nextStationToCheck;
+                    std::vector<Trip> tempTripVec = stations[currStationId].getTrips;
+                    if (tempTripVec[0].getEnd() == currStationId){ // if the first trip is not the one we want
+                        nextStationToCheck = tempTripVec[1].getEnd();
+                    }
+                    else{
+                        nextStationToCheck = tempTripVec[0].getEnd();
+                    }
+                }
+            }
+            // we don't want to compress the station now, we leavel it until the end of the function
+        }
+    }
+    // ------------------------- compressing the branch -------------------------
+    // TODO: compress the all reducedLineVec into one station object (or add them in to a vector of vector first),
+    // then delete the original station object
+}

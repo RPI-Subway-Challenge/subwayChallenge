@@ -137,6 +137,63 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
 
 // }
 
+//PROPAGATION NOT IMPLEMENTED. HELPER FUNCTION NEEDED FOR PROPAGATION. VVVVVVVVV
+//New version of heuristics function (to be used in combination with UCS)
+//Changes heuristic value of current station and all neighboring 
+// connected stations
+void heuristic(std::vector<Station> & stations, int currId) {
+    const int penaltyVal = 1;
+    std::list<Trip> trips = stations[currId].getTrips();
+    std::list<Trip>::iterator iterT;
+
+    // -> branch stations are hard coded from north-west station clockwise
+    // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
+    int branchStarts[] = {
+        26 //3rd Ave - 138th St
+    };
+
+    //Iterate through all neighboring stations
+    for(iterT = trips.begin(); iterT != trips.end(); iterT++){
+        //Penalize neighbors for being already visited
+        if (stations[iterT->getEnd()].isVisited() == true) {
+            stations[iterT->getEnd()].addHeuristic(penaltyVal);
+        }
+        
+        //Penalize neighbors if they are not in the same line
+        std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
+        std::list<std::pair<std::string,int>>::iterator iterCurr;
+        std::list<std::pair<std::string,int>> nextLines = stations[iterT->getEnd()].getLines();
+        std::list<std::pair<std::string,int>>::iterator iterNext;
+        bool sameLine;
+        //Loop through all lines for the current station
+        for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+            //Loop through all lines for the neighboring station
+            for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+                //Check if there is a matching line
+                if (iterCurr->first == iterNext->first) {
+                    sameLine = true;
+                    break;
+                }
+            }
+            //Skip checking the rest of the current stations
+            if (sameLine) {
+                break;
+            }
+        }
+        if (!sameLine) {
+            stations[iterT->getEnd()].addHeuristic(penaltyVal);
+        }
+
+        //Penalize neighbors if entering a dead end branch
+        for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+            if (branchStarts[i] == iterT->getEnd()) {
+                stations[iterT->getEnd()].addHeuristic(penaltyVal);
+            }
+        }
+    }
+}
+
+//PREVIOUS VERSION OF HEURISTICS FUNCTION (still used in main)
 // takes current station id and next station id
 //      and returns heuristic value for the next station to visit
 // Lower value is better than higher value (arbitrary penalty value)

@@ -66,8 +66,8 @@ UCSResult<EdgeMap, CostMap> ucs(const GraphT &g, const NodeT &src) {
     EdgeMap edgeTo; /* TODO initialize */
     CostMap costTo; /* TODO initialize */
     std::priority_queue<NodeT, std::vector<NodeT>,
-        decltype([] (const NodeT &n1, const NodeT &n2) {
-            return n1 < n2; /* TODO capture costTo and compare by cost */
+        decltype([&] (const NodeT &n1, const NodeT &n2) {
+            return costTo[n1] < costTo[n2];
         })>
         pq;
     ucs(g, src, edgeTo, costTo, pq);

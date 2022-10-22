@@ -9,10 +9,10 @@ class Time{
 public:
 
 	// default constructor
-	Time();
+	Time() = default;
 
 	// constructor
-	Time(int inputDay, int inputHour, int inputMin);
+	Time(unsigned inputDay, unsigned inputHour, double inputMin);
 
     // string constructor
     Time(const std::string& inputDay, const std::string& inputHour, const std::string& inputMin);
@@ -24,22 +24,26 @@ public:
     void setMin(double inputMin)			{min = inputMin;}
 
 	// getters
-	unsigned int getDay()	{return day;}
-    unsigned int getHour()	{return hour;}
-    unsigned int getMin()	{return (int)min;}
-    double getMinSec() 		{return min;}
-	bool isWeekday()		{return (day <= 4);}
-	bool isWeekend()		{return !(day > 4);}		
+	unsigned int getDay()	const {return day;}
+    unsigned int getHour()	const {return hour;}
+    unsigned int getMin()	const {return (int)min;}
+    double getMinSec() 		const {return min;}
+	bool isWeekday()		const {return (day <= 4);}
+	bool isWeekend()		const {return !(day > 4);}		
 
 	// operators
-	Time operator + (Time& xTime);
-	Time operator - (Time& xTime);
-	bool operator > (Time& xTime);
-	bool operator == (Time& xTime);
+	bool operator==(const Time& xTime) const;
 
 private:
-	unsigned int day;	// 0-6 representing Sun-Sat	
-	unsigned int hour;	// 24 hour format
-    double min;
+	unsigned int day{};	// 0-6 representing Sun-Sat	
+	unsigned int hour{};	// 24 hour format
+    double min{};
 };
+
+// operators
+Time operator+(const Time &, const Time &);
+Time operator-(const Time &, const Time &);
+bool operator>(const Time &, const Time &);
+bool operator<(const Time &, const Time &);
+
 #endif

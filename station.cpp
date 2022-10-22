@@ -6,11 +6,11 @@
 
 Station::Station(): name{"NONE"}, visited{false} {}
 
-Station::Station(int inId, const std::string& inName, double lat, double lon, const std::list<std::pair<std::string,int> >& inLines):
+Station::Station(int inId, std::string inName, double lon, double lat, std::list<std::pair<std::string,int>> inLines):
     id      {inId},
-    name    {inName},
-    cords   {lat, lon},
-    lines   {inLines},
+    name    {std::move(inName)},
+    cords   {lon, lat},
+    lines   {std::move(inLines)},
     open    {true},
     visited {false}
 {//list has default constructor, so we should be good on this end
@@ -23,17 +23,17 @@ std::string Station::getCordStr() const {
 }
 
 
-void Station::addLine(const std::pair<std::string, int> &line) {
-    lines.push_back(line);
+void Station::addLine(std::pair<std::string, int> line) {
+    lines.push_back(std::move(line));
 }
 
 
-void Station::setTrips(const std::list<Trip>& inTrips){
-	trips = inTrips;
+void Station::setTrips(std::list<Trip> inTrips){
+	trips = std::move(inTrips);
 }
 
-void Station::addTrip(Trip& inTrip){
-    trips.push_back(inTrip);
+void Station::addTrip(Trip inTrip){
+    trips.push_back(std::move(inTrip));
 }
 
 void Station::addLine(std::string inStr, int inIndex){

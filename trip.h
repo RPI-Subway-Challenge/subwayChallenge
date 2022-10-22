@@ -33,11 +33,10 @@ public:
 	bool isOpenWeekends() const					{return weekendStart.size();}
 	int isOpen(Time current) const				{return (open && isOpenWeekdays() && isOpenWeekends());}
 	Time timeToNextDeparture(Time current);		// only works on open stations
-	bool isDup(Trip& t);						// duplicate if all same but lineName
+	bool isDup(const Trip& t);						// duplicate if all same but lineName
 
 	// operators
-	bool operator > (const Trip& xTrip) const;
-	bool operator == (const Trip& xTrip) const;
+	bool operator==(const Trip& xTrip) const;
 
 private:
 	int startIndex;                 // index of station at start & end, simplier than pointers
@@ -50,5 +49,7 @@ private:
 	bool open;
 };
 
+bool operator<(const Trip &, const Trip &);
+bool operator>(const Trip &, const Trip &);
 
 #endif

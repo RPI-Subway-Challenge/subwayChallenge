@@ -14,7 +14,7 @@ public:
 	Line();
 
 	// constructor
-	Line(int inID, const std::string& inName);
+	Line(int inID, std::string inName);
 
 	// setters
 	void addStation(const int stationIndex);

@@ -39,7 +39,7 @@ void Trip::updateTrip(char inType, int inDuration){
 	duration = inDuration;
 }
 
-Time Trip::timeToNextDeparture(Time current){
+Time Trip::timeToNextDeparture(Time current) const {
 	// only works if called on open trip
 	return std::min(
 		*std::min_element(weekdayStart.begin(), weekdayStart.end()),
@@ -48,7 +48,7 @@ Time Trip::timeToNextDeparture(Time current){
 }
 
 // duplicate if all same but lineName
-bool Trip::isDup(const Trip& t){
+bool Trip::isDup(const Trip& t) const {
 	if( this->getStart()==t.getStart() && this->getEnd()==t.getEnd() && this->getDuration()==t.getDuration() && this->getType()==t.getType() ){
 		if( lineName != t.getLineName() ){
 			return true;

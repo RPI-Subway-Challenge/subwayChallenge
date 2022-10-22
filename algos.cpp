@@ -54,11 +54,11 @@ std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Stati
 
 
 // takes vector of pairs walkable and returns index with longest distance
-auto findLongest(const std::vector<std::pair<int,double>> &walkable){
-    return std::distance(walkable.begin(),
+size_t findLongest(const std::vector<std::pair<int,double>> &walkable){
+    return static_cast<size_t>(std::distance(walkable.begin(),
         std::ranges::max_element(walkable,
             [] (const auto &x, const auto &y) {return x.second < y.second;}
-        ));
+        )));
 }
 
 
@@ -67,8 +67,8 @@ auto findLongest(const std::vector<std::pair<int,double>> &walkable){
 // O(x*num of stations) for single station
 std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x, std::vector<Station> & stationVec){
 
-    std::vector<std::pair<int,double>> walkable(x);      // pair < neighborIndex, distance >
-    size_t longest = 0;                                     // index in walkable of farthest away neighbor
+    std::vector<std::pair<int,double>> walkable(x); // pair < neighborIndex, distance >
+    size_t longest = 0; // index in walkable of farthest away neighbor
 
     if(x < 1){std::cerr << "ERROR: X in walkableNumber must be >= 1\n"; return walkable;}
 

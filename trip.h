@@ -32,8 +32,8 @@ public:
 	bool isOpenWeekdays() const					{return weekdayStart.size();}
 	bool isOpenWeekends() const					{return weekendStart.size();}
 	int isOpen(Time current) const				{return (open && isOpenWeekdays() && isOpenWeekends());}
-	Time timeToNextDeparture(Time current);		// only works on open stations
-	bool isDup(const Trip& t);						// duplicate if all same but lineName
+	Time timeToNextDeparture(Time current) const;		// only works on open stations
+	bool isDup(const Trip& t) const;					// duplicate if all same but lineName
 
 	// operators
 	bool operator==(const Trip& xTrip) const;
@@ -42,7 +42,7 @@ private:
 	int startIndex;                 // index of station at start & end, simplier than pointers
 	int endIndex;
 	int duration;
-	std::string lineName;
+	std::string lineName; /* TODO warning inefficient memory consumption */
 	char type;						// method of transportation e.g. 0: subway, 1: walking, 2: bus
 	std::list<Time> weekdayStart;	// when trains leave from start on weekdays
 	std::list<Time> weekendStart;	// when trains leave from start on weekends

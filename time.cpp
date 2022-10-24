@@ -1,5 +1,6 @@
-#include "time.h"
 #include <string>     // std::string, std::stoi
+#include <algorithm>
+#include "time.h"
 
 Time::Time(unsigned inputDay, unsigned inputHour, double inputMin):
     day {inputDay},

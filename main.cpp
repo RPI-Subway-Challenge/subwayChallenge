@@ -1,16 +1,16 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
-#include "station.h"
-#include "time.h"
-#include "assert.h"
-#include "algos.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <cmath>
-#include <iostream>
 #include <sstream>
+
 #include "line.h"
+#include "station.h"
+#include "time.h"
+#include "algos.h"
+
 
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street

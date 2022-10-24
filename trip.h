@@ -3,8 +3,8 @@
 #ifndef trip_h_
 #define trip_h_
 
-#include "time.h"
 #include <list>
+#include "time.h"
 
 
 class Trip{

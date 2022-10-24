@@ -3,12 +3,10 @@
 #ifndef station_h_
 #define station_h_
 
-#include "trip.h"
+
 #include <utility>	// pair
 #include <vector>
-#include "time.h"
-#include "set"
-
+#include "trip.h"
 
 
 class Station{

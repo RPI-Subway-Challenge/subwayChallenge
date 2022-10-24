@@ -1,7 +1,8 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
-#include "trip.h"
 #include <algorithm>
+#include "trip.h"
+
 
 //												C O N S T R U C T O R S
 Trip::Trip(): startIndex{-1}, endIndex{-1} {}

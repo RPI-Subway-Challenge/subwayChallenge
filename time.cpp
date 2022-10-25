@@ -54,7 +54,7 @@ Time operator-(const Time &t0, const Time &t1){
     if(newDay < 0){
         newDay += 7;
     }
-    return Time(newDay, newHour, newMin);
+    return {newDay, newHour, newMin};
 }
 
 template<template <class T> class Cmp>

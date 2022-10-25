@@ -1,28 +1,25 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
-#include "station.h"
-#include "time.h"
-#include "assert.h"
-#include "algos.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <cmath>
-#include <iostream>
 #include <sstream>
+
 #include "line.h"
+#include "station.h"
+#include "time.h"
+#include "algos.h"
+
 
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
-
-// compile:		g++ *.cpp -o main.out
-// run:			./main.out data.txt lineData.txt
 
 
 std::vector<Station> stations;
 std::vector<Line> lines;
 
-
+using std::size_t;
 
 void createTrips();
 
@@ -63,13 +60,11 @@ int main(int argc, char* argv[]) {
             latitude.erase(0, 1);
             latitude.erase(latitude.size() - 2);
 
-            stations.push_back(Station(id, stationName,std::stod(longitude), std::stod(latitude)));
+            stations.push_back({id, stationName, std::stod(longitude), std::stod(latitude)});
             id++;
         }
         file.close();
     }
-
-    static unsigned int NUMBER_OF_STATIONS = stations.size(); 
 
     // im just using the normal read in method for C++, so will differ from above
     // bitbucket for collecting all strings
@@ -78,17 +73,13 @@ int main(int argc, char* argv[]) {
 
 
     std::ifstream stationData(argv[2]);
-    // start at -1 so that we can increment here.
-    int stationId = -1;
 
-    while(stationData >> bitbucket){
+    for(int stationId = -1; stationData >> bitbucket;){
         if(bitbucket == "Line:"){
             // feed into bitbucket
-            stationData >>  bitbucket;
-            // increase the id
-            stationId++;
+            stationData >> bitbucket;
             // push back into the line vector, matching with the Id.
-            lines.push_back(Line(stationId, bitbucket));
+            lines.push_back({++stationId, bitbucket});
         }
         if(bitbucket == "index:"){
             //place index into bitbucket
@@ -99,8 +90,8 @@ int main(int argc, char* argv[]) {
     }
 
     createTrips();
-    for( int i = 0; i != stations.size(); i++){
-        stations[i].removeDups();
+    for(auto &station: stations) {
+        station.removeDups();
     }
 
     // printing method for varifying loading in data
@@ -138,18 +129,17 @@ int main(int argc, char* argv[]) {
 
         // Printing out the possible trip you can take 
         std::list<Trip> canGo = stations[curr].getTrips();
-        std::list<Trip>::iterator it;
-        for (it = canGo.begin(); it != canGo.end(); it++){
+        for (const auto &trip: canGo){
         
-            std::cout   << "\tStart ID: "    << (*it).getStart() 
-                        << "    End ID: "    << (*it).getEnd() 
-                        << "    Time: "       << (*it).getDuration()
-                        << "    Line: "         << (*it).getLineName()  // ! what if its a walking route
-                        << "    Visited: "         << stations[(*it).getEnd()].isVisited()
+            std::cout   << "\tStart ID: "    << trip.getStart() 
+                        << "    End ID: "    << trip.getEnd() 
+                        << "    Time: "       << trip.getDuration()
+                        << "    Line: "         << trip.getLineName()  // ! what if its a walking route
+                        << "    Visited: "         << stations[trip.getEnd()].isVisited()
                         // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
                         // manual traversal currently passes in the same station for both args
                         // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
-                        << "    Heuristic: "       << heuristic(stations, (*it).getStart(), (*it).getStart()) <<  "\n";
+                        << "    Heuristic: "       << heuristic(stations, trip.getStart(), trip.getStart()) <<  "\n";
         }
 
         std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
@@ -157,9 +147,9 @@ int main(int argc, char* argv[]) {
 
         if (c != -1) {
             bool isInputValid = false; // used to check if user's choice is a trip option suggested
-            for (it = canGo.begin(); it != canGo.end(); it++){
-                if ((*it).getEnd() == c) {
-                    timeTravel += (*it).getDuration();
+            for (const auto &trip: canGo){
+                if (trip.getEnd() == c) {
+                    timeTravel += trip.getDuration();
                     isInputValid = true;
                     break;
                 }
@@ -177,11 +167,11 @@ int main(int argc, char* argv[]) {
 }
 
 void createTrips(){
-    for(int i = 0; i < lines.size(); i++){
-        for(int j = 0; j < lines[i].getNumStations()-1; j++){
+    for(const auto &line: lines){
+        for(size_t i = 0; i < line.getNumStations()-1; i++){
             //get each station
-            int stationOne =  lines[i].getStation(j);
-            int stationTwo = lines[i].getStation(j+1);
+            int stationOne =  line.getStation(i);
+            int stationTwo = line.getStation(i+1);
             double distance = realDistance(stations[stationOne],stations[stationTwo]);
 
             double duration = (1.2*60*distance)/17.4; // arbitrary until we figure out normal speed
@@ -189,16 +179,14 @@ void createTrips(){
             Trip f (stationOne, stationTwo, duration, 't');
             Trip b (stationTwo, stationOne, duration, 't');
 
-            f.setLine(lines[i].getName());
-            b.setLine(lines[i].getName());
+            f.setLine(line.getName());
+            b.setLine(line.getName());
 
             // add trips to the first station.
             stations[stationOne].addTrip(f);
             stations[stationTwo].addTrip(b);
 
-            stations[stationOne].addLine(lines[i].getName(), i);
+            stations[stationOne].addLine(line.getName(), i);
         }
     }
-
 }
-

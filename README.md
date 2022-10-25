@@ -4,10 +4,11 @@
 Uses A* to find optimal path through representation of New York City subway system. Data provided by MTA & webscraped from Google Maps. Written in C++ and Python. The current apporach is to start at the previous record holder's([Matthew Ahn](https://en.wikipedia.org/wiki/Matthew_Ahn)) start location and time; Far Rockaway-Mott Ave at 2am on a Sunday - there may be a better starting location.
 
 
-## Build and run
-
-* compile:		g++ *.cpp -o main.out
-* run:			./main.out data.txt lineData.txt
+* Compile:
+	* Release: g++ *.cpp -O2 -std=c++20 -o main.out
+	* Debug: g++ *.cpp -g -std=c++20 -o main.out -Wall
+* Run:
+	* ./main.out data.txt lineData.txt
 
 
 ## Notes:

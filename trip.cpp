@@ -1,6 +1,8 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 
+#include <algorithm>
 #include "trip.h"
+
 
 //												C O N S T R U C T O R S
 Trip::Trip(): startIndex{-1}, endIndex{-1} {}
@@ -38,27 +40,16 @@ void Trip::updateTrip(char inType, int inDuration){
 	duration = inDuration;
 }
 
-Time Trip::timeToNextDeparture(Time current){
+Time Trip::timeToNextDeparture(Time current) const {
 	// only works if called on open trip
-	
-	std::list<Time>::iterator weekday_it = weekdayStart.begin();
-	Time ClosestTime = *weekday_it;
-	for(std::list<Time>::iterator weekday_it = weekdayStart.begin(); weekday_it != weekdayStart.end(); ++weekday_it){
-		if (ClosestTime > *weekday_it){
-			ClosestTime = *weekday_it;
-		}
-	}
-	for(std::list<Time>::iterator weekend_it = weekendStart.begin(); weekend_it != weekendStart.end(); ++weekend_it){
-		if (ClosestTime > *weekend_it){
-			ClosestTime = *weekend_it;
-		}
-	}
-
-	return ClosestTime;
+	return std::min(
+		*std::min_element(weekdayStart.begin(), weekdayStart.end()),
+		*std::min_element(weekendStart.begin(), weekendStart.end())
+	);
 }
 
 // duplicate if all same but lineName
-bool Trip::isDup(Trip& t){
+bool Trip::isDup(const Trip& t) const {
 	if( this->getStart()==t.getStart() && this->getEnd()==t.getEnd() && this->getDuration()==t.getDuration() && this->getType()==t.getType() ){
 		if( lineName != t.getLineName() ){
 			return true;
@@ -70,11 +61,21 @@ bool Trip::isDup(Trip& t){
 
 //												O P E R A T O R S
 
-bool Trip::operator > (const Trip& xTrip) const {
-	// currently only comparing time, but should consider cost and other variables in future iterations
-	return this->getDuration() > xTrip.getDuration();
-}
-bool Trip::operator== (const Trip& xTrip) const {
+bool Trip::operator==(const Trip& xTrip) const {
 	return (startIndex == xTrip.startIndex && endIndex == xTrip.endIndex &&
 		duration == xTrip.duration && type == xTrip.type);
-};
+}
+
+template<template <class T> class Cmp>
+bool cmpOpHelper(const Trip &t0, const Trip &t1) {
+	// TODO currently only comparing time, but should consider cost and other variables in future iterations
+	return Cmp{}(t0.getDuration(), t1.getDuration());
+}
+
+bool operator>(const Trip& t0, const Trip& t1) {
+	return cmpOpHelper<std::greater>(t0, t1);
+}
+
+bool operator<(const Trip& t0, const Trip& t1) {
+	return cmpOpHelper<std::less>(t0, t1);
+}

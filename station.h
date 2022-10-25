@@ -38,6 +38,7 @@ public:
 	bool isOpen() const											{return open;}
     bool isVisited() const                                      {return visited;}
 	bool isReduced() const                                      {return reduced;}
+	int getHeuristic() const {return heuristic;}
 	std::string getCordStr() const;
 	int getNumTrainTrips() const;
 
@@ -51,6 +52,7 @@ private:
 	std::list<Trip> trips;
 	bool open;
     bool visited;
+	int heuristic = 0;
 	bool reduced; // reduced = true if this station is an reduced station
 	// ? possibly operating hours
 };

@@ -231,6 +231,9 @@ int findstationTrip
 void branchReduction(std::vector<Station>& stations){
     // if station is checked: modify_status[i] == true, and vice versa
     std::vector<bool> checkedStatusVec(stations.size(), false);
+    // a vector of vector represent all reduction that could be done
+    std::vector<std::vector<int>> reducibleVecVec;
+
     for (int i=0; i<stations.size(); i++){
         if(checkedStatusVec[i] == true){continue;} // we only loop at station hasn't checked
         else{
@@ -276,14 +279,156 @@ void branchReduction(std::vector<Station>& stations){
                         nextStationToCheck = tempTripVec[1].getEnd();
                     }
                     else{
-                        nextStationToCheck = tempTripVec[0].getEnd();
+                        nextStationToCheck = tempTripVec[0].getEnd(); 
                     }
                 }
             }
-            // we don't want to compress the station now, we leavel it until the end of the function
+            reducibleVecVec.pushback(reducedLineVec); // add the reduced line to the vector of vector for reduction at the end
         }
     }
     // ------------------------- compressing the branch -------------------------
-    // TODO: compress the all reducedLineVec into one station object (or add them in to a vector of vector first),
-    // then delete the original station object
+    for (int i=0; i<reducibleVecVec.size(); i++){
+        // ---------------------find the ends of the branch------------------
+        int endId1=-1; // if endId1 == -1, it means we haven't found the the frist end yet
+        int endId2=-1; // if endId2 == -1, it means we haven't found the the second end yet or it goes to the end of the line
+        int endId1Prev=-1; // if endId1Prev == -1, it means we haven't found the the frist end yet
+        int endId2Prev=-1; // if endId2Prev == -1, it means we haven't found the the second end yet, or it goes to the end of the line
+
+        for (int j=0; j<reducibleVecVec[i].size(); j++){
+            bool isEnd = false;
+            int currStationId = reducibleVecVec[i][j];
+
+            // debug purpose----------------
+            if (stations[currStationId].getNumTrainTrips() > 2){ 
+                std::cerr<<"error in branchReduction, station has more than 2 trips"<<std::endl;
+                return;
+            }
+            // -----------------------------
+
+            int tempEndPrev;
+            // all station in reducibleVecVec[i] are non-branching station, so they have at most 2 trips
+            if (find (reducibleVecVec[i].begin(), reducibleVecVec[i].end(), stations[currStationId].getTrips()[0].getEnd()) == reducibleVecVec[i].end()){
+                tempEndPrev = stations[currStationId].getTrips()[0].getEnd(); 
+                isEnd = true;
+            }
+            else if (stations[currStationId].getNumTrainTrips() == 1 || find (reducibleVecVec[i].begin(), reducibleVecVec[i].end(), stations[currStationId].getTrips()[1].getEnd()) == reducibleVecVec[i].end()){
+                tempEndPrev = stations[currStationId].getTrips()[1].getEnd();
+                isEnd = true;
+            }
+
+            if (isEnd){
+                if (endId1 == -1){
+                    endId1 = currStationId;
+                    endId1Prev = tempEndPrev;
+                }
+                else{
+                    endId2 = currStationId;
+                    endId2Prev = tempEndPrev;
+                    break; // we have found both ends, break the loop
+                }
+            }
+        }
+
+        // --------calculate the time required to complete the trip---------
+        int timeRequired = 0;
+        // we start taking transit at the endId1 and calculate the time required to get to endId2
+        int currStationId = endId1;
+        int prevStationId = endId1;
+        int nextStationId = -1;
+
+        if (find (reducibleVecVec[i].begin(), reducibleVecVec[i].end(), stations[currStationId].getTrips()[0].getEnd()) == reducibleVecVec[i].end()){
+            prevStationId = stations[currStationId].getTrips()[0].getEnd();
+        }
+        else if (stations[currStationId].getNumTrainTrips() == 1 || find (reducibleVecVec[i].begin(), reducibleVecVec[i].end(), stations[currStationId].getTrips()[1].getEnd()) == reducibleVecVec[i].end()){
+            prevStationId = stations[currStationId].getTrips()[1].getEnd();
+        }
+        for (int j=0; j<reducibleVecVec[i].size(); j++){
+            // debug purpose----------------
+            if (stations[currStationId].getNumTrainTrips() > 2){ 
+                std::cerr<<"error in branchReduction, station has more than 2 trips"<<std::endl;
+                return;
+            }
+            // -----------------------------
+
+            // move to next station and update timeRequired
+            if (stations[currStationId].getNumTrainTrips() == 1){ // if it's the end of the line
+                break; // we have reached the end of the line
+            }
+            else if (stations[currStationId].getTrips()[0].getEnd() == prevStationId){
+                if (stations[currStationId].getTrips()[0].getEnd() == endId2){
+                    break; // we reached the end of the reducible branch
+                }
+                nextStationId = stations[currStationId].getTrips()[1].getEnd();
+                timeRequired += stations[currStationId].getTrips()[1].getDuration();
+            }
+            else{
+                if (stations[currStationId].getTrips()[1].getEnd() == endId2){
+                    break; // we reached the end of the reducible branch
+                }
+                nextStationId = stations[currStationId].getTrips()[0].getEnd();
+                timeRequired += stations[currStationId].getTrips()[0].getDuration();
+            }
+
+            // update prevStationId and currStationId
+            prevStationId = currStationId;
+            currStationId = nextStationId;  
+        }
+
+        // ---------------------create the new station----------------------
+        std::string newStationName;
+        int newStationId = endId1;
+        
+        if (endId2 == -1){ // if the branch is going to the end of the line
+             newStationName = stations[endId1].getName() + "-End of Line";
+        }
+        else{
+            newStationName = stations[endId1].getName() + "-" + stations[endId2].getName();
+        }
+
+        Station newStation(newStationName, newStationId, timeRequired); // new station is created
+
+        // ---------------------create the new trip----------------------
+        int timeRequiredToEndPrev1 = -1;
+        for (int j=0; j<stations[endId1].getTrips().size(); j++){
+            if (stations[endId1].getTrips()[j].getEnd() == endId1Prev){
+                timeRequiredToEndPrev1 = stations[endId1].getTrips()[j].getDuration();
+                break;
+            }
+        }
+        // for debug purpose ----------------
+        if (timeRequiredToEndPrev1 == -1){
+            std::cerr<<"error in branchReduction, can't find the time required to endId1Prev"<<std::endl;
+            return;
+        }
+        // ----------------------------------
+        Trip tripToEndPrev1(endId1, endId1Prev, timeRequiredToEndPrev1);
+        if (endId2 != -1){ // if the branch is not going to the end of the line
+            int timeRequiredToEndPrev2 = -1;
+            for (int j=0; j<stations[endId2].getTrips().size(); j++){
+                if (stations[endId2].getTrips()[j].getEnd() == endId2Prev){
+                    timeRequiredToEndPrev2 = stations[endId2].getTrips()[j].getDuration();
+                    break;
+                }
+            }
+            // for debug purpose ----------------
+            if (timeRequiredToEndPrev2 == -1){
+                std::cerr<<"error in branchReduction, can't find the time required to endId2Prev"<<std::endl;
+                return;
+            }
+            // ----------------------------------
+            Trip tripToEndPrev2(endId2, endId2Prev, timeRequiredToEndPrev2);
+            stations[newStationId].addTrip(tripToEndPrev2);
+        }
+
+        stations[newStationId].addTrip(tripToEndPrev1);
+        if (endId2 != -1){ // if the branch is not going to the end of the line
+            Trip tripToEnd2(newStationId, endId2, timeRequired);
+            stations[endId2].addTrip(tripToEnd2);
+        }
+
+        // ---------------------remove the reduced stations----------------------
+        for (int j=0; j<reducibleVecVec[i].size(); j++){
+            stations.erase(reducibleVecVec[i][j]);
+        }
+    }
 }

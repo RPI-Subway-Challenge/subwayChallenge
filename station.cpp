@@ -12,7 +12,8 @@ Station::Station(int inId, std::string inName, double lon, double lat, std::list
     cords   {lon, lat},
     lines   {std::move(inLines)},
     open    {true},
-    visited {false}
+    visited {false},
+    reduced {false}
 {//list has default constructor, so we should be good on this end
 }
 
@@ -23,8 +24,19 @@ std::string Station::getCordStr() const {
 }
 
 
-void Station::addLine(std::pair<std::string, int> line) {
-    lines.push_back(std::move(line));
+int getNumTrainTrips() const {
+    int TrainTripCount = 0;
+    for (std::list<Trip> it = trips.begin(); it != trips.end(); ++it) {
+        if (it->getType() == "t") {
+            TrainTripCount++;
+        }
+    }
+    return TrainTripCount;
+}
+
+
+void Station::addLine(const std::pair<std::string, int> &line) {
+    lines.push_back(line);
 }
 
 

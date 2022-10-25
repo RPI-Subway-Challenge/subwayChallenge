@@ -121,6 +121,7 @@ void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
             weekendsTimes.push_back(Time(j, i, 0));
         }
     }
+    // ! ARE WE MAKING WALKING TRIPS?
     // create trips for each station to their walkable stations
     for(int i=0; i<stationVec.size(); i++){
         std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
@@ -204,6 +205,40 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 
 
     return sum;
+}
+
+
+// List[(tripString, stationID)] 
+std::list<std::pair<int, std::string>> greedy(std::vector<Station> & stationVec){
+
+    int current = 54;
+    int visitedCount = 1;
+    std::list<std::pair<int,std::string>> route;
+
+    // while not goal case
+    while(visitedCount != stationVec.size()){
+
+        // store info on cheapest trip
+        int minDuration = INT_MAX;
+        std::string bestTrip = "NONE";
+        int bestStation = -1;
+        // look at trips 
+        std::list<Trip> trips = stationVec[current].getTrips();
+        for(std::list<Trip>::iterator iter = trips.begin(); iter != trips.end(); ++iter){
+            if(iter->getDuration() < minDuration){
+                minDuration = iter->getDuration();
+                bestTrip = iter->getType() + iter->getLineName();
+            }
+        }
+
+        route.push_back(std::make_pair(bestTrip, bestStation));
+        current = bestStation;
+        if(stationVec[current].isVisited() == false){
+            stationVec[current]++;
+            stationVec[current].setVisited();
+        }
+    }
+
 }
 
 

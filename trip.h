@@ -28,7 +28,7 @@ public:
 	int getEnd() const						    {return endIndex;}
 	int getDuration() const						{return duration;}
 	const std::string &getLineName() const		{return lineName;}
-	int getType() const							{return type;}
+	char getType() const						{return type;}
 	bool isOpenWeekdays() const					{return weekdayStart.size();}
 	bool isOpenWeekends() const					{return weekendStart.size();}
 	int isOpen(Time current) const				{return (open && isOpenWeekdays() && isOpenWeekends());}

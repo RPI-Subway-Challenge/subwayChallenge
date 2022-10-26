@@ -6,6 +6,7 @@
 #define SUBWAYCHALLENGE_ALGOS_H
 
 #include <vector>
+#include <queue>
 #include "station.h"
 
 double realDistance(const Station& s1, const Station& s2);

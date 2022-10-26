@@ -1,19 +1,20 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 #include <iostream>
 #include <cmath>
-#include "station.h"
 #include <queue>
 #include <set>
 #include <utility>
-#include<unordered_map>
+#include <unordered_map>
+#include <algorithm>
+#include "station.h"
 
-typedef std::pair<Station, int > pair;
+using std::size_t;
 
 // return manhattan distance between two stations
-double manhattanDistance(Station s1, Station s2){
+double manhattanDistance(const Station &s1, const Station &s2){
     double diffX = std::abs( s1.getCords().first - s2.getCords().first );
     double diffY = std::abs( s1.getCords().second - s2.getCords().second );
-    return diffX+diffY;
+    return diffX + diffY;
 }
 
 // Return actual distance (in MILES) between two stations
@@ -21,11 +22,9 @@ double manhattanDistance(Station s1, Station s2){
 //  3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
 //  .first  gives longitude
 //  .second gives latitude
-double realDistance(const Station& s1,const Station& s2){
-    double lat1 = s1.getCords().second;
-    double lat2 = s2.getCords().second;
-    double long1 = s1.getCords().first;
-    double long2 = s2.getCords().first;
+double realDistance(const Station& s1, const Station& s2){
+    auto [long1, lat1] = s1.getCords();
+    auto [long2, lat2] = s2.getCords();
     double sinPart = sin(lat1) * sin(lat2);
     double cosPart = cos(lat1) * cos(lat2) * cos(long2-long1);
     double d = 3963.0 * acos(sinPart + cosPart);
@@ -39,7 +38,7 @@ double timeDistance(double distance, int k){
 }
 
 
-
+/*
 // takes station returns list of indicies of all stations within a certain radius
 // O(num of stations) for single station
 std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Station> & stationVec){
@@ -51,40 +50,39 @@ std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Stati
     }
     return walkable;
 }
-
+*/
 
 
 // takes vector of pairs walkable and returns index with longest distance
-int findLongest(std::vector<std::pair<int,double> > walkable){
-    int longest = 0;
-    for(int i = 1; i != walkable.size(); i++){
-        if(walkable[i].second > walkable[longest].second){ longest = i; }
-    }
-    return longest;
+size_t findLongest(const std::vector<std::pair<int,double>> &walkable){
+    return static_cast<size_t>(std::distance(walkable.begin(),
+        std::ranges::max_element(walkable,
+            [] (const auto &x, const auto &y) {return x.second < y.second;}
+        )));
 }
 
 
 
 // takes station returns vector of x nearest stations indicies
 // O(x*num of stations) for single station
-std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std::vector<Station> & stationVec){
+std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x, std::vector<Station> & stationVec){
 
-    std::vector<std::pair<int,double> > walkable(x);      // pair < neighborIndex, distance >
-    int longest = 0;                                     // index in walkable of farthest away neighbor
+    std::vector<std::pair<int,double>> walkable(x); // pair < neighborIndex, distance >
+    size_t longest = 0; // index in walkable of farthest away neighbor
 
     if(x < 1){std::cerr << "ERROR: X in walkableNumber must be >= 1\n"; return walkable;}
 
     if(x >= stationVec.size()){std::cerr << "ERROR: X in walkableNumber must be < stationVec.size()\n"; return walkable;}
 
     // put first x stations in walkable
-    for(int i = 0; i != x; i++){
+    for(size_t i = 0; i != x; i++){
         // if stationIndex in first x make distance very long so replaced first
         if(i == stationIndex){
-            walkable[i] = std::make_pair(i, 9999999999999999);
+            walkable[i] = {i, 9999999999999999};
             longest = i;
         // not stationIndex
         }else{
-            walkable[i] = std::make_pair(i, realDistance(stationVec[stationIndex],stationVec[i]));
+            walkable[i] = {i, realDistance(stationVec[stationIndex],stationVec[i])};
             // check against longest
             if(realDistance(stationVec[stationIndex],stationVec[i]) > walkable[longest].second){
                 longest = i;
@@ -93,11 +91,11 @@ std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std:
     }
 
     // check stations from index x to end
-    for(int i = x; i != stationVec.size(); i++){
+    for(size_t i = x; i != stationVec.size(); i++){
         if(i != stationIndex){
             // check against longest
             if( realDistance(stationVec[stationIndex],stationVec[i]) > walkable[longest].second ){
-                walkable[longest] = std::make_pair(i, realDistance(stationVec[stationIndex],stationVec[i]));
+                walkable[longest] = {i, realDistance(stationVec[stationIndex],stationVec[i])};
                 longest = findLongest(walkable);
             } 
         }
@@ -107,24 +105,24 @@ std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std:
 
 // create trip for all walkable station from a station for all stations given from walkableNumber
 // O(x*num of stations^2) for all stations
-void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
+void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 
     // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
     // Creating basic time vector full of transportation data. (temporary filler data)
     std::list<Time> weekdayTimes;
     std::list<Time> weekendsTimes;
-    for(int i=0; i<24; i++){ // for every hour
-        for(int j=0; j<5; j++){ // day
-            weekdayTimes.push_back(Time(j, i, 0));
+    for(unsigned i=0; i<24; i++){ // for every hour
+        for(unsigned j=0; j<5; j++){ // day
+            weekdayTimes.push_back({j, i, 0});
         }
-        for(int j=5; j<7; j++){
-            weekendsTimes.push_back(Time(j, i, 0));
+        for(unsigned j=5; j<7; j++){
+            weekendsTimes.push_back({j, i, 0});
         }
     }
     // create trips for each station to their walkable stations
-    for(int i=0; i<stationVec.size(); i++){
+    for(size_t i=0; i<stationVec.size(); i++){
         std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
-        for(int j=0; j<walkableStations.size(); j++){
+        for(size_t j=0; j<walkableStations.size(); j++){
             int duration = (int) timeDistance(walkableStations[i].second, k);
             Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
         }
@@ -163,15 +161,13 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 
     std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
     std::list<std::pair<std::string,int>> nextLines = stations[nextId].getLines();
-    std::list<std::pair<std::string,int>>::iterator iterCurr;
-    std::list<std::pair<std::string,int>>::iterator iterNext;
     bool sameLine = false;
 
     // penalty for switching lines
     //Loop through all lines for the current station
-    for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+    for (auto iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
         //Loop through all lines for the next station
-        for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+        for (auto iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
             //Check if there is a matching line
             if (iterCurr->first == iterNext->first) {
                 sameLine = true;
@@ -196,12 +192,11 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
     };
 
     //Check if the station is going into a dead end branch
-    for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+    for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
         if (branchStarts[i] == nextId) {
             sum += penaltyVal;
         }
     }
-
 
     return sum;
 }

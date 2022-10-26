@@ -4,8 +4,6 @@
 #define line_h_
 
 #include <vector>
-#include "time.h"
-
 
 
 class Line{

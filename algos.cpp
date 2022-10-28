@@ -183,7 +183,7 @@ void heuristic(std::vector<Station> & stations, int currId) {
         }
 
         //Penalize neighbors if entering a dead end branch
-        for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+        for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
             if (branchStarts[i] == iterT->getEnd()) {
                 stations[iterT->getEnd()].addHeuristic(penaltyVal);
             }
@@ -218,15 +218,13 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 
     std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
     std::list<std::pair<std::string,int>> nextLines = stations[nextId].getLines();
-    std::list<std::pair<std::string,int>>::iterator iterCurr;
-    std::list<std::pair<std::string,int>>::iterator iterNext;
     bool sameLine = false;
 
     // penalty for switching lines
     //Loop through all lines for the current station
-    for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+    for (auto iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
         //Loop through all lines for the next station
-        for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+        for (auto iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
             //Check if there is a matching line
             if (iterCurr->first == iterNext->first) {
                 sameLine = true;
@@ -251,12 +249,11 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
     };
 
     //Check if the station is going into a dead end branch
-    for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+    for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
         if (branchStarts[i] == nextId) {
             sum += penaltyVal;
         }
     }
-
 
     return sum;
 }

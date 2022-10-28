@@ -202,7 +202,6 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 }
 
 
-
 Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime){
     // This function takes the list for all station representation in main, start station, a trip object, and the current time.
     // it is going to update the station traveled, currentTime, and return the station traveled to. It returns nullptr if error.

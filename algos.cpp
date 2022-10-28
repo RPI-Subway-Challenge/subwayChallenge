@@ -220,7 +220,6 @@ Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip&
     return &stations[tripTaken.getEnd()]; // return the pointer to the end station 
 }
 
-int findstationTrip
 
 // This function compress continious station with only 2 neibhor station into one station object
 void branchReduction(std::vector<Station>& stations){
@@ -235,7 +234,7 @@ void branchReduction(std::vector<Station>& stations){
             // checking if this station is non-branching
             bool nonBranching = false;
             std::list<Trip>tripsOfThisStation = stations[i].getTrips();
-            if (stations[i].getNumTrainTrips > 2){// a non-branching station
+            if (stations[i].getNumTrainTrips() > 2){// a non-branching station
                 checkedStatusVec[i] = true;
                 continue;       
             }
@@ -246,7 +245,7 @@ void branchReduction(std::vector<Station>& stations){
             // move on one direction of the trip in tripsOfThisStation
             int currStationId = i;
             int nextStationToCheck = tripsOfThisStation[0].getEnd(); 
-            while (stations[i].getNumTrainTrips < 2){
+            while (stations[i].getNumTrainTrips() < 2){
                 checkedStatusVec[nextStationToCheck] = true;
                 // take the first trip in this currStation
                 reducedLineVec.push_back(nextStationToCheck);
@@ -264,12 +263,12 @@ void branchReduction(std::vector<Station>& stations){
                 // move on the other direction of the trip in tripsOfThisStation
                 currStationId = i;
                 nextStationToCheck = tripsOfThisStation[1].getEnd(); 
-                while (stations[i].getNumTrainTrips < 2){
+                while (stations[i].getNumTrainTrips() < 2){
                     checkedStatusVec[nextStationToCheck] = true;
                     // take the first trip in this currStation
                     reducedLineVec.push_back(nextStationToCheck);
                     currStationId = nextStationToCheck;
-                    std::vector<Trip> tempTripVec = stations[currStationId].getTrips;
+                    std::vector<Trip> tempTripVec = stations[currStationId].getTrips();
                     if (tempTripVec[0].getEnd() == currStationId){ // if the first trip is not the one we want
                         nextStationToCheck = tempTripVec[1].getEnd();
                     }

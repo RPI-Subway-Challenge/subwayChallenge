@@ -6,7 +6,7 @@ Time::Time(unsigned inputDay, unsigned inputHour, double inputMin):
     day {inputDay},
 	hour{inputHour},
     min {inputMin}
-{} // comment
+{}
 
 Time::Time(const std::string& input){
     double tempMin  = std::stoi(input.substr(3, 2));

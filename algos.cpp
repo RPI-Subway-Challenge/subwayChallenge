@@ -129,7 +129,9 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-
+std::vector<Station> testAlg(std::vector<Station> stations, int startingID, int goalID){
+    
+}
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){
 

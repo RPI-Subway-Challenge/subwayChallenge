@@ -7,16 +7,15 @@
 //												C O N S T R U C T O R S
 Trip::Trip(): startIndex{-1}, endIndex{-1} {}
 
-Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time>& inWeekend, std::list<Time>& inWeekday):
+Trip::Trip(int inStart, int inEnd, int inDuration, char inType, std::list<Time> inWeekend, std::list<Time> inWeekday):
 	startIndex	{inStart},		// start index of station
 	endIndex	{inEnd},		// end index of station
 	duration	{inDuration},	// is going to be random number
 	type		{inType},		// train bus etc
-	weekendStart{inWeekend},
-	weekdayStart{inWeekday},
+	weekendStart{std::move(inWeekend)},
+	weekdayStart{std::move(inWeekday)},
 	open		{true}
 {}
-
 
 Trip::Trip(int inStart, int inEnd, int inDuration, char inType):
 	startIndex	{inStart},		// start index of station
@@ -73,10 +72,10 @@ bool cmpOpHelper(const Trip &t0, const Trip &t1) {
 	return Cmp{}(t0.getDuration(), t1.getDuration());
 }
 
-bool operator>(const Trip& t0, const Trip& t1) {
+bool operator>(const Trip &t0, const Trip &t1) {
 	return cmpOpHelper<std::greater>(t0, t1);
 }
 
-bool operator<(const Trip& t0, const Trip& t1) {
+bool operator<(const Trip &t0, const Trip &t1) {
 	return cmpOpHelper<std::less>(t0, t1);
 }

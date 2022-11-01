@@ -129,8 +129,47 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-std::vector<Station> testAlg(std::vector<Station> stations, int startingID, int goalID){
-    
+int testAlg(std::vector<Station> stations, int startingID, int goalID){
+    int n = stations.size();
+    //Mask and eq represent whether or not each station is visited by the alg
+    //0 in mask: unvisited, 1: visited
+    std::string mask = "";
+    std::string eq = "";
+    for (int i = 0; i < n; i++) {
+        mask += '0';
+        eq += '1';
+    }
+    std::queue<std::pair<int,std::string>> q;
+    std::set<std::pair<int,std::string>> s;
+    for (int i = 0; i < n; i++){
+        std::string temp = mask;
+        temp[i] = '1';
+        q.push({i,temp});
+        s.insert({i,temp});
+    }
+
+    int c = 0;
+    int flag = 0;
+    while(!q.empty()) {
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            auto top = q.front();
+            q.pop();
+            //Terminate alg
+            if (top.second == eq) return c;
+            // for(auto p: stations[s]) {
+            //     std::string temp1 = top.second;
+            //     temp1[p] = '1';
+            //     if (s.count({p,temp1}) == 0) {
+            //         q.push({p,temp1});
+            //         s.insert({p,temp1});
+            //     }
+            // }
+        }
+        c++;
+        std::cout << "Path size: " << c << std::endl;
+    }
+    return -1;
 }
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){

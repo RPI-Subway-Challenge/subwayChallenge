@@ -129,47 +129,51 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-int testAlg(std::vector<Station> stations, int startingID, int goalID){
+int testAlg(std::vector<Station> stations){
     int n = stations.size();
-    //Mask and eq represent whether or not each station is visited by the alg
-    //0 in mask: unvisited, 1: visited
-    std::string mask = "";
-    std::string eq = "";
+    
+    //Bitmask to check if all nodes have been visited
+    int finalState = (1 << n) - 1;
+
+    //Queue for BFS
+    std::queue<std::pair<int,std::pair<int,int>>> q;
+    //Set storing visited nodes
+    std::set<std::pair<int,int>> vis;
+
+    //Loop through stations
     for (int i = 0; i < n; i++) {
-        mask += '0';
-        eq += '1';
-    }
-    std::queue<std::pair<int,std::string>> q;
-    std::set<std::pair<int,std::string>> s;
-    for (int i = 0; i < n; i++){
-        std::string temp = mask;
-        temp[i] = '1';
-        q.push({i,temp});
-        s.insert({i,temp});
+        //Add mask state for each station
+        int mask = (1<<i);
+        q.push({i, {0, mask}});
+        vis.insert({i,mask});
     }
 
-    int c = 0;
-    int flag = 0;
-    while(!q.empty()) {
-        int size = q.size();
-        for (int i = 0; i < size; i++) {
-            auto top = q.front();
-            q.pop();
-            //Terminate alg
-            if (top.second == eq) return c;
-            // for(auto p: stations[s]) {
-            //     std::string temp1 = top.second;
-            //     temp1[p] = '1';
-            //     if (s.count({p,temp1}) == 0) {
-            //         q.push({p,temp1});
-            //         s.insert({p,temp1});
-            //     }
-            // }
+    //Loop for bfs
+    while (!q.empty()) {
+        auto node = q.front();
+        q.pop();
+
+        int val = node.first;
+        int dist = node.second.first;
+        int mask = node.second.second;
+
+        //Iterate through neighboring nodes for each station
+        std::list<Trip> trips = stations[val].getTrips();
+        for (std::list<Trip>::iterator nbr = trips.begin(); 
+          nbr != trips.end(); ++nbr) {
+
+            int newMask = (mask | (1<<nbr->getEnd()));
+            if (newMask == finalState) { return dist+1; }
+            else if (vis.count({nbr->getEnd(), newMask})) {
+                continue;
+            }
+            else {
+                q.push({nbr->getEnd(),{dist+1,newMask}});
+                vis.insert({nbr->getEnd(),newMask});
+            }
         }
-        c++;
-        std::cout << "Path size: " << c << std::endl;
     }
-    return -1;
+    return 0;
 }
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){

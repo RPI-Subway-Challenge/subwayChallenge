@@ -11,6 +11,7 @@
 double realDistance(const Station& s1, const Station& s2);
 
 int heuristic(std::vector<Station> & stations, int currId, int nextId);
+int testAlg(std::vector<Station> stations);
 
 // Functions for transversal in main
 

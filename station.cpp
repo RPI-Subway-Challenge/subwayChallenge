@@ -23,6 +23,30 @@ std::string Station::getCordStr() const {
 }
 
 
+// This is a getter for the trips list, but it returns a vector for constant time access
+const std::vector<Trip> Station::getTripVec() const {
+    std::list<Trip>::const_iterator it = trips.begin();
+    std::vector<Trip> tripVec;
+    while(it != trips.end()){
+        tripVec.push_back(*it);
+        it++;
+    }
+    return tripVec;
+}
+
+const int Station::getNumTrainTrips() const{
+    //
+    int numTrainTrips = 0;
+    std::list<Trip>::const_iterator it = trips.begin();
+    while(it != trips.end()){
+        if(it->getType() == 't'){
+            numTrainTrips++;
+        }
+        it++;
+    }
+    return numTrainTrips;
+}
+
 void Station::addLine(std::pair<std::string, int> line) {
     lines.push_back(std::move(line));
 }

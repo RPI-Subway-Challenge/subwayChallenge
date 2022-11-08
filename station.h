@@ -32,6 +32,8 @@ public:
     const std::list<std::pair<std::string,int>> &getLines() const
 	                                                            {return lines;}
     const std::list<Trip> &getTrips() const						{return trips;}
+	const std::vector<Trip> getTripVec() const;
+	const int getNumTrainTrips() const;
 	bool isOpen() const											{return open;}
     bool isVisited() const                                      {return visited;}
 	int getHeuristic() const {return heuristic;}

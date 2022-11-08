@@ -28,7 +28,7 @@ public:
 	int getEnd() const						    {return endIndex;}
 	int getDuration() const						{return duration;}
 	const std::string &getLineName() const		{return lineName;}
-	int getType() const							{return type;}
+	char getType() const							{return type;}
 	bool isOpenWeekdays() const					{return weekdayStart.size();}
 	bool isOpenWeekends() const					{return weekendStart.size();}
 	int isOpen(Time current) const				{return (open && isOpenWeekdays() && isOpenWeekends());}
@@ -43,7 +43,7 @@ private:
 	int endIndex;
 	int duration;
 	std::string lineName; /* TODO warning inefficient memory consumption */
-	char type;						// method of transportation e.g. 0: subway, 1: walking, 2: bus
+	char type;						// method of transportation e.g. t: train
 	std::list<Time> weekdayStart;	// when trains leave from start on weekdays
 	std::list<Time> weekendStart;	// when trains leave from start on weekends
 	bool open;

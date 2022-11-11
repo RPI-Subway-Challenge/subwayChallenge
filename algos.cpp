@@ -2,10 +2,12 @@
 #include <iostream>
 #include <cmath>
 #include <queue>
+#include <map>
 #include <set>
 #include <utility>
 #include <unordered_map>
 #include <algorithm>
+#include <climits>
 #include "station.h"
 
 using std::size_t;
@@ -129,51 +131,102 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-int testAlg(std::vector<Station> stations){
-    int n = stations.size();
-    
-    //Bitmask to check if all nodes have been visited
-    int finalState = (1 << n) - 1;
-
-    //Queue for BFS
-    std::queue<std::pair<int,std::pair<int,int>>> q;
-    //Set storing visited nodes
-    std::set<std::pair<int,int>> vis;
-
-    //Loop through stations
-    for (int i = 0; i < n; i++) {
-        //Add mask state for each station
-        int mask = (1<<i);
-        q.push({i, {0, mask}});
-        vis.insert({i,mask});
+//Uniform cost search test algorithm
+//ending id is added to goal vector
+std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
+  int start){
+    //Minimum cost up to goal from root
+    std::vector<int> answer;
+    for (int i = 0; i < goal.size(); i++) {
+        answer.push_back(INT_MAX);
+    }
+    //Queue stores cumulative distance and station id
+    std::priority_queue<std::pair<int,int>> q;
+    //map stores station id and bit representing if it was visited
+    //0 = unvisited, 1 = visited
+    std::map<int,int> visited;
+    for (int i = 0; i < stations.size(); i++) {
+        visited.insert({stations[i].getId(), 0});
     }
 
-    //Loop for bfs
-    while (!q.empty()) {
-        auto node = q.front();
+    int count = 0;
+
+    //Insert root into priority queue
+    q.push({0, start});
+
+    // //Frontier system to create backpointers
+    // std::vector<Station> frontier;
+    // frontier.push_back(stations[start]);
+
+    while (q.size() > 0) {
+        //Find top element of the priority queue
+        std::pair<int,int> top = q.top();
+
+        //TEST PRINT
+        std::cout << top.second << " ";
+
+        //Remove element with the highest priority
         q.pop();
 
-        int val = node.first;
-        int dist = node.second.first;
-        int mask = node.second.second;
+        //Find original cost of the node
+        top.first *= -1;
 
-        //Iterate through neighboring nodes for each station
-        std::list<Trip> trips = stations[val].getTrips();
-        for (std::list<Trip>::iterator nbr = trips.begin(); 
-          nbr != trips.end(); ++nbr) {
-
-            int newMask = (mask | (1<<nbr->getEnd()));
-            if (newMask == finalState) { return dist+1; }
-            else if (vis.count({nbr->getEnd(), newMask})) {
-                continue;
+        //Check if top is part of the goal vector 
+        if (find(goal.begin(), goal.end(), top.second) != goal.end()) {
+            //Get index of top in the goal list
+            int index = find(goal.begin(), goal.end(),
+                top.second) - goal.begin();
+            //If a new goal is reached
+            if (answer[index] == INT_MAX) { count++; }
+            //If the cost is less
+            if (answer[index] > top.first) {
+                answer[index] = top.first;
             }
-            else {
-                q.push({nbr->getEnd(),{dist+1,newMask}});
-                vis.insert({nbr->getEnd(),newMask});
+            //Pop the element
+            q.pop();
+            //Terminate if all goals are reached
+            if (count == goal.size()) {
+                return answer;
             }
         }
+
+        //Check for non visited neighbors
+        if (visited[top.second] == 0) {
+            //Add children to the priority queue with
+            //cumulative distance as the priority
+            std::list<Trip> trips = stations[top.second].getTrips();
+
+            for (std::list<Trip>::iterator i = trips.begin();
+             i != trips.end(); ++i) {
+
+                //Multiply cost by -1
+                int neighborCost = (top.first + i->getDuration()) * -1;
+                int neighborId = i->getEnd();
+
+                q.push({neighborCost, neighborId});
+
+                // //Track predecessors with frontier
+                // //Not in frontier
+                // if (find(frontier.begin(), frontier.end(), 
+                //   stations[i->getEnd()]) == frontier.end()) {
+                //     frontier.push_back(stations[i->getEnd()]);
+                //     //Update predecessor pointer
+                //     stations[i->getEnd()].predecessor = stations[top.second];
+                // }
+                // //Is in frontier but with higher cost
+                // if (find(frontier.begin(), frontier.end(), 
+                //   stations[i->getEnd()]) != frontier.end()) {
+                //     if () {
+                        
+                //     }
+                // }
+            }
+
+            //Mark current nodes as visited
+            visited[top.second] = 1;
+        }
     }
-    return 0;
+    return answer;
 }
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){

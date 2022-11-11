@@ -1,19 +1,22 @@
 //																	D O W N    W I T H    M A T T H E W    A H N
 #include <iostream>
 #include <cmath>
-#include "station.h"
 #include <queue>
+#include <map>
 #include <set>
 #include <utility>
-#include<unordered_map>
+#include <unordered_map>
+#include <algorithm>
+#include <climits>
+#include "station.h"
 
-typedef std::pair<Station, int > pair;
+using std::size_t;
 
 // return manhattan distance between two stations
-double manhattanDistance(Station s1, Station s2){
+double manhattanDistance(const Station &s1, const Station &s2){
     double diffX = std::abs( s1.getCords().first - s2.getCords().first );
     double diffY = std::abs( s1.getCords().second - s2.getCords().second );
-    return diffX+diffY;
+    return diffX + diffY;
 }
 
 // Return actual distance (in MILES) between two stations
@@ -21,11 +24,9 @@ double manhattanDistance(Station s1, Station s2){
 //  3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
 //  .first  gives longitude
 //  .second gives latitude
-double realDistance(const Station& s1,const Station& s2){
-    double lat1 = s1.getCords().second;
-    double lat2 = s2.getCords().second;
-    double long1 = s1.getCords().first;
-    double long2 = s2.getCords().first;
+double realDistance(const Station& s1, const Station& s2){
+    auto [long1, lat1] = s1.getCords();
+    auto [long2, lat2] = s2.getCords();
     double sinPart = sin(lat1) * sin(lat2);
     double cosPart = cos(lat1) * cos(lat2) * cos(long2-long1);
     double d = 3963.0 * acos(sinPart + cosPart);
@@ -39,7 +40,7 @@ double timeDistance(double distance, int k){
 }
 
 
-
+/*
 // takes station returns list of indicies of all stations within a certain radius
 // O(num of stations) for single station
 std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Station> & stationVec){
@@ -51,40 +52,39 @@ std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Stati
     }
     return walkable;
 }
-
+*/
 
 
 // takes vector of pairs walkable and returns index with longest distance
-int findLongest(std::vector<std::pair<int,double> > walkable){
-    int longest = 0;
-    for(int i = 1; i != walkable.size(); i++){
-        if(walkable[i].second > walkable[longest].second){ longest = i; }
-    }
-    return longest;
+size_t findLongest(const std::vector<std::pair<int,double>> &walkable){
+    return static_cast<size_t>(std::distance(walkable.begin(),
+        std::ranges::max_element(walkable,
+            [] (const auto &x, const auto &y) {return x.second < y.second;}
+        )));
 }
 
 
 
 // takes station returns vector of x nearest stations indicies
 // O(x*num of stations) for single station
-std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std::vector<Station> & stationVec){
+std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x, std::vector<Station> & stationVec){
 
-    std::vector<std::pair<int,double> > walkable(x);      // pair < neighborIndex, distance >
-    int longest = 0;                                     // index in walkable of farthest away neighbor
+    std::vector<std::pair<int,double>> walkable(x); // pair < neighborIndex, distance >
+    size_t longest = 0; // index in walkable of farthest away neighbor
 
     if(x < 1){std::cerr << "ERROR: X in walkableNumber must be >= 1\n"; return walkable;}
 
     if(x >= stationVec.size()){std::cerr << "ERROR: X in walkableNumber must be < stationVec.size()\n"; return walkable;}
 
     // put first x stations in walkable
-    for(int i = 0; i != x; i++){
+    for(size_t i = 0; i != x; i++){
         // if stationIndex in first x make distance very long so replaced first
         if(i == stationIndex){
-            walkable[i] = std::make_pair(i, 9999999999999999);
+            walkable[i] = {i, 9999999999999999};
             longest = i;
         // not stationIndex
         }else{
-            walkable[i] = std::make_pair(i, realDistance(stationVec[stationIndex],stationVec[i]));
+            walkable[i] = {i, realDistance(stationVec[stationIndex],stationVec[i])};
             // check against longest
             if(realDistance(stationVec[stationIndex],stationVec[i]) > walkable[longest].second){
                 longest = i;
@@ -93,11 +93,11 @@ std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std:
     }
 
     // check stations from index x to end
-    for(int i = x; i != stationVec.size(); i++){
+    for(size_t i = x; i != stationVec.size(); i++){
         if(i != stationIndex){
             // check against longest
             if( realDistance(stationVec[stationIndex],stationVec[i]) > walkable[longest].second ){
-                walkable[longest] = std::make_pair(i, realDistance(stationVec[stationIndex],stationVec[i]));
+                walkable[longest] = {i, realDistance(stationVec[stationIndex],stationVec[i])};
                 longest = findLongest(walkable);
             } 
         }
@@ -107,37 +107,189 @@ std::vector<std::pair<int,double> > walkableNumber(int stationIndex, int x, std:
 
 // create trip for all walkable station from a station for all stations given from walkableNumber
 // O(x*num of stations^2) for all stations
-void createStationsTrips(int x, int k, std::vector<Station> & stationVec){
+void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 
     // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
     // Creating basic time vector full of transportation data. (temporary filler data)
     std::list<Time> weekdayTimes;
     std::list<Time> weekendsTimes;
-    for(int i=0; i<24; i++){ // for every hour
-        for(int j=0; j<5; j++){ // day
-            weekdayTimes.push_back(Time(j, i, 0));
+    for(unsigned i=0; i<24; i++){ // for every hour
+        for(unsigned j=0; j<5; j++){ // day
+            weekdayTimes.push_back({j, i, 0});
         }
-        for(int j=5; j<7; j++){
-            weekendsTimes.push_back(Time(j, i, 0));
+        for(unsigned j=5; j<7; j++){
+            weekendsTimes.push_back({j, i, 0});
         }
     }
-    // ! ARE WE MAKING WALKING TRIPS?
     // create trips for each station to their walkable stations
-    for(int i=0; i<stationVec.size(); i++){
+    for(size_t i=0; i<stationVec.size(); i++){
         std::vector<std::pair<int,double> > walkableStations = walkableNumber(i, x, stationVec);
-        for(int j=0; j<walkableStations.size(); j++){
+        for(size_t j=0; j<walkableStations.size(); j++){
             int duration = (int) timeDistance(walkableStations[i].second, k);
             Trip(i, walkableStations[i].first, duration, 't', weekendsTimes, weekdayTimes);
         }
     }
 }
 
+//Uniform cost search test algorithm
+//ending id is added to goal vector
+std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
+  int start){
+    //Minimum cost up to goal from root
+    std::vector<int> answer;
+    for (long unsigned int i = 0; i != goal.size(); i++) {
+        answer.push_back(INT_MAX);
+    }
+    //Queue stores cumulative distance and station id
+    std::priority_queue<std::pair<int,int>> q;
+    //map stores station id and bit representing if it was visited
+    //0 = unvisited, 1 = visited
+    std::map<int,int> visited;
+    for (long unsigned int i = 0; i != stations.size(); i++) {
+        visited.insert({stations[i].getId(), 0});
+    }
 
+    long unsigned int count = 0;
+
+    //Insert root into priority queue
+    q.push({0, start});
+
+    // //Frontier system to create backpointers
+    // std::vector<Station> frontier;
+    // frontier.push_back(stations[start]);
+
+    while (q.size() > 0) {
+        //Find top element of the priority queue
+        std::pair<int,int> top = q.top();
+
+        //TEST PRINT
+        std::cout << top.second << " ";
+
+        //Remove element with the highest priority
+        q.pop();
+
+        //Find original cost of the node
+        top.first *= -1;
+
+        //Check if top is part of the goal vector 
+        if (find(goal.begin(), goal.end(), top.second) != goal.end()) {
+            //Get index of top in the goal list
+            int index = find(goal.begin(), goal.end(),
+                top.second) - goal.begin();
+            //If a new goal is reached
+            if (answer[index] == INT_MAX) { count++; }
+            //If the cost is less
+            if (answer[index] > top.first) {
+                answer[index] = top.first;
+            }
+            //Pop the element
+            q.pop();
+            //Terminate if all goals are reached
+            if (count == goal.size()) {
+                return answer;
+            }
+        }
+
+        //Check for non visited neighbors
+        if (visited[top.second] == 0) {
+            //Add children to the priority queue with
+            //cumulative distance as the priority
+            std::list<Trip> trips = stations[top.second].getTrips();
+
+            for (std::list<Trip>::iterator i = trips.begin();
+             i != trips.end(); ++i) {
+
+                //Multiply cost by -1
+                int neighborCost = (top.first + i->getDuration()) * -1;
+                int neighborId = i->getEnd();
+
+                q.push({neighborCost, neighborId});
+
+                // //Track predecessors with frontier
+                // //Not in frontier
+                // if (find(frontier.begin(), frontier.end(), 
+                //   stations[i->getEnd()]) == frontier.end()) {
+                //     frontier.push_back(stations[i->getEnd()]);
+                //     //Update predecessor pointer
+                //     stations[i->getEnd()].predecessor = stations[top.second];
+                // }
+                // //Is in frontier but with higher cost
+                // if (find(frontier.begin(), frontier.end(), 
+                //   stations[i->getEnd()]) != frontier.end()) {
+                //     if () {
+                        
+                //     }
+                // }
+            }
+
+            //Mark current nodes as visited
+            visited[top.second] = 1;
+        }
+    }
+    return answer;
+}
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){
 
 // }
 
+//PROPAGATION NOT IMPLEMENTED. HELPER FUNCTION NEEDED FOR PROPAGATION. VVVVVVVVV
+//New version of heuristics function (to be used in combination with UCS)
+//Changes heuristic value of current station and all neighboring 
+// connected stations
+void heuristic(std::vector<Station> & stations, int currId) {
+    const int penaltyVal = 1;
+    std::list<Trip> trips = stations[currId].getTrips();
+    std::list<Trip>::iterator iterT;
+
+    // -> branch stations are hard coded from north-west station clockwise
+    // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
+    int branchStarts[] = {
+        26 //3rd Ave - 138th St
+    };
+
+    //Iterate through all neighboring stations
+    for(iterT = trips.begin(); iterT != trips.end(); iterT++){
+        //Penalize neighbors for being already visited
+        if (stations[iterT->getEnd()].isVisited() == true) {
+            stations[iterT->getEnd()].addHeuristic(penaltyVal);
+        }
+        
+        //Penalize neighbors if they are not in the same line
+        std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
+        std::list<std::pair<std::string,int>>::iterator iterCurr;
+        std::list<std::pair<std::string,int>> nextLines = stations[iterT->getEnd()].getLines();
+        std::list<std::pair<std::string,int>>::iterator iterNext;
+        bool sameLine;
+        //Loop through all lines for the current station
+        for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+            //Loop through all lines for the neighboring station
+            for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+                //Check if there is a matching line
+                if (iterCurr->first == iterNext->first) {
+                    sameLine = true;
+                    break;
+                }
+            }
+            //Skip checking the rest of the current stations
+            if (sameLine) {
+                break;
+            }
+        }
+        if (!sameLine) {
+            stations[iterT->getEnd()].addHeuristic(penaltyVal);
+        }
+
+        //Penalize neighbors if entering a dead end branch
+        for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+            if (branchStarts[i] == iterT->getEnd()) {
+                stations[iterT->getEnd()].addHeuristic(penaltyVal);
+            }
+        }
+    }
+}
+
+//PREVIOUS VERSION OF HEURISTICS FUNCTION (still used in main)
 // takes current station id and next station id
 //      and returns heuristic value for the next station to visit
 // Lower value is better than higher value (arbitrary penalty value)
@@ -164,15 +316,13 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
 
     std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
     std::list<std::pair<std::string,int>> nextLines = stations[nextId].getLines();
-    std::list<std::pair<std::string,int>>::iterator iterCurr;
-    std::list<std::pair<std::string,int>>::iterator iterNext;
     bool sameLine = false;
 
     // penalty for switching lines
     //Loop through all lines for the current station
-    for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+    for (auto iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
         //Loop through all lines for the next station
-        for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+        for (auto iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
             //Check if there is a matching line
             if (iterCurr->first == iterNext->first) {
                 sameLine = true;
@@ -197,48 +347,13 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
     };
 
     //Check if the station is going into a dead end branch
-    for (int i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+    for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
         if (branchStarts[i] == nextId) {
             sum += penaltyVal;
         }
     }
 
-
     return sum;
-}
-
-
-// List[(tripString, stationID)] 
-std::list<std::pair<int, std::string>> greedy(std::vector<Station> & stationVec){
-
-    int current = 54;
-    int visitedCount = 1;
-    std::list<std::pair<int,std::string>> route;
-
-    // while not goal case
-    while(visitedCount != stationVec.size()){
-
-        // store info on cheapest trip
-        int minDuration = INT_MAX;
-        std::string bestTrip = "NONE";
-        int bestStation = -1;
-        // look at trips 
-        std::list<Trip> trips = stationVec[current].getTrips();
-        for(std::list<Trip>::iterator iter = trips.begin(); iter != trips.end(); ++iter){
-            if(iter->getDuration() < minDuration){
-                minDuration = iter->getDuration();
-                bestTrip = iter->getType() + iter->getLineName();
-            }
-        }
-
-        route.push_back(std::make_pair(bestTrip, bestStation));
-        current = bestStation;
-        if(stationVec[current].isVisited() == false){
-            stationVec[current]++;
-            stationVec[current].setVisited();
-        }
-    }
-
 }
 
 

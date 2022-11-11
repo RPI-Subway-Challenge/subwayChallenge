@@ -3,12 +3,10 @@
 #ifndef station_h_
 #define station_h_
 
-#include "trip.h"
+
 #include <utility>	// pair
 #include <vector>
-#include "time.h"
-#include "set"
-
+#include "trip.h"
 
 
 class Station{
@@ -17,16 +15,17 @@ public:
 	Station();
 
 	// constructor
-	Station(int id, const std::string& inName, double lon, double LAT, const std::list<std::pair<std::string,int> >& inLines = {});
+	Station(int id, std::string inName, double lon, double lat, std::list<std::pair<std::string,int>> inLines = {});
 
 	// setters
-	void setTrips(const std::list<Trip>& inTrips);
-	void addTrip(Trip& inTrip);
+	void setTrips(std::list<Trip> inTrips);
+	void addTrip(Trip inTrip);
 	void addLine(std::string inStr, int inIndex);
 	// void removeTrip(Trip& t)									{trips.remove(t);}
 	void removeDups();
     void setVisited(bool inVisited)                             {visited = inVisited;}
-    void addLine(const std::pair<std::string, int>& line);
+    void addLine(std::pair<std::string, int> line);
+	void addHeuristic(int val) {heuristic += val;}
 
 	// getters
 	int getId() const 	 	 				    				{return id;}

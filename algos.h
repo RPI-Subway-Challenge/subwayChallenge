@@ -4,11 +4,15 @@
 
 #ifndef SUBWAYCHALLENGE_ALGOS_H
 #define SUBWAYCHALLENGE_ALGOS_H
-double realDistance(const Station& s1,const Station& s2);
+
+#include <vector>
+#include "station.h"
+
+double realDistance(const Station& s1, const Station& s2);
 
 int heuristic(std::vector<Station> & stations, int currId, int nextId);
-
-std::list<std::pair<int, std::string>> greedy(std::vector<Station> & stationVec);
+std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
+  int start);
 
 // Functions for transversal in main
 

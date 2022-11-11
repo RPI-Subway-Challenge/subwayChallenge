@@ -4,8 +4,6 @@
 #define line_h_
 
 #include <vector>
-#include "time.h"
-
 
 
 class Line{
@@ -14,7 +12,7 @@ public:
 	Line();
 
 	// constructor
-	Line(int inID, const std::string& inName);
+	Line(int inID, std::string inName);
 
 	// setters
 	void addStation(const int stationIndex);

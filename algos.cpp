@@ -137,7 +137,7 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
   int start){
     //Minimum cost up to goal from root
     std::vector<int> answer;
-    for (long unsigned int i = 0; i != goal.size(); i++) {
+    for (int i = 0; i < goal.size(); i++) {
         answer.push_back(INT_MAX);
     }
     //Queue stores cumulative distance and station id
@@ -145,11 +145,11 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
     //map stores station id and bit representing if it was visited
     //0 = unvisited, 1 = visited
     std::map<int,int> visited;
-    for (long unsigned int i = 0; i != stations.size(); i++) {
+    for (int i = 0; i < stations.size(); i++) {
         visited.insert({stations[i].getId(), 0});
     }
 
-    long unsigned int count = 0;
+    int count = 0;
 
     //Insert root into priority queue
     q.push({0, start});

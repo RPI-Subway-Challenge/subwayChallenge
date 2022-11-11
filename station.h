@@ -40,6 +40,9 @@ public:
 
     const std::pair<double, double>& getCords() const           {return cords;}
 
+	//Backpointer for UCS algorithm
+	Station* predecessor;
+
 private:
 	int id;
 	std::string name;

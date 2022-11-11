@@ -137,8 +137,7 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
   int start){
     //Minimum cost up to goal from root
     std::vector<int> answer;
-    for (long unsigned int i = 0; i < goal.size(); i++) {
-
+    for (int i = 0; i < goal.size(); i++) {
         answer.push_back(INT_MAX);
     }
     //Queue stores cumulative distance and station id
@@ -146,25 +145,22 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
     //map stores station id and bit representing if it was visited
     //0 = unvisited, 1 = visited
     std::map<int,int> visited;
-    for (long unsigned int i = 0; i < stations.size(); i++) {
+    for (int i = 0; i < stations.size(); i++) {
         visited.insert({stations[i].getId(), 0});
     }
 
-    long unsigned int count = 0;
+    int count = 0;
 
     //Insert root into priority queue
     q.push({0, start});
 
-    // //Frontier system to create backpointers
-    // std::vector<Station> frontier;
-    // frontier.push_back(stations[start]);
+    //Frontier system to create backpointers, stores station ids
+    std::vector<int> frontier;
+    frontier.push_back(start);
 
     while (q.size() > 0) {
         //Find top element of the priority queue
         std::pair<int,int> top = q.top();
-
-        //TEST PRINT
-        std::cout << top.second << " ";
 
         //Remove element with the highest priority
         q.pop();
@@ -206,21 +202,28 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
 
                 q.push({neighborCost, neighborId});
 
-                // //Track predecessors with frontier
-                // //Not in frontier
-                // if (find(frontier.begin(), frontier.end(), 
-                //   stations[i->getEnd()]) == frontier.end()) {
-                //     frontier.push_back(stations[i->getEnd()]);
-                //     //Update predecessor pointer
-                //     stations[i->getEnd()].predecessor = stations[top.second];
-                // }
-                // //Is in frontier but with higher cost
-                // if (find(frontier.begin(), frontier.end(), 
-                //   stations[i->getEnd()]) != frontier.end()) {
-                //     if () {
-                        
-                //     }
-                // }
+                //Track predecessors with frontier
+                //Not visited
+                if (visited[i->getEnd()] == 0) {
+                    //Not in frontier
+                    if (find(frontier.begin(), frontier.end(), 
+                    i->getEnd()) == frontier.end()) {
+                        frontier.push_back(i->getEnd());
+                        //Update predecessor pointer
+                        //THIS IS RETURNING NULL? WHY vvvvvvvvvvvvv
+                        stations[i->getEnd()].predecessor = &stations[top.second];
+                    }
+                    // //Is in frontier but with higher cost
+                    // if (find(frontier.begin(), frontier.end(), 
+                    // i->getEnd()) != frontier.end()) {
+                    //     //Check if it has a higher cost (not sure if needed)
+                    //     //replace existing node with current neighbor
+                    //     *(find(frontier.begin(), frontier.end(), 
+                    //     i->getEnd())) = i->getEnd();
+                    //     //Set neighbor's predecessor pointer
+                    //     stations[i->getEnd()].predecessor = &stations[top.second];
+                    // }
+                }
             }
 
             //Mark current nodes as visited

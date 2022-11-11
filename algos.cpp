@@ -138,6 +138,7 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
     //Minimum cost up to goal from root
     std::vector<int> answer;
     for (long unsigned int i = 0; i < goal.size(); i++) {
+
         answer.push_back(INT_MAX);
     }
     //Queue stores cumulative distance and station id

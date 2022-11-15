@@ -135,33 +135,40 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 
 // }
 
+std::pair<std::list<std::pair<int,std::string>>,Time> BFSdriver (std::vector<Station> & stations, int starting) {
+
+    return NULL;
+}
+
 // Trying out new algorithm, still BFS. Recursively goes through each station and iteratively
 // goes thorugh each station's trips and runs it each time. Adds the time from each run
-void findShortestPath(std::vector<Station>&stations, int currentID, int Time) {
+//              path      stationid     method  total itme
+// std::pair<std::list<std::pair<int,std::string>>,Time> findShortestPath(
+//     std::vector<Station>&stations, int currentID, int Time) {
 
-    // BASE CASE TO STOP RECURSION
-    if(stations[currentID].isVisited() == false) {
+//     // BASE CASE TO STOP RECURSION
+//     if(stations[currentID].isVisited() == false) {
 
-        stations[currentID].setVisited(true);
-        return;
-    }
+//         stations[currentID].setVisited(true);
+//         return;
+//     }
 
-    // Iterator that goes to the beginning of the trips of a given station 
-    std::list<Trip>::iterator StationTripItr;
-    StationTripItr = stations[currentID].getTrips().begin();
+//     // Iterator that goes to the beginning of the trips of a given station 
+//     std::list<Trip>::iterator StationTripItr;
+//     StationTripItr = stations[currentID].getTrips().begin();
 
-    // TODO: IMPLEMENT GOING TO THE NEXT STATION
+//     // TODO: IMPLEMENT GOING TO THE NEXT STATION
 
-    for (StationTripItr; StationTripItr != stations[currentID].getTrips().end(); StationTripItr++)
-    {
-        if (*StationTripItr->getEnd().isVisited() == false)
-        {                                        
-            findShortestPath(stations, *StationTripItr->getEnd(), Time);
-        }
-    }
+//     for (StationTripItr; StationTripItr != stations[currentID].getTrips().end(); StationTripItr++)
+//     {
+//         if (*StationTripItr->getEnd().isVisited() == false)
+//         {                                        
+//             findShortestPath(stations, *StationTripItr->getEnd(), Time);
+//         }
+//     }
 
 
-}
+// }
 
 //PROPAGATION NOT IMPLEMENTED. HELPER FUNCTION NEEDED FOR PROPAGATION. VVVVVVVVV
 //New version of heuristics function (to be used in combination with UCS)

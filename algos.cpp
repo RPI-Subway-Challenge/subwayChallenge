@@ -425,4 +425,23 @@ void branchReduction(std::vector<Station>& stations){
 
 
     }
+
 }
+
+void print_stations(std::vector<Station>& stations){
+    for (int i=0; i<stations.size(); i++){
+        std::cout<<"--------------------------------------------------------"<<std::endl;
+        std::cout<<stations[i].getName()<<std::endl;
+        std::cout<<"id: "<<stations[i].getId()<<std::endl;
+        std::cout<<"num of trips: "<<stations[i].getNumTrainTrips()<<std::endl;
+        std::cout<<"trips: "<<std::endl;
+        for (int j=0; j<stations[i].getTripVec().size(); j++){
+            std::cout<<"end: "<<stations[i].getTripVec()[j].getEnd()<<std::endl;
+            std::cout<<"duration: "<<stations[i].getTripVec()[j].getDuration()<<std::endl;
+            std::cout<<"type: "<<stations[i].getTripVec()[j].getType()<<std::endl;
+        }
+        std::cout<<"--------------------------------------------------------"<<std::endl;
+        std::cout<<std::endl;
+    }
+}
+

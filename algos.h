@@ -13,6 +13,7 @@
 #include <memory>
 #include <ranges>
 #include "station.h"
+#include <boost/heap/fibonacci_heap.hpp>
 
 using std::size_t;
 
@@ -64,13 +65,15 @@ constexpr auto findMinCost(
     auto cmp{[&] (const NodeKeyT &nk0, const NodeKeyT &nk1) {
         return costTo[nk0] < costTo[nk1];
     }};
-    std::priority_queue<NodeKeyT, std::vector<NodeKeyT>, decltype(cmp)> pq{cmp};
+    boost::heap::fibonacci_heap<int, decltype(cmp)> pq{cmp};
+    std::unordered_map<NodeKeyT, typename decltype(pq)::handle_type> handles;
     costTo[src] = 0;
-    pq.push(src);
+    handles[src] = pq.push(src);
     auto minCostNK{std::move(src)};
     do {
-        auto pqNode{pq.extract()};
-        const auto &nk{pqNode.value()};
+        auto nk{pq.top()};
+        pq.pop();
+        handles.erase(nk);
         for (const auto &edgeKey: g[nk].neighbors()) {
             auto newCost{costTo[nk] + costFunc(g[edgeKey])};
             if (NodeKeyT &&successorKey{g[edgeKey].head()};
@@ -81,11 +84,11 @@ constexpr auto findMinCost(
                     return newCost < costTo[successorKey];
                 } ()
             ) {
-                if (pq.contains(successorKey)/* TODO */) {
-                    pq.decreaseKey(successorKey, newCost)/* TODO */;
+                costTo[successorKey] = newCost;
+                if (handles.contains(successorKey)) {
+                    pq.decrease(handles[successorKey]);
                 } else {
-                    costTo[successorKey] = newCost;
-                    pq.push(successorKey);
+                    handles[successorKey] = pq.push(successorKey);
                 }
                 minCostNK = std::move(successorKey);
                 edgeTo[minCostNK] = edgeKey;
@@ -100,15 +103,10 @@ constexpr auto findMinCost(
  * cost to all other nodes and the path to them from a specific starting node.
  * 
  * @tparam G the graph data structure
- * @tparam NodeKeyT the type of the key to index into the graph to access the node.
- * Highly recommended to be trivially copiable. G[NodeKeyT] -> NodeT. Note: if you use
- * std::size_t for this type, it is assumed by default that it can be used to index into
- * an array of size g.order().
- * @tparam EdgeTab table of edge keys. map[NodeKeyT] -> EdgeKeyT. Defaults to
- * std::unordered_map, unless when src is std::size_t it defaults to dynamic array of
- * size g.order().
- * @tparam CostTab cost table. map[NodeKeyT] -> CostT. Defaults to std::unordered_map,
- * unless when src is std::size_t it defaults to dynamic array of size g.order().
+ * @tparam Dense whether to use a dense data structure for the returning edge table and
+ * cost table. Defaults to true only when the graph node key type is std::size_t.
+ * Therefore, if std::size_t is used for the graph node key type, it is assumed by
+ * default that the key can be used to index into an array of size g.order().
  * 
  * @param g the input graph
  * @param src key to the source node. The referenced node must exist in the graph.
@@ -116,22 +114,20 @@ constexpr auto findMinCost(
  * an edge, preferably by const &, and returns the cost. Recommended example signature:
  * G::EdgeValT (const G::EdgeT &edge).
  */
-template<
-    Graph G,
-    class EdgeTab = std::conditional_t<std::same_as<typename G::NodeKeyT, size_t>,
-        std::unique_ptr<typename G::EdgeKeyT []>,
-        std::unordered_map<typename G::NodeKeyT, typename G::EdgeKeyT>
-    >,
-    class CostTab = std::conditional_t<std::same_as<typename G::NodeKeyT, size_t>,
-        std::unique_ptr<typename G::EdgeValT []>,
-        std::unordered_map<typename G::NodeKeyT, typename G::EdgeValT>
-    >
->
+template<Graph G, bool Dense = std::same_as<typename G::NodeKeyT, size_t>>
 constexpr auto search(
     const G &g, const typename G::NodeKeyT &src,
     auto costFunc = [] (const G::EdgeT &e) {return e.val();}
 ) requires /*std::copy_constructible<NodeKeyT> && std::movable<NodeKeyT> &&*/
 std::same_as<decltype(costFunc(typename G::EdgeT{})), typename G::EdgeValT> {
+    using EdgeTab = std::conditional_t<Dense,
+        std::unique_ptr<typename G::EdgeKeyT []>,
+        std::unordered_map<typename G::NodeKeyT, typename G::EdgeKeyT>
+    >;
+    using CostTab = std::conditional_t<Dense,
+        std::unique_ptr<typename G::EdgeValT []>,
+        std::unordered_map<typename G::NodeKeyT, typename G::EdgeValT>
+    >;
     auto edgeTo{[&] () {
         if constexpr (Map<EdgeTab>)
             return EdgeTab{};

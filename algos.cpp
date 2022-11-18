@@ -209,9 +209,12 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
                     if (find(frontier.begin(), frontier.end(), 
                     i->getEnd()) == frontier.end()) {
                         frontier.push_back(i->getEnd());
-                        //Update predecessor pointer
-                        //THIS IS RETURNING NULL? WHY vvvvvvvvvvvvv
-                        stations[i->getEnd()].predecessor = &stations[top.second];
+                        //Update predecessor pointer on the heap
+                        //Creates memory leak, too bad!
+                        Station* p = new Station();
+                        p->setId(top.second);
+
+                        stations[i->getEnd()].predecessor = p;
                     }
                     // //Is in frontier but with higher cost
                     // if (find(frontier.begin(), frontier.end(), 

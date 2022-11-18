@@ -26,6 +26,7 @@ public:
     void setVisited(bool inVisited)                             {visited = inVisited;}
     void addLine(std::pair<std::string, int> line);
 	void addHeuristic(int val) {heuristic += val;}
+	void setId(int newId) {id = newId;}
 
 	// getters
 	int getId() const 	 	 				    				{return id;}

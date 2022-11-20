@@ -12,6 +12,8 @@
 
 using std::size_t;
 
+int heuristic(std::vector<Station> & stations, int currId, int nextId);
+
 // return manhattan distance between two stations
 double manhattanDistance(const Station &s1, const Station &s2){
     double diffX = std::abs( s1.getCords().first - s2.getCords().first );
@@ -236,65 +238,110 @@ std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
     return answer;
 }
 
+//Heuristics only test algorithm
+void testAlgHeuristics(std::vector<Station> stations, std::vector<int> goal,
+  int start) {
+    int currStation = start;
+    //Print starting station
+    std::cout << start;
+    std::vector<int> goalCopy = goal;
+
+    //Continue until all goal stations are visited
+    // while (goal.size() > 0) {
+
+    //^^^^^^^^^^^ INFINITE LOOP RESULTS BECAUSE LIST OF SUBWAY STATIONS HAS REPEATING IDS.
+        for (int i = 0; i < 10; i++) {
+
+        //Map to store station id and heuristic
+        std::map<int,int> nextHeuristics;
+        //Iterate through possible neighbors
+        std::list<Trip> trips = stations[currStation].getTrips();
+        std::list<Trip>::iterator iterT;
+        for(iterT = trips.begin(); iterT != trips.end(); iterT++){
+            int neighbor = iterT->getEnd();
+
+            //Heuristics helper function
+            nextHeuristics.insert(
+                {heuristic(stations, currStation, neighbor), neighbor}
+            );
+        }
+        
+        //Update visited stations
+        stations[currStation].setVisited(true);
+        //Remove from goal if applicable
+        std::vector<int>::iterator itr = std::find(goalCopy.begin(), goalCopy.end(), currStation);
+        if (itr != goalCopy.end()) {
+            goalCopy.erase(itr);
+        }
+
+        //Continue with best choice (min heuristic station)
+        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        //BUG: No unvisited stations case - find closest unvisited station
+        currStation = nextHeuristics.begin()->second;
+
+        //Print next station
+        std::cout << "->" << currStation;
+
+    }
+}
+
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){
 
 // }
 
-//PROPAGATION NOT IMPLEMENTED. HELPER FUNCTION NEEDED FOR PROPAGATION. VVVVVVVVV
-//New version of heuristics function (to be used in combination with UCS)
 //Changes heuristic value of current station and all neighboring 
 // connected stations
-void heuristic(std::vector<Station> & stations, int currId) {
-    const int penaltyVal = 1;
-    std::list<Trip> trips = stations[currId].getTrips();
-    std::list<Trip>::iterator iterT;
+// void heuristic(std::vector<Station> & stations, int currId) {
+//     const int penaltyVal = 1;
+//     std::list<Trip> trips = stations[currId].getTrips();
+//     std::list<Trip>::iterator iterT;
 
-    // -> branch stations are hard coded from north-west station clockwise
-    // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
-    int branchStarts[] = {
-        26 //3rd Ave - 138th St
-    };
+//     // -> branch stations are hard coded from north-west station clockwise
+//     // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
+//     int branchStarts[] = {
+//         26 //3rd Ave - 138th St
+//     };
 
-    //Iterate through all neighboring stations
-    for(iterT = trips.begin(); iterT != trips.end(); iterT++){
-        //Penalize neighbors for being already visited
-        if (stations[iterT->getEnd()].isVisited() == true) {
-            stations[iterT->getEnd()].addHeuristic(penaltyVal);
-        }
+//     //Iterate through all neighboring stations
+//     for(iterT = trips.begin(); iterT != trips.end(); iterT++){
+//         //Penalize neighbors for being already visited
+//         if (stations[iterT->getEnd()].isVisited() == true) {
+//             stations[iterT->getEnd()].addHeuristic(penaltyVal);
+//         }
         
-        //Penalize neighbors if they are not in the same line
-        std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
-        std::list<std::pair<std::string,int>>::iterator iterCurr;
-        std::list<std::pair<std::string,int>> nextLines = stations[iterT->getEnd()].getLines();
-        std::list<std::pair<std::string,int>>::iterator iterNext;
-        bool sameLine;
-        //Loop through all lines for the current station
-        for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
-            //Loop through all lines for the neighboring station
-            for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
-                //Check if there is a matching line
-                if (iterCurr->first == iterNext->first) {
-                    sameLine = true;
-                    break;
-                }
-            }
-            //Skip checking the rest of the current stations
-            if (sameLine) {
-                break;
-            }
-        }
-        if (!sameLine) {
-            stations[iterT->getEnd()].addHeuristic(penaltyVal);
-        }
+//         //Penalize neighbors if they are not in the same line
+//         std::list<std::pair<std::string,int>> currLines = stations[currId].getLines();
+//         std::list<std::pair<std::string,int>>::iterator iterCurr;
+//         std::list<std::pair<std::string,int>> nextLines = stations[iterT->getEnd()].getLines();
+//         std::list<std::pair<std::string,int>>::iterator iterNext;
+//         bool sameLine;
+//         //Loop through all lines for the current station
+//         for (iterCurr = currLines.begin(); iterCurr != currLines.end(); iterCurr++) {
+//             //Loop through all lines for the neighboring station
+//             for (iterNext = nextLines.begin(); iterNext != nextLines.end(); iterNext++) { 
+//                 //Check if there is a matching line
+//                 if (iterCurr->first == iterNext->first) {
+//                     sameLine = true;
+//                     break;
+//                 }
+//             }
+//             //Skip checking the rest of the current stations
+//             if (sameLine) {
+//                 break;
+//             }
+//         }
+//         if (!sameLine) {
+//             stations[iterT->getEnd()].addHeuristic(penaltyVal);
+//         }
 
-        //Penalize neighbors if entering a dead end branch
-        for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
-            if (branchStarts[i] == iterT->getEnd()) {
-                stations[iterT->getEnd()].addHeuristic(penaltyVal);
-            }
-        }
-    }
-}
+//         //Penalize neighbors if entering a dead end branch
+//         for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+//             if (branchStarts[i] == iterT->getEnd()) {
+//                 stations[iterT->getEnd()].addHeuristic(penaltyVal);
+//             }
+//         }
+//     }
+// }
 
 //PREVIOUS VERSION OF HEURISTICS FUNCTION (still used in main)
 // takes current station id and next station id
@@ -345,20 +392,20 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
         sum += penaltyVal;
     }
 
-    // penalty for entering a dead end branch vvvvv
-    // merged with penalty for moving away from large masses of connected stations
-    // -> stations are hard coded from north-west station clockwise
-    // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
-    int branchStarts[] = {
-        26 //3rd Ave - 138th St
-    };
+    // // penalty for entering a dead end branch vvvvv
+    // // merged with penalty for moving away from large masses of connected stations
+    // // -> stations are hard coded from north-west station clockwise
+    // // ONLY CONSIDERING THE LONGEST BRANCHES CURRENTLY
+    // int branchStarts[] = {
+    //     26 //3rd Ave - 138th St
+    // };
 
-    //Check if the station is going into a dead end branch
-    for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
-        if (branchStarts[i] == nextId) {
-            sum += penaltyVal;
-        }
-    }
+    // //Check if the station is going into a dead end branch
+    // for (size_t i = 0; i < (sizeof(branchStarts)/sizeof(int)); i++) {
+    //     if (branchStarts[i] == nextId) {
+    //         sum += penaltyVal;
+    //     }
+    // }
 
     return sum;
 }

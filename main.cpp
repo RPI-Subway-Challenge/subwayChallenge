@@ -90,6 +90,10 @@ int main(int argc, char* argv[]) {
     }
 
     createTrips();
+
+    branchReduction (stations); // compresses stations with only 2 neighbors into one station object
+    printStations(stations); // prints out all the stations in station list and prints out the status
+
     for(auto &station: stations) {
         station.removeDups();
     }

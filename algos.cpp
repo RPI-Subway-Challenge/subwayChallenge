@@ -247,10 +247,10 @@ void testAlgHeuristics(std::vector<Station> stations, std::vector<int> goal,
     std::vector<int> goalCopy = goal;
 
     //Continue until all goal stations are visited
-    // while (goal.size() > 0) {
+    // while (goalCopy.size() > 0) {
 
-    //^^^^^^^^^^^ INFINITE LOOP RESULTS BECAUSE LIST OF SUBWAY STATIONS HAS REPEATING IDS.
-        for (int i = 0; i < 10; i++) {
+    //^^^^^^^^^^^ INFINITE LOOP TESTING
+        for (int i = 0; i < 25; i++) {
 
         //Map to store station id and heuristic
         std::map<int,int> nextHeuristics;
@@ -274,6 +274,10 @@ void testAlgHeuristics(std::vector<Station> stations, std::vector<int> goal,
             goalCopy.erase(itr);
         }
 
+        //All goals visited
+        if (goalCopy.size() == 0) {
+            return;
+        }
         //Continue with best choice (min heuristic station)
         //VVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         //BUG: No unvisited stations case - find closest unvisited station
@@ -281,7 +285,6 @@ void testAlgHeuristics(std::vector<Station> stations, std::vector<int> goal,
 
         //Print next station
         std::cout << "->" << currStation;
-
     }
 }
 

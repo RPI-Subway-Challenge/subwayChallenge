@@ -3,44 +3,36 @@
 
 #include <string>
 #include <iostream>
+#include <chrono>
 
 
 class Time{
 public:
 
-	// default constructor
+	// constructors
 	Time() = default;
-
-	// constructor
-	Time(unsigned inputDay, unsigned inputHour, double inputMin);
-
-    // string constructor
-    Time(const std::string& inputDay, const std::string& inputHour, const std::string& inputMin);
     Time(const std::string& input);
-
-	// setters
-	void setDay(unsigned int inputDay)		{day = inputDay;}
-    void setHour(unsigned int inputHour)	{hour = inputHour;}
-    void setMin(double inputMin)			{min = inputMin;}
+	Time(std::chrono::weekday day, std::chrono::duration<unsigned> timeOfDay);
 
 	// getters
-	unsigned int getDay()	const {return day;}
-    unsigned int getHour()	const {return hour;}
-    unsigned int getMin()	const {return (int)min;}
-    double getMinSec() 		const {return min;}
-	bool isWeekday()		const {return (day <= 4);}
-	bool isWeekend()		const {return !(day > 4);}		
+	constexpr auto getDay()			const {return day;}
+	constexpr auto getTimeOfDay() 	const {return timeOfDay;}
+	constexpr auto dayCode() 		const {return day.c_encoding();}
+	constexpr bool isWeekday()		const {return !isWeekend();}
+	constexpr bool isWeekend()		const {
+		return day == std::chrono::Sunday || day == std::chrono::Saturday;
+	}
 
 	// operators
-	bool operator==(const Time& xTime) const;
+	bool operator==(const Time &) const = default;
 
 private:
-	unsigned int day{};	// 0-6 representing Sun-Sat	
-	unsigned int hour{};	// 24 hour format
-    double min{};
+	std::chrono::weekday day;
+	std::chrono::duration<unsigned> timeOfDay;
 };
 
-// operators
+// operator+ and operator- treats one of the arguments as a duration
+// (both being time points does not make sense).
 Time operator+(const Time &, const Time &);
 Time operator-(const Time &, const Time &);
 bool operator>(const Time &, const Time &);

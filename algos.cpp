@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <climits>
 #include "station.h"
+#include "time.h"
 
 using std::size_t;
 
@@ -108,17 +109,17 @@ std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x,
 // create trip for all walkable station from a station for all stations given from walkableNumber
 // O(x*num of stations^2) for all stations
 void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
-
+    using namespace std::chrono;
     // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
     // Creating basic time vector full of transportation data. (temporary filler data)
     std::list<Time> weekdayTimes;
     std::list<Time> weekendsTimes;
     for(unsigned i=0; i<24; i++){ // for every hour
         for(unsigned j=0; j<5; j++){ // day
-            weekdayTimes.push_back({j, i, 0});
+            weekdayTimes.emplace_back(weekday{j}, hours{i});
         }
         for(unsigned j=5; j<7; j++){
-            weekendsTimes.push_back({j, i, 0});
+            weekendsTimes.emplace_back(weekday{j}, hours{i});
         }
     }
     // create trips for each station to their walkable stations

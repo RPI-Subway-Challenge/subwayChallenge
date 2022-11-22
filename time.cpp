@@ -2,69 +2,46 @@
 #include <algorithm>
 #include "time.h"
 
-Time::Time(unsigned inputDay, unsigned inputHour, double inputMin):
-    day {inputDay},
-	hour{inputHour},
-    min {inputMin}
+using namespace std::chrono;
+
+Time::Time(const std::string& input):
+    timeOfDay{
+        hours{std::stoi(input.substr(0, 2))} +
+        minutes{std::stoi(input.substr(3, 2))} +
+        seconds{std::stoi(input.substr(6, 2))}
+    }
 {}
 
-Time::Time(const std::string& input){
-    double tempMin  = std::stoi(input.substr(3, 2));
-    double tempSeconds = std::stoi(input.substr(6,  2)) / 60;
-    min = tempMin + tempSeconds;
-    hour = std::stoi(input.substr(0, 2));
+Time::Time(weekday day, duration<unsigned> timeOfDay):
+	day{day}, timeOfDay{timeOfDay} {}
+
+Time operator+(const Time &t0, const Time &t1) {
+    using namespace std::chrono_literals;
+    auto newDay = t0.getDay() + days{t1.dayCode()};
+    auto newTimeOfDay = t0.getTimeOfDay() + t1.getTimeOfDay();
+    if(newTimeOfDay >= 24h) {
+        ++newDay;
+        newTimeOfDay -= 24h;
+    }
+    return {newDay, newTimeOfDay};
 }
 
-bool Time::operator==(const Time &tOther) const {
-    return day==tOther.getDay() && hour==tOther.getHour() && min==tOther.getMin();
-}
-
-Time operator+(const Time &t0, const Time &t1){
-    unsigned
-        newDay = t0.getDay() + t1.getDay(),
-        newHour = t0.getHour() + t1.getHour();
-    double newMin = t0.getMinSec() + t1.getMinSec();
-    if(newMin >= 60.0){
-        newHour++;
-        newMin -= 60;
+Time operator-(const Time &t0, const Time &t1) {
+    using namespace std::chrono_literals;
+    auto newDay = t0.getDay() - days{t1.dayCode()};
+    auto newTimeOfDay = t0.getTimeOfDay() - t1.getTimeOfDay();
+    if(t0.getTimeOfDay() < t1.getTimeOfDay()) {
+        --newDay;
+        newTimeOfDay += 24h;
     }
-    if(newHour >= 24){
-        newDay++;
-        newHour -= 24;
-    }
-    if(newDay >= 7){
-        newDay -= 7;
-    }
-    return {newDay, newHour, newMin};
-}
-
-Time operator-(const Time &t0, const Time &t1){
-    unsigned
-        newDay = t0.getDay() - t1.getDay(),
-        newHour = t0.getHour() - t1.getHour();
-    double newMin = t0.getMinSec() - t1.getMinSec();
-    if(newMin < 0){
-        newHour--;
-        newMin += 60;
-    }
-    if(newHour < 0){
-        newDay--;
-        newHour += 24;
-    }
-    if(newDay < 0){
-        newDay += 7;
-    }
-    return {newDay, newHour, newMin};
+    return {newDay, newTimeOfDay};
 }
 
 template<template <class T> class Cmp>
 bool cmpOpHelper(const Time &t0, const Time &t1) {
-    if(Cmp{}(t0.getDay(), t1.getDay())) {return true;}
-    else if(t0.getDay() == t1.getDay()) {
-        if(Cmp{}(t0.getHour(), t1.getHour())) {return true;}
-        else if(t0.getHour() == t1.getHour()) {
-            return Cmp{}(t0.getMin(), t1.getMin());
-        }
+    if(Cmp{}(t0.dayCode(), t1.dayCode())) {return true;}
+    else if(t0.dayCode() == t1.dayCode()) {
+        return Cmp{}(t0.getTimeOfDay(), t1.getTimeOfDay());
     }
     return false;
 }

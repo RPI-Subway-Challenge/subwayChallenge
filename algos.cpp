@@ -428,7 +428,7 @@ void branchReduction(std::vector<Station>& stations){
 
 }
 
-void print_stations(std::vector<Station>& stations){
+void printStations(std::vector<Station>& stations){
     for (int i=0; i<stations.size(); i++){
         std::cout<<"--------------------------------------------------------"<<std::endl;
         std::cout<<stations[i].getName()<<std::endl;
@@ -444,4 +444,5 @@ void print_stations(std::vector<Station>& stations){
         std::cout<<std::endl;
     }
 }
+
 

@@ -133,159 +133,39 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-//Uniform cost search test algorithm
-//ending id is added to goal vector
-std::vector<int> testAlg(std::vector<Station> stations, std::vector<int> goal,
-  int start){
-    //Minimum cost up to goal from root
-    std::vector<int> answer;
-    for (int i = 0; i < goal.size(); i++) {
-        answer.push_back(INT_MAX);
-    }
-    //Queue stores cumulative distance and station id
-    std::priority_queue<std::pair<int,int>> q;
-    //map stores station id and bit representing if it was visited
-    //0 = unvisited, 1 = visited
-    std::map<int,int> visited;
-    for (int i = 0; i < stations.size(); i++) {
-        visited.insert({stations[i].getId(), 0});
-    }
+//BFS test algorithm
+std::vector<int> testAlg(std::vector<Station> stations, int start) {
+    //Vector to store path tree
+    std::vector<int> path;
+    //Visited stations stored here (0 = unvisited, 1 = visited)
+    std::vector<int> visited(stations.size(), 0);
 
-    int count = 0;
+    //Queue for bfs
+    std::queue<int> queue;
 
-    //Insert root into priority queue
-    q.push({0, start});
+    //Add starting node and mark as visited
+    visited[start] = 1;
+    queue.push(start);
 
-    //Frontier system to create backpointers, stores station ids
-    std::vector<int> frontier;
-    frontier.push_back(start);
+    while (!queue.empty()) {
+        //Pop a vertex from queue and add to path
+        int s = queue.front();
+        path.push_back(s);
+        queue.pop();
 
-    while (q.size() > 0) {
-        //Find top element of the priority queue
-        std::pair<int,int> top = q.top();
+        //Find all neighbors of dequeued vertex
+        std::list<Trip> next = stations[s].getTrips();
 
-        //Remove element with the highest priority
-        q.pop();
-
-        //Find original cost of the node
-        top.first *= -1;
-
-        //Check if top is part of the goal vector 
-        if (find(goal.begin(), goal.end(), top.second) != goal.end()) {
-            //Get index of top in the goal list
-            int index = find(goal.begin(), goal.end(),
-                top.second) - goal.begin();
-            //If a new goal is reached
-            if (answer[index] == INT_MAX) { count++; }
-            //If the cost is less
-            if (answer[index] > top.first) {
-                answer[index] = top.first;
-            }
-            //Pop the element
-            q.pop();
-            //Terminate if all goals are reached
-            if (count == goal.size()) {
-                return answer;
+        for (const auto &trip: next) {
+            //Check if has been visited
+            int neighbor = trip.getEnd();
+            if (visited[neighbor] == 0) {
+                visited[neighbor] = 1;
+                queue.push(neighbor);
             }
         }
-
-        //Check for non visited neighbors
-        if (visited[top.second] == 0) {
-            //Add children to the priority queue with
-            //cumulative distance as the priority
-            std::list<Trip> trips = stations[top.second].getTrips();
-
-            for (std::list<Trip>::iterator i = trips.begin();
-             i != trips.end(); ++i) {
-
-                //Multiply cost by -1
-                int neighborCost = (top.first + i->getDuration()) * -1;
-                int neighborId = i->getEnd();
-
-                q.push({neighborCost, neighborId});
-
-                //Track predecessors with frontier
-                //Not visited
-                if (visited[i->getEnd()] == 0) {
-                    //Not in frontier
-                    if (find(frontier.begin(), frontier.end(), 
-                    i->getEnd()) == frontier.end()) {
-                        frontier.push_back(i->getEnd());
-                        //Update predecessor pointer on the heap
-                        //Creates memory leak, too bad!
-                        Station* p = new Station();
-                        p->setId(top.second);
-
-                        stations[i->getEnd()].predecessor = p;
-                    }
-                    // //Is in frontier but with higher cost
-                    // if (find(frontier.begin(), frontier.end(), 
-                    // i->getEnd()) != frontier.end()) {
-                    //     //Check if it has a higher cost (not sure if needed)
-                    //     //replace existing node with current neighbor
-                    //     *(find(frontier.begin(), frontier.end(), 
-                    //     i->getEnd())) = i->getEnd();
-                    //     //Set neighbor's predecessor pointer
-                    //     stations[i->getEnd()].predecessor = &stations[top.second];
-                    // }
-                }
-            }
-
-            //Mark current nodes as visited
-            visited[top.second] = 1;
-        }
     }
-    return answer;
-}
-
-//Heuristics only test algorithm
-void testAlgHeuristics(std::vector<Station> stations, std::vector<int> goal,
-  int start) {
-    int currStation = start;
-    //Print starting station
-    std::cout << start;
-    std::vector<int> goalCopy = goal;
-
-    //Continue until all goal stations are visited
-    // while (goalCopy.size() > 0) {
-
-    //^^^^^^^^^^^ INFINITE LOOP TESTING
-        for (int i = 0; i < 25; i++) {
-
-        //Map to store station id and heuristic
-        std::map<int,int> nextHeuristics;
-        //Iterate through possible neighbors
-        std::list<Trip> trips = stations[currStation].getTrips();
-        std::list<Trip>::iterator iterT;
-        for(iterT = trips.begin(); iterT != trips.end(); iterT++){
-            int neighbor = iterT->getEnd();
-
-            //Heuristics helper function
-            nextHeuristics.insert(
-                {heuristic(stations, currStation, neighbor), neighbor}
-            );
-        }
-        
-        //Update visited stations
-        stations[currStation].setVisited(true);
-        //Remove from goal if applicable
-        std::vector<int>::iterator itr = std::find(goalCopy.begin(), goalCopy.end(), currStation);
-        if (itr != goalCopy.end()) {
-            goalCopy.erase(itr);
-        }
-
-        //All goals visited
-        if (goalCopy.size() == 0) {
-            return;
-        }
-        //Continue with best choice (min heuristic station)
-        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        //BUG: No unvisited stations case - find closest unvisited station
-        currStation = nextHeuristics.begin()->second;
-
-        //Print next station
-        std::cout << "->" << currStation;
-    }
+    return path;
 }
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){

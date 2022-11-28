@@ -15,7 +15,7 @@
 // Ahn's starting point:		Far Rockaway Mott (id: 54)		2:02am
 // Ahn's ending point:			Flushing Main Street
 
-
+//CHANGED STATION INITIALIZATON BECAUSE STATION ID WAS ARBITRARY
 std::vector<Station> stations;
 std::vector<Line> lines;
 
@@ -111,58 +111,77 @@ int main(int argc, char* argv[]) {
 
     //                                                          M A N U A L   T R A V E R S A L
 
-	int c;
-    std::cout << "Please enter the id of a starting station\n";
-    int curr;
-    std::cin >> curr;
+    //TEST
 
-    int timeTravel = 0;
-	do {
+    //starting id for testing: 270
+    std::vector<int> path = testAlg(stations, 270);
+    for (int i = 0; i < path.size(); i++) {
+        std::cout << path[i];
+        if (i != path.size()-1) { std::cout << " -> "; }
+    }
+    std::cout << "\n" << std::endl;
 
-        stations[curr].setVisited(true); // the station is set as visited now
+    //starting id for testing: 22
+    //PROOF THAT GRAPH IS DISCONNECTED. vvvvvvvvvvvvv
+    std::vector<int> path2 = testAlg(stations, 22);
+    for (int i = 0; i < path2.size(); i++) {
+        std::cout << path2[i];
+        if (i != path2.size()-1) { std::cout << " -> "; }
+    }
+    std::cout << std::endl;
+
+	// int c;
+    // std::cout << "Please enter the id of a starting station\n";
+    // int curr;
+    // std::cin >> curr;
+
+    // int timeTravel = 0;
+	// do {
+
+    //     stations[curr].setVisited(true); // the station is set as visited now
         
-        std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
-        std::cout << "Enter -1 to quit\n";
-        std::cout << "Your current location is " << stations[curr].getName() << " with ID " << curr << "\n";
-        std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
+    //     std::cout << "\n\nTOTAL TIME ELAPSED: " << timeTravel << "\n";
+    //     std::cout << "Enter -1 to quit\n";
+    //     std::cout << "Your current location is " << stations[curr].getName() << " with ID " << curr << "\n";
+    //     std::cout << "Here are all of the following trips you can take!"<<std::endl<<std::endl;
 
 
-        // Printing out the possible trip you can take 
-        std::list<Trip> canGo = stations[curr].getTrips();
-        for (const auto &trip: canGo){
+    //     // Printing out the possible trip you can take 
+    //     std::list<Trip> canGo = stations[curr].getTrips();
+    //     for (const auto &trip: canGo){
         
-            std::cout   << "\tStart ID: "    << trip.getStart() 
-                        << "    End ID: "    << trip.getEnd() 
-                        << "    Time: "       << trip.getDuration()
-                        << "    Line: "         << trip.getLineName()  // ! what if its a walking route
-                        << "    Visited: "         << stations[trip.getEnd()].isVisited()
-                        // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
-                        // manual traversal currently passes in the same station for both args
-                        // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
-                        << "    Heuristic: "       << heuristic(stations, trip.getStart(), trip.getStart()) <<  "\n";
-        }
+    //         std::cout   << "\tStart ID: "    << trip.getStart() 
+    //                     << "    End ID: "    << trip.getEnd() 
+    //                     << "    Time: "       << trip.getDuration()
+    //                     << "    Line: "         << trip.getLineName()  // ! what if its a walking route
+    //                     << "    Visited: "         << stations[trip.getEnd()].isVisited()
+    //                     // HEURISTIC NEEDS TWO ARGUMENTS, STARTING STATION AND ENDING STATION
+    //                     // manual traversal currently passes in the same station for both args
+    //                     // WILL NEED TO CHANGE FOR ACTUAL ALGORITHM
+    //                     << "    Heuristic: "       << heuristic(stations, trip.getStart(), trip.getStart()) <<  "\n";
+    //     }
 
-        std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
-        std::cin >> c;
+    //     std::cout << "\nEnter the ID of the station you would like to travel to"<<std::endl;
+    //     std::cin >> c;
 
-        if (c != -1) {
-            bool isInputValid = false; // used to check if user's choice is a trip option suggested
-            for (const auto &trip: canGo){
-                if (trip.getEnd() == c) {
-                    timeTravel += trip.getDuration();
-                    isInputValid = true;
-                    break;
-                }
-            }
-            if (isInputValid == false){
-                std::cout<<"---this station number is not a trip suggested above.---"<<std::endl;
-            }
-        }
+    //     if (c != -1) {
+    //         bool isInputValid = false; // used to check if user's choice is a trip option suggested
+    //         for (const auto &trip: canGo){
+    //             if (trip.getEnd() == c) {
+    //                 timeTravel += trip.getDuration();
+    //                 isInputValid = true;
+    //                 break;
+    //             }
+    //         }
+    //         if (isInputValid == false){
+    //             std::cout<<"---this station number is not a trip suggested above.---"<<std::endl;
+    //         }
+    //     }
 
 
-        curr = c;
+    //     curr = c;
 
-	} while(c != -1);
+	// } while(c != -1);
 
 }
 

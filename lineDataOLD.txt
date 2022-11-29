@@ -1,0 +1,764 @@
+Line: 1
+station name: Van Cortlandt Park - 242nd St, index: 270
+station name: 238th St, index: 5
+station name: 231st St, index: 266
+station name: Marble Hill - 225th St, index: 265
+station name: 215th St, index: 267
+station name: 207th St, index: 268
+station name: Dyckman St, index: 285
+station name: 191st St, index: 178
+station name: 181st St, index: 177
+station name: 168th St, index: 176
+station name: 157th St, index: 156
+station name: 145th St, index: 155
+station name: 137th St - City College, index: 171
+station name: 125th St, index: 286
+station name: 116th St - Columbia University, index: 166
+station name: Cathedral Pkwy (110th St), index: 165
+station name: 103rd St, index: 158
+station name: 96th St, index: 157
+station name: 86th St, index: 85
+station name: 79th St, index: 192
+station name: 72nd St, index: 161
+station name: 66th St - Lincoln Ctr, index: 87
+station name: 59th St - Columbus Circle, index: 93
+station name: 50th St, index: 2
+station name: Times Sq - 42nd St, index: 358
+station name: 34th St - Penn Station, index: 357
+station name: 28th St, index: 198
+station name: 23rd St, index: 95
+station name: 18th St, index: 202
+station name: 14th St, index: 438
+station name: Christopher St - Sheridan Sq, index: 194
+station name: Houston St, index: 96
+station name: Canal St, index: 89
+station name: Franklin St, index: 463
+station name: Chambers St, index: 403
+station name: WTC Cortlandt, index: 425
+station name: Rector St, index: 424
+station name: South Ferry, index: 417
+station name: South Ferry, index: 417
+
+Line: 2
+station name: Wakefield - 241st St, index: 279
+station name: 233rd St, index: 86
+station name: 225th St, index: 247
+station name: 219th St, index: 272
+station name: Gun Hill Rd, index: 39
+station name: Burke Ave, index: 275
+station name: Allerton Ave, index: 256
+station name: Pelham Pkwy, index: 38
+station name: Bronx Park E, index: 43
+station name: E 180th St, index: 284
+station name: W Farms Sq - E Tremont Ave, index: 271
+station name: 174th St, index: 255
+station name: Freeman St, index: 17
+station name: Simpson St, index: 42
+station name: Intervale Ave, index: 18
+station name: Prospect Ave, index: 253
+station name: Jackson Ave, index: 252
+station name: 3rd Ave - 149th St, index: 289
+station name: 149th St - Grand Concourse, index: 288
+station name: 135th St, index: 168
+station name: 125th St, index: 167
+station name: 116th St, index: 169
+station name: Central Park North (110th St), index: 159
+station name: 96th St, index: 157
+station name: 86th St, index: 85
+station name: 79th St, index: 192
+station name: 72nd St, index: 161
+station name: 66th St - Lincoln Ctr, index: 87
+station name: 59th St - Columbus Circle, index: 93
+station name: 50th St, index: 2
+station name: Times Sq - 42nd St, index: 358
+station name: 34th St - Penn Station, index: 357
+station name: 28th St, index: 198
+station name: 23rd St, index: 95
+station name: 18th St, index: 202
+station name: 14th St, index: 438
+station name: Christopher St - Sheridan Sq, index: 194
+station name: Houston St, index: 96
+station name: Canal St, index: 89
+station name: Franklin St, index: 463
+station name: Chambers St, index: 403
+station name: Park Pl, index: 402
+station name: Fulton St, index: 401
+station name: Wall St, index: 429
+station name: Clark St, index: 445
+station name: Borough Hall, index: 405
+station name: Hoyt St, index: 404
+station name: Nevins St, index: 127
+station name: Atlantic Ave - Barclays Ctr, index: 115
+station name: Bergen St, index: 3
+station name: Grand Army Plaza, index: 114
+station name: Eern Pkwy - Brooklyn Museum, index: 128
+station name: Franklin Ave, index: 41
+station name: President St, index: 454
+station name: Sterling St, index: 133
+station name: Winthrop St, index: 44
+station name: Church Ave, index: 130
+station name: Beverly Rd, index: 129
+station name: Newkirk Ave, index: 131
+
+Line: 3
+station name: Harlem - 148th St, index: 260
+station name: 145th St, index: 172
+station name: 135th St, index: 168
+station name: 125th St, index: 167
+station name: 116th St, index: 169
+station name: Central Park North (110th St), index: 159
+station name: 96th St, index: 157
+station name: 72nd St, index: 161
+station name: Times Sq - 42nd St, index: 358
+station name: 34th St - Penn Station, index: 357
+station name: 14th St, index: 438
+station name: Chambers St, index: 403
+station name: Park Pl, index: 402
+station name: Fulton St, index: 401
+station name: Wall St, index: 429
+station name: Clark St, index: 445
+station name: Borough Hall, index: 405
+station name: Hoyt St, index: 404
+station name: Nevins St, index: 127
+station name: Atlantic Ave - Barclays Ctr, index: 115
+station name: Bergen St, index: 3
+station name: Grand Army Plaza, index: 114
+station name: Eern Pkwy - Brooklyn Museum, index: 128
+station name: Franklin Ave, index: 41
+station name: Nostrand Ave, index: 444
+station name: Kingston Ave, index: 135
+station name: Crown Heights - Utica Ave, index: 134
+station name: Sutter Ave - Rutland Rd, index: 221
+station name: Saratoga Ave, index: 220
+station name: Rockaway Ave, index: 217
+station name: Junius St, index: 216
+station name: Pennsylvania Ave, index: 4
+station name: Van Siclen Ave, index: 45
+station name: New Lots Ave, index: 212
+
+Line: 4
+station name: Woodlawn, index: 455
+station name: Mosholu Pkwy, index: 273
+station name: Bedford Park Boulevard - Lehman College, index: 259
+station name: Kingsbridge Rd, index: 258
+station name: Fordham Rd, index: 407
+station name: 183rd St, index: 406
+station name: Burnside Ave, index: 174
+station name: 176th St, index: 173
+station name: Mount Eden Ave, index: 261
+station name: 170th St, index: 263
+station name: 167th St, index: 290
+station name: 161st St - Yankee Stadium, index: 47
+station name: 149th St - Grand Concourse, index: 46
+station name: 138th St - Grand Concourse, index: 140
+station name: 125th St, index: 467
+station name: 116th St, index: 461
+station name: 110th St, index: 449
+station name: 103rd St, index: 457
+station name: 96th St, index: 32
+station name: 86th St, index: 450
+station name: 77th St, index: 33
+station name: 68th St - Hunter College, index: 101
+station name: 51st St, index: 84
+station name: Grand Central - 42nd St, index: 30
+station name: 33rd St, index: 31
+station name: 28th St, index: 199
+station name: 23rd St, index: 91
+station name: Astor Pl, index: 0
+station name: Bleecker St, index: 456
+station name: Spring St, index: 466
+station name: Canal St, index: 1
+station name: Brooklyn Bridge - City Hall, index: 28
+station name: Fulton St, index: 426
+station name: Wall St, index: 419
+station name: Bowling Green, index: 418
+station name: Borough Hall, index: 122
+station name: Nevins St, index: 127
+station name: Atlantic Ave - Barclays Ctr, index: 115
+station name: Bergen St, index: 3
+station name: Grand Army Plaza, index: 114
+station name: Eern Pkwy - Brooklyn Museum, index: 128
+station name: Franklin Ave, index: 41
+station name: Nostrand Ave, index: 444
+station name: Kingston Ave, index: 135
+station name: Crown Heights - Utica Ave, index: 134
+
+Line: 5
+station name: 233rd St, index: 86
+station name: 225th St, index: 247
+station name: 219th St, index: 272
+station name: Gun Hill Rd, index: 39
+station name: Burke Ave, index: 275
+station name: Allerton Ave, index: 256
+station name: Pelham Pkwy, index: 38
+station name: Bronx Park E, index: 43
+station name: Echester - Dyre Ave, index: 277
+station name: Baychester Ave, index: 276
+station name: Gun Hill Rd, index: 39
+station name: Pelham Pkwy, index: 38
+station name: Morris Park, index: 124
+station name: E 180th St, index: 284
+station name: W Farms Sq - E Tremont Ave, index: 271
+station name: 174th St, index: 255
+station name: Freeman St, index: 17
+station name: Simpson St, index: 42
+station name: Intervale Ave, index: 18
+station name: Prospect Ave, index: 253
+station name: Jackson Ave, index: 252
+station name: 3rd Ave - 149th St, index: 289
+station name: 149th St - Grand Concourse, index: 288
+station name: 138th St - Grand Concourse, index: 140
+station name: 125th St, index: 467
+station name: 86th St, index: 450
+station name: Grand Central - 42nd St, index: 30
+station name: Brooklyn Bridge - City Hall, index: 28
+station name: Fulton St, index: 426
+station name: Wall St, index: 419
+station name: Bowling Green, index: 418
+station name: Borough Hall, index: 122
+station name: Nevins St, index: 127
+station name: Atlantic Ave - Barclays Ctr, index: 115
+station name: Franklin Ave, index: 41
+station name: President St, index: 454
+station name: Sterling St, index: 133
+station name: Winthrop St, index: 44
+station name: Church Ave, index: 130
+station name: Beverly Rd, index: 129
+station name: Newkirk Ave, index: 131
+
+Line: 6
+station name: Buhre Ave, index: 25
+station name: Middletown Rd, index: 90
+station name: Wchester Sq - E Tremont Ave, index: 201
+station name: Zerega Ave, index: 29
+station name: Castle Hill Ave, index: 27
+station name: Parkchester, index: 462
+station name: St. Lawrence Ave, index: 52
+station name: Morrison Ave - Soundview, index: 50
+station name: Elder Ave, index: 248
+station name: Whitlock Ave, index: 51
+station name: Hunts Point Ave, index: 88
+station name: Longwood Ave, index: 249
+station name: E 149th St, index: 49
+station name: E 143rd St - St. Mary's St, index: 257
+station name: Cypress Ave, index: 254
+station name: Brook Ave, index: 291
+station name: 3rd Ave - 138th St, index: 26
+station name: 125th St, index: 467
+station name: 116th St, index: 461
+station name: 110th St, index: 449
+station name: 103rd St, index: 457
+station name: 96th St, index: 32
+station name: 86th St, index: 450
+station name: 77th St, index: 33
+station name: 68th St - Hunter College, index: 101
+station name: 51st St, index: 84
+station name: Grand Central - 42nd St, index: 30
+station name: 33rd St, index: 31
+station name: 28th St, index: 199
+station name: 23rd St, index: 91
+station name: Astor Pl, index: 0
+station name: Bleecker St, index: 456
+station name: Spring St, index: 466
+station name: Canal St, index: 1
+station name: Brooklyn Bridge - City Hall, index: 28
+
+Line: 7
+station name: Mets - Willets Point, index: 22
+station name: 111th St, index: 189
+station name: 103rd St - Corona Plaza, index: 188
+station name: Junction Boulevard, index: 23
+station name: 90th St - Elmhurst Ave, index: 240
+station name: 82nd St - Jackson Heights, index: 239
+station name: 74th St - Broadway, index: 230
+station name: 69th St, index: 229
+station name: 52nd St, index: 235
+station name: 33rd St - Rawson St, index: 239
+station name: Queensboro Plaza, index: 102
+station name: Court Sq, index: 92
+station name: Hunters Point Ave, index: 94
+station name: Vernon Boulevard - Jackson Ave, index: 100
+station name: Grand Central, index: 203
+station name: Times Sq, index: 196
+station name: 34th St - Hudson Yards, index: 469
+station name: 14th St - Hudson Terminal, index: 469
+
+Line: A
+station name: Inwood - 207th St, index: 269
+station name: Dyckman St, index: 430
+station name: 190th St, index: 396
+station name: 181st St, index: 395
+station name: 175th St, index: 179
+station name: 168th St, index: 57
+station name: 163rd St - Amsterdam Ave, index: 411
+station name: 155th St, index: 410
+station name: 145th St, index: 294
+station name: 135th St, index: 439
+station name: 125th St, index: 398
+station name: 116th St, index: 397
+station name: Cathedral Pkwy (110th St), index: 6
+station name: 103rd St, index: 160
+station name: 96th St, index: 56
+station name: 86th St, index: 164
+station name: 72nd St, index: 55
+station name: 59th St - Columbus Circle, index: 352
+station name: 50th St, index: 346
+station name: 42nd St-Port Authority Bus Terminal, index: 361
+station name: 34th St - Penn Station, index: 436
+station name: 23rd St, index: 435
+station name: 14th St, index: 443
+station name: W Fourth St - Washington Sq, index: 205
+station name: Spring St, index: 394
+station name: Chambers St, index: 360
+station name: Fulton St, index: 359
+station name: High St, index: 452
+station name: Jay St - MetroTech, index: 367
+station name: Hoyt - Schermerhorn Sts, index: 366
+station name: Lafayette Ave, index: 453
+station name: Clinton - Washington Aves, index: 447
+station name: Franklin Ave, index: 446
+station name: Nostrand Ave, index: 126
+station name: Kingston - Throop Aves, index: 7
+station name: Utica Ave, index: 297
+station name: Ralph Ave, index: 37
+station name: Rockaway Ave, index: 116
+station name: Broadway Junction, index: 385
+station name: Liberty Ave, index: 384
+station name: Van Siclen Ave, index: 213
+station name: Shepherd Ave, index: 225
+station name: Euclid Ave, index: 458
+station name: Grant Ave, index: 191
+station name: 80th St, index: 464
+station name: 88th St, index: 459
+station name: Rockaway Boulevard, index: 103
+station name: 104th St, index: 97
+station name: 111th St, index: 82
+station name: Ozone Park - Lefferts Boulevard, index: 195
+station name: Aqueduct Racetrack, index: 123
+station name: Aqueduct - North Conduit Ave, index: 242
+station name: Howard Beach - JFK Airport, index: 241
+station name: Broad Channel, index: 98
+station name: Beach 67th St, index: 204
+station name: Beach 60th St, index: 181
+station name: Beach 44th St, index: 180
+station name: Beach 36th St, index: 184
+station name: Beach 25th St, index: 185
+station name: Far Rockaway - Mott Ave, index: 54
+station name: Beach 90th St, index: 16
+station name: Beach 98th St, index: 182
+station name: Beach 105th St, index: 15
+station name: Rockaway Park - Beach 116th St, index: 183
+
+Line: B
+station name: Bedford Park Boulevard, index: 264
+station name: Kingsbridge Rd, index: 58
+station name: Fordham Rd, index: 262
+station name: 182nd - 183rd Sts, index: 19
+station name: Tremont Ave, index: 170
+station name: 174th - 175th Sts, index: 20
+station name: 170th St, index: 175
+station name: 167th St, index: 21
+station name: 161st St - Yankee Stadium, index: 296
+station name: 155th St, index: 295
+station name: 145th St, index: 294
+station name: 135th St, index: 439
+station name: 125th St, index: 398
+station name: 116th St, index: 397
+station name: Cathedral Pkwy (110th St), index: 6
+station name: 103rd St, index: 160
+station name: 96th St, index: 56
+station name: 86th St, index: 164
+station name: 72nd St, index: 55
+station name: 59th St - Columbus Circle, index: 352
+station name: 47th - 50th Sts - Rockefeller Ctr, index: 348
+station name: 42nd St - Bryant Park, index: 59
+station name: Broadway - Lafayette St, index: 432
+station name: Grand St, index: 431
+station name: DeKalb Ave, index: 14
+station name: Atlantic Ave - Barclays Ctr, index: 120
+station name: Prospect Park, index: 60
+station name: Church Ave, index: 111
+station name: Newkirk Ave, index: 112
+station name: Kings Highway, index: 329
+station name: Sheepshead Bay, index: 327
+station name: Brighton Beach, index: 326
+
+Line: C
+station name: 168th St, index: 57
+station name: 163rd St - Amsterdam Ave, index: 411
+station name: 155th St, index: 410
+station name: 145th St, index: 294
+station name: 135th St, index: 439
+station name: 125th St, index: 398
+station name: 116th St, index: 397
+station name: Cathedral Pkwy (110th St), index: 6
+station name: 103rd St, index: 160
+station name: 96th St, index: 56
+station name: 86th St, index: 164
+station name: 72nd St, index: 55
+station name: 59th St - Columbus Circle, index: 352
+station name: 50th St, index: 346
+station name: 42nd St-Port Authority Bus Terminal, index: 361
+station name: 34th St - Penn Station, index: 436
+station name: 23rd St, index: 435
+station name: 14th St, index: 443
+station name: W Fourth St - Washington Sq, index: 205
+station name: Spring St, index: 394
+station name: Chambers St, index: 360
+station name: Fulton St, index: 359
+station name: High St, index: 452
+station name: Jay St - MetroTech, index: 367
+station name: Hoyt - Schermerhorn Sts, index: 366
+station name: Lafayette Ave, index: 453
+station name: Clinton - Washington Aves, index: 447
+station name: Franklin Ave, index: 446
+station name: Nostrand Ave, index: 126
+station name: Kingston - Throop Aves, index: 7
+station name: Utica Ave, index: 297
+station name: Ralph Ave, index: 37
+station name: Rockaway Ave, index: 116
+station name: Broadway Junction, index: 385
+station name: Liberty Ave, index: 384
+station name: Van Siclen Ave, index: 213
+station name: Shepherd Ave, index: 225
+station name: Euclid Ave, index: 458
+
+Line: D
+station name: Norwood - 205th St, index: 274
+station name: Bedford Park Boulevard, index: 264
+station name: Kingsbridge Rd, index: 58
+station name: Fordham Rd, index: 262
+station name: 182nd - 183rd Sts, index: 19
+station name: Tremont Ave, index: 170
+station name: 174th - 175th Sts, index: 20
+station name: 170th St, index: 175
+station name: 167th St, index: 21
+station name: 161st St - Yankee Stadium, index: 296
+station name: 155th St, index: 295
+station name: 145th St, index: 294
+station name: 125th St, index: 398
+station name: 59th St - Columbus Circle, index: 352
+station name: 47th - 50th Sts - Rockefeller Ctr, index: 348
+station name: 42nd St - Bryant Park, index: 59
+station name: Broadway - Lafayette St, index: 432
+station name: Grand St, index: 431
+station name: DeKalb Ave, index: 14
+station name: Atlantic Ave - Barclays Ctr, index: 121
+station name: Union St, index: 35
+station name: Prospect Ave, index: 380
+station name: 25th St, index: 392
+station name: 36th St, index: 388
+station name: Ninth Ave, index: 389
+station name: Fort Hamilton Pkwy, index: 391
+station name: 50th St, index: 310
+station name: 55th St, index: 61
+station name: 62nd St, index: 322
+station name: 71st St, index: 319
+station name: 79th St, index: 318
+station name: 18th Ave, index: 321
+station name: 20th Ave, index: 320
+station name: Bay Pkwy, index: 313
+station name: 25th Ave, index: 312
+station name: Bay 50th St, index: 334
+station name: Coney Island - Stillwell Ave, index: 468
+
+Line: E
+station name: Jamaica Ctr - Parsons / Archer, index: 246
+station name: Sutphin Boulevard - Archer Ave - JFK Airport, index: 64
+station name: Jamaica - Van Wyck, index: 62
+station name: Briarwood - Van Wyck Boulevard, index: 243
+station name: Kew Gardens - Union Turnpike, index: 63
+station name: 75th Ave, index: 163
+station name: Forest Hills - 71st Ave, index: 244
+station name: 67th Ave, index: 66
+station name: 63rd Drive - Rego Park, index: 190
+station name: Grand Ave - Newtown, index: 67
+station name: Elmhurst Ave, index: 36
+station name: Jackson Heights - Roosevelt Ave, index: 437
+station name: 65th St, index: 8
+station name: Northern Boulevard, index: 237
+station name: 46th St, index: 236
+station name: Steinway St, index: 298
+station name: 36th St, index: 9
+station name: Queens Plaza, index: 306
+station name: Court Sq - 23rd St, index: 65
+station name: Lexington Ave - 53rd St, index: 142
+station name: Fifth Ave / 53rd St , index: 141
+station name: 50th St, index: 346
+station name: 42nd St - Port Authority Bus Terminal, index: 361
+station name: 34th St - Penn Station, index: 436
+station name: 23rd St, index: 435
+station name: 14th St, index: 443
+station name: W Fourth St - Washington Sq, index: 205
+station name: Spring St, index: 394
+station name: World Trade Ctr, index: 408
+
+Line: F
+station name: Jamaica - 179th St, index: 278
+station name: 169th St, index: 187
+station name: Parsons Boulevard, index: 186
+station name: Sutphin Boulevard, index: 245
+station name: Briarwood - Van Wyck Boulevard, index: 243
+station name: Kew Gardens - Union Turnpike, index: 63
+station name: 75th Ave, index: 163
+station name: Forest Hills - 71st Ave, index: 244
+station name: Jackson Heights - Roosevelt Ave, index: 437
+station name: 21st St - Queensbridge, index: 345
+station name: Roosevelt Island, index: 351
+station name: Lexington Ave - 63rd St, index: 350
+station name: 47th - 50th Sts - Rockefeller Ctr, index: 348
+station name: 42nd St - Bryant Park, index: 59
+station name: 23rd St, index: 364
+station name: 14th St, index: 440
+station name: Broadway - Lafayette St, index: 432
+station name: York St, index: 451
+station name: Jay St - MetroTech, index: 367
+station name: Bergen St, index: 375
+station name: Carroll St, index: 393
+station name: Smith - Ninth Sts, index: 374
+station name: 15th St - Prospect Park, index: 106
+station name: Fort Hamilton Pkwy, index: 108
+station name: Church Ave, index: 109
+station name: Ditmas Ave, index: 68
+station name: 18th Ave, index: 307
+station name: Ave I, index: 341
+station name: Bay Pkwy, index: 338
+station name: Ave N, index: 337
+station name: Ave P, index: 336
+station name: Kings Highway, index: 325
+station name: Ave U, index: 324
+station name: Ave X, index: 333
+station name: Neptune Ave, index: 332
+station name: W Eighth St - New York Aquarium, index: 197
+station name: Coney Island - Stillwell Ave, index: 468
+
+Line: G
+station name: 21st St, index: 153
+station name: Greenpoint Ave, index: 137
+station name: Nassau Ave, index: 136
+station name: Metropolitan Ave, index: 147
+station name: Broadway, index: 70
+station name: Flushing Ave, index: 363
+station name: Myrtle - Willoughby Aves, index: 362
+station name: Bedford - Nostrand Aves, index: 105
+station name: Classon Ave, index: 69
+station name: Clinton - Washington Aves, index: 118
+station name: Fulton St, index: 117
+station name: Hoyt - Schermerhorn Sts, index: 366
+station name: Bergen St, index: 375
+station name: Carroll St, index: 393
+station name: Smith - Ninth Sts, index: 374
+station name: 15th St - Prospect Park, index: 106
+station name: Fort Hamilton Pkwy, index: 108
+station name: Church Ave, index: 109
+
+Line: J
+station name: Sutphin Boulevard - Archer Ave - JFK Airport, index: 64
+station name: 121st St, index: 209
+station name: 111th St, index: 208
+station name: Woodhaven Boulevard, index: 207
+station name: 85th St - Forest Pkwy, index: 206
+station name: 75th St - Elderts Lane, index: 228
+station name: Cypress Hills, index: 227
+station name: Crescent St, index: 226
+station name: Norwood Ave, index: 12
+station name: Cleveland St, index: 214
+station name: Van Siclen Ave, index: 11
+station name: Alabama Ave, index: 224
+station name: Broadway Junction, index: 223
+station name: Chauncey St, index: 34
+station name: Halsey St, index: 74
+station name: Gates Ave, index: 300
+station name: Kosciuszko St, index: 299
+station name: Myrtle Ave, index: 372
+station name: Flushing Ave, index: 371
+station name: Lorimer St, index: 75
+station name: Hewes St, index: 139
+station name: Marcy Ave, index: 138
+station name: Bowery, index: 433
+station name: Canal St, index: 414
+station name: Chambers St, index: 413
+station name: Fulton St, index: 412
+station name: Broad St, index: 427
+
+Line: L
+station name: 3rd Ave, index: 382
+station name: Bedford Ave, index: 150
+station name: Lorimer St, index: 71
+station name: Graham Ave, index: 149
+station name: Grand St, index: 148
+station name: Montrose Ave, index: 151
+station name: Morgan Ave, index: 305
+station name: Jefferson St, index: 304
+station name: DeKalb Ave, index: 234
+station name: Myrtle - Wyckoff Aves, index: 211
+station name: Halsey St, index: 210
+station name: Wilson Ave, index: 73
+station name: Bushwick Ave - Aberdeen St, index: 281
+station name: Broadway Junction, index: 282
+station name: Atlantic Ave, index: 193
+station name: Sutter Ave, index: 72
+station name: Livonia Ave, index: 215
+station name: New Lots Ave, index: 222
+station name: E 105th St, index: 219
+station name: Canarsie - Rockaway Pkwy, index: 218
+
+Line: M
+station name: Forest Hills - 71st Ave, index: 244
+station name: 67th Ave, index: 66
+station name: 63rd Drive - Rego Park, index: 190
+station name: Grand Ave - Newtown, index: 67
+station name: Elmhurst Ave, index: 36
+station name: Jackson Heights - Roosevelt Ave, index: 437
+station name: 65th St, index: 8
+station name: Northern Boulevard, index: 237
+station name: 46th St, index: 236
+station name: Steinway St, index: 298
+station name: 36th St, index: 9
+station name: Queens Plaza, index: 306
+station name: Court Sq - 23rd St, index: 65
+station name: Lexington Ave - 53rd St, index: 142
+station name: Fifth Ave / 53rd St, index: 141
+station name: 47th - 50th Sts - Rockefeller Ctr, index: 348
+station name: 42nd St - Bryant Park, index: 59
+station name: 23rd St, index: 364
+station name: 14th St, index: 440
+station name: Broadway - Lafayette St, index: 432
+station name: Marcy Ave, index: 138
+station name: Hewes St, index: 139
+station name: Lorimer St, index: 75
+station name: Flushing Ave, index: 371
+station name: Myrtle Ave, index: 372
+station name: Central Ave, index: 301
+station name: Knickerbocker Ave, index: 302
+station name: Myrtle - Wyckoff Aves, index: 232
+station name: Seneca Ave, index: 233
+station name: Forest Ave, index: 448
+station name: Fresh Pond Rd, index: 422
+station name: Middle Village - Metropolitan Ave, index: 423
+
+Line: N
+station name: Astoria - Ditmars Boulevard, index: 251
+station name: Astoria Boulevard, index: 250
+station name: 30th Ave, index: 303
+station name: Broadway, index: 78
+station name: 36th Ave, index: 77
+station name: 39th Avenu, index: 154
+station name: Queensboro Plaza, index: 102
+station name: Lexington Ave / 59th St, index: 356
+station name: Fifth Ave / 59th St, index: 355
+station name: 49th St, index: 353
+station name: Times Sq - 42nd St, index: 79
+station name: 28th St, index: 143
+station name: 23rd St, index: 379
+station name: Prince St, index: 399
+station name: Canal St, index: 434
+station name: Court St, index: 377
+station name: Jay St - MetroTech, index: 376
+station name: DeKalb Ave, index: 14
+station name: Atlantic Ave - Barclays Ctr, index: 121
+station name: Union St, index: 35
+station name: Prospect Ave, index: 380
+station name: 25th St, index: 392
+station name: 36th St, index: 388
+station name: 45th St, index: 387
+station name: 53rd St, index: 390
+station name: 59th St, index: 386
+station name: Fort Hamilton Pkwy, index: 311
+station name: New Utrecht Ave, index: 323
+station name: 18th Ave, index: 315
+station name: 20th Ave, index: 314
+station name: Bay Pkwy, index: 340
+station name: Kings Highway, index: 331
+station name: Ave U, index: 330
+station name: Coney Island - Stillwell Ave, index: 468
+
+Line: Q
+station name: 96th St, index: 472
+station name: 86th St, index: 471
+station name: 72nd St, index: 470
+station name: Lexington Ave - 63rd St, index: 350
+station name: 49th St, index: 353
+station name: Times Sq - 42nd St, index: 79
+station name: Canal St, index: 434
+station name: DeKalb Ave, index: 14
+station name: Atlantic Ave - Barclays Ctr, index: 120
+station name: Prospect Park, index: 60
+station name: Parkside Ave, index: 113
+station name: Church Ave, index: 111
+station name: Beverley Rd, index: 110
+station name: Cortelyou Rd, index: 460
+station name: Newkirk Plaza, index: 112
+station name: Ave H, index: 343
+station name: Ave J, index: 342
+station name: Ave M, index: 339
+station name: Kings Highway, index: 329
+station name: Ave U, index: 328
+station name: Neck Rd, index: 344
+station name: Sheepshead Bay, index: 327
+station name: Brighton Beach, index: 326
+station name: Ocean Pkwy, index: 99
+station name: W Eighth St - New York Aquarium, index: 197
+station name: Coney Island - Stillwell Ave, index: 468
+
+Line: R
+station name: Forest Hills - 71st Ave, index: 244
+station name: 67th Ave, index: 66
+station name: 63rd Drive - Rego Park, index: 190
+station name: Grand Ave - Newtown, index: 67
+station name: Elmhurst Ave, index: 36
+station name: Jackson Heights - Roosevelt Ave, index: 437
+station name: 65th St, index: 8
+station name: Northern Boulevard, index: 237
+station name: 46th St, index: 236
+station name: Steinway St, index: 298
+station name: 36th St, index: 9
+station name: Queens Plaza, index: 306
+station name: Lexington Ave / 59th St, index: 356
+station name: Fifth Ave / 59th St, index: 355
+station name: 49th St, index: 353
+station name: Times Sq - 42nd St, index: 79
+station name: 28th St, index: 143
+station name: 23rd St, index: 379
+station name: Prince St, index: 399
+station name: Canal St, index: 416
+station name: City Hall, index: 415
+station name: Cortlandt St, index: 428
+station name: Rector St, index: 421
+station name: Whitehall St - South Ferry, index: 420
+station name: Canal St, index: 416
+station name: Court St, index: 377
+station name: Jay St - MetroTech, index: 376
+station name: DeKalb Ave, index: 14
+station name: Atlantic Ave - Barclays Ctr, index: 121
+station name: Union St, index: 35
+station name: Prospect Ave, index: 380
+station name: 25th St, index: 392
+station name: 36th St, index: 9
+station name: 45th St, index: 387
+station name: 53rd St, index: 390
+station name: 59th St, index: 386
+station name: Bay Ridge Ave, index: 309
+station name: 77th St, index: 308
+station name: 86th St, index: 317
+station name: Bay Ridge - 95th St, index: 316
+
+Line: Z
+station name: Sutphin Boulevard - Archer Ave - JFK Airport, index: 64
+station name: 121st St, index: 209
+station name: Woodhaven Boulevard, index: 207
+station name: 75th St - Elderts Lane, index: 228
+station name: Crescent St, index: 226
+station name: Norwood Ave, index: 12
+station name: Van Siclen Ave, index: 11
+station name: Broadway Junction, index: 223
+station name: Chauncey St, index: 34
+station name: Gates Ave, index: 300
+station name: Myrtle Ave, index: 372
+station name: Marcy Ave, index: 138
+station name: Bowery, index: 433
+station name: Canal St, index: 414
+station name: Chambers St, index: 413
+station name: Fulton St, index: 412
+station name: Broad St, index: 427
+

@@ -6,14 +6,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 project(subwayChallenge LANGUAGES CXX)
 
-add_library(Boost INTERFACE)
-target_include_directories(Boost INTERFACE "D:/source/boost_1_80_0")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(main main.cpp algos.cpp line.cpp station.cpp time.cpp trip.cpp)
-target_link_libraries(main PRIVATE Boost)
+find_package(Boost REQUIRED)
+
+file(GLOB mainDepend CONFIGURE_DEPENDS *.cpp *.h)
+add_executable(main ${mainDepend})
+target_link_libraries(main PRIVATE Boost::boost)
 
 if(MSVC)
   target_compile_options(main PRIVATE /W4 /WX)
 else()
   target_compile_options(main PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}")

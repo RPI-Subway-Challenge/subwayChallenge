@@ -78,9 +78,8 @@ constexpr auto findMinCost(
             auto newCost{costTo[nk] + costFunc(g[edgeKey])};
             if (NodeKeyT &&successorKey{g[edgeKey].head()};
                 [&] () {
-                    if constexpr (Map<CostTab>) {
+                    if constexpr (Map<CostTab>)
                         if (!costTo.contains(successorKey)) return true;
-                    }
                     return newCost < costTo[successorKey];
                 } ()
             ) {

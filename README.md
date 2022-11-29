@@ -5,10 +5,17 @@ Uses A* to find optimal path through representation of New York City subway syst
 
 
 * Compile:
-	* Release: g++ *.cpp -O2 -std=c++20 -o main.out
-	* Debug: g++ *.cpp -g -std=c++20 -o main.out -Wall
+	* Download dependency: Boost (https://www.boost.org)
+	* If you are on Windows, you may need to install a build system to be a cmake generator (see list of generators https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html). Ninja recommended due to its speed.
+	* Configure
+		* for debug: cmake -Bbuild -DBoost_ROOT={YOUR BOOST ROOT DIRECTORY}
+		* for release: cmake -Bbuild -DBoost_ROOT={YOUR BOOST ROOT DIRECTORY} -DCMAKE_BUILD_TYPE=Release
+	* Build: cmake --build build -j
+
+	* Note: -DBoost_ROOT is only required for the first time you configure, unless you delete the build folder.
+
 * Run:
-	* ./main.out data.txt lineData.txt
+	* ./main data.txt lineData.txt
 
 
 ## Notes:

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include <sstream>
+#include <map>
 
 #include "line.h"
 #include "station.h"
@@ -16,12 +17,9 @@
 // Ahn's ending point:			Flushing Main Street
 
 //CHANGED STATION INITIALIZATON BECAUSE STATION ID WAS ARBITRARY
-std::vector<Station> stations;
-std::vector<Line> lines;
-
 using std::size_t;
 
-void createTrips();
+// void createTrips();
 
 int main(int argc, char* argv[]) {
 
@@ -31,104 +29,98 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-    // Read in the data via a .txt file
-    // Reading in from a CSV is garbage if you ever want to use commas anywhere else
-    // So we will be using a raw text file copy and pasted from the master CSV
-    std::fstream file;
-    file.open(argv[1], std::ios::in);
-
-    int id = 0;
-    if (file.is_open()) {
-        // This string will hold each entire line
-        std::string timetable;
-        while (getline(file, timetable)) {
-
-            // Convert the whole line to a stream so we can use getline()
-            std::stringstream ss(timetable);
-
-            std::string stationName;
-            std::string longitude;
-            std::string latitude;
-
-            // Getline will get parts of a string based on char seperators
-            getline(ss, stationName, ',');
-            getline(ss, longitude, ',');
-            getline(ss, latitude, ',');
-
-            // Erase extra garbage from our floats
-            longitude.erase(0, 2);
-            latitude.erase(0, 1);
-            latitude.erase(latitude.size() - 2);
-
-            stations.push_back({id, stationName, std::stod(longitude), std::stod(latitude)});
-            id++;
-        }
-        file.close();
+    //Rewritten station file read into a vector
+    std::ifstream myfile(argv[2]);
+    std::vector<std::string> lineData;
+    std::string line;
+    while (std::getline(myfile, line)) {
+        lineData.push_back(line);
     }
 
-    // im just using the normal read in method for C++, so will differ from above
-    // bitbucket for collecting all strings
-    std::string bitbucket;
-    // ifstream of stationData based on the second argument
 
+    //Map to store station id's and names for easy access
+    std::map<int, std::string> stationInfo;
 
-    std::ifstream stationData(argv[2]);
+    //Parse station info
+    for (int i = 0; i < lineData.size(); i++) {
 
-    for(int stationId = -1; stationData >> bitbucket;){
-        if(bitbucket == "Line:"){
-            // feed into bitbucket
-            stationData >> bitbucket;
-            // push back into the line vector, matching with the Id.
-            lines.push_back({++stationId, bitbucket});
-        }
-        if(bitbucket == "index:"){
-            //place index into bitbucket
-            stationData >> bitbucket;
-            // convert bitbucket into int and add to the station
-            lines[stationId].addStation(std::stoi(bitbucket));
+        if (lineData[i].find("station") != std::string::npos) {
+            //Find index of station
+            std::string indexStr = lineData[i].substr(lineData[i].rfind(": ") + 2);
+            int index = std::stoi(indexStr);
+            //Find name of station
+            int endIndex = lineData[i].find(",") - lineData[i].find(": ") - 2;
+            std::string name = lineData[i].substr(lineData[i].find(": ") + 2, endIndex);
+            //Add station information to map
+            if (stationInfo.find(index) == stationInfo.end()) {
+                stationInfo.insert({index, name});
+            }
         }
     }
 
-    createTrips();
-    for(auto &station: stations) {
-        station.removeDups();
-    }
-
-    // printing method for varifying loading in data
-    // for(unsigned int i = 0; i < lines.size(); i++){
-
-    //     std::cout << "Line:  "<<lines[i].getName();
-    //     std::cout << " | ID: "<<lines[i].getId();
-    //     std::cout << " | Number Stations: " << lines[i].getNumStations() << std::endl;
-    //     std::cout << "          Stations" << std::endl;
-    //     std::cout << "------------------------------------------------------" << std::endl;
-    //     for(int j = 0; j < lines[i].getNumStations(); j++){
-    //         std::cout << "          "<<stations[lines[i].getStation(j)];
+    // //Test print station info
+    // for (auto i = stationInfo.begin(); i != stationInfo.end(); ++i) {
+    //     if (i->first != counter) {
+    //         std::cout << i->first << " " << i->second << std::endl;
     //     }
     // }
-    // std::cout << "COMPLETE\n\n\n";
 
+    // //Missing stations test print
+    // int counter = 0;
+    // for (int i = 1; i < 451; i++) {
+    //     if (stationInfo.find(i) == stationInfo.end()) {
+    //         std::cout << i << std::endl;
+    //         counter++;
+    //     }
+    // }
+    // std::cout << "size: " << stationInfo.size() << " total skipped: " <<
+    // counter << std::endl;
+
+    //KNOWN ISSUES: =====================================================
+    // SKIPPED STATION IDS: 82, 122, 234-243(inclusive), 261-269, 377
+    // total skipped id count: 22 | actual station count = 428
+
+    //Matrix representation of stations, edges set to zero
+    //Zeroth row is empty, using 1-based indexing
+    int stations[451][451] = {};
+
+    //Set edges
+    for (int i = 0; i < lineData.size(); i++) {
+        //Two adjacent stations
+        if (lineData[i].find("station") != std::string::npos) {
+            if (lineData[i+1].find("station") != std::string::npos) {
+                //Find indices of stations
+                std::string indexStr = lineData[i].substr(lineData[i].rfind(": ") + 2);
+                int index = std::stoi(indexStr);
+                std::string indexStr2 = lineData[i+1].substr(lineData[i+1].rfind(": ") + 2);
+                int indexNext = std::stoi(indexStr2);
+                //Set edge between adjacent stations
+                stations[index][indexNext] = 1;
+            }
+        }
+    }
+    
 
     //                                                          M A N U A L   T R A V E R S A L
 
-    //TEST
+    //TESTING
 
-    //starting id for testing: 270
-    std::vector<int> path = testAlg(stations, 270);
-    for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i];
-        if (i != path.size()-1) { std::cout << " -> "; }
-    }
-    std::cout << "\n" << std::endl;
+    // //starting id for testing: 270
+    // std::vector<int> path = testAlg(stations, 270);
+    // for (int i = 0; i < path.size(); i++) {
+    //     std::cout << path[i];
+    //     if (i != path.size()-1) { std::cout << " -> "; }
+    // }
+    // std::cout << "\n" << std::endl;
 
     //starting id for testing: 22
-    //PROOF THAT GRAPH IS DISCONNECTED. vvvvvvvvvvvvv
-    std::vector<int> path2 = testAlg(stations, 22);
-    for (int i = 0; i < path2.size(); i++) {
-        std::cout << path2[i];
-        if (i != path2.size()-1) { std::cout << " -> "; }
-    }
-    std::cout << std::endl;
+    // //PROOF THAT GRAPH IS DISCONNECTED. vvvvvvvvvvvvv
+    // std::vector<int> path2 = testAlg(stations, 22);
+    // for (int i = 0; i < path2.size(); i++) {
+    //     std::cout << path2[i];
+    //     if (i != path2.size()-1) { std::cout << " -> "; }
+    // }
+    // std::cout << std::endl;
 
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";
@@ -185,27 +177,27 @@ int main(int argc, char* argv[]) {
 
 }
 
-void createTrips(){
-    for(const auto &line: lines){
-        for(size_t i = 0; i < line.getNumStations()-1; i++){
-            //get each station
-            int stationOne =  line.getStation(i);
-            int stationTwo = line.getStation(i+1);
-            double distance = realDistance(stations[stationOne],stations[stationTwo]);
+// void createTrips(){
+//     for(const auto &line: lines){
+//         for(size_t i = 0; i < line.getNumStations()-1; i++){
+//             //get each station
+//             int stationOne =  line.getStation(i);
+//             int stationTwo = line.getStation(i+1);
+//             double distance = realDistance(stations[stationOne],stations[stationTwo]);
 
-            double duration = (1.2*60*distance)/17.4; // arbitrary until we figure out normal speed
+//             double duration = (1.2*60*distance)/17.4; // arbitrary until we figure out normal speed
 
-            Trip f (stationOne, stationTwo, duration, 't');
-            Trip b (stationTwo, stationOne, duration, 't');
+//             Trip f (stationOne, stationTwo, duration, 't');
+//             Trip b (stationTwo, stationOne, duration, 't');
 
-            f.setLine(line.getName());
-            b.setLine(line.getName());
+//             f.setLine(line.getName());
+//             b.setLine(line.getName());
 
-            // add trips to the first station.
-            stations[stationOne].addTrip(f);
-            stations[stationTwo].addTrip(b);
+//             // add trips to the first station.
+//             stations[stationOne].addTrip(f);
+//             stations[stationTwo].addTrip(b);
 
-            stations[stationOne].addLine(line.getName(), i);
-        }
-    }
-}
+//             stations[stationOne].addLine(line.getName(), i);
+//         }
+//     }
+// }

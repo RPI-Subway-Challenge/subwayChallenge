@@ -37,7 +37,7 @@ station name: Chambers St, index: 35
 station name: WTC Cortlandt, index: 36
 station name: Rector St, index: 37
 station name: South Ferry, index: 38
-
+end
 Line: 2
 station name: Wakefield - 241st St, index: 39
 station name: Nereid Av, index: 40
@@ -88,7 +88,7 @@ station name: Church Ave, index: 78
 station name: Beverly Rd, index: 79
 station name: Newkirk Ave, index: 80
 station name: Flatbush Ave, index: 81
-
+end
 Line: 3
 station name: Harlem - 148th St, index: 83
 station name: 145th St, index: 84
@@ -124,7 +124,7 @@ station name: Junius St, index: 91
 station name: Pennsylvania Ave, index: 92
 station name: Van Siclen Ave, index: 93
 station name: New Lots Ave, index: 94
-
+end
 Line: 4
 station name: Woodlawn, index: 95
 station name: Mosholu Pkwy, index: 96
@@ -154,7 +154,7 @@ station name: Nevins St, index: 69
 station name: Atlantic Ave - Barclays Ctr, index: 70
 station name: Franklin Ave, index: 74
 station name: Crown Heights - Utica Ave, index: 87
-
+end
 Line: 5
 station name: Echester - Dyre Ave, index: 115
 station name: Baychester Ave, index: 116
@@ -192,7 +192,7 @@ station name: Church Ave, index: 78
 station name: Beverly Rd, index: 79
 station name: Newkirk Ave, index: 80
 station name: Flatbush Ave, index: 81
-
+end
 Line: 6
 station name: Pelham Bay Park, index: 120
 station name: Buhre Ave, index: 121
@@ -232,7 +232,7 @@ station name: Bleecker St, index: 150
 station name: Spring St, index: 151
 station name: Canal St, index: 152
 station name: Brooklyn Bridge - City Hall, index: 112
-
+end
 Line: 7
 station name: Flushing - Main St, index: 153
 station name: Mets - Willets Point, index: 154
@@ -255,7 +255,7 @@ station name: Vernon Boulevard - Jackson Ave, index: 170
 station name: Grand Central - 42nd St, index: 110
 station name: Times Sq - 42nd St, index: 25
 station name: 34th St - Hudson Yards, index: 171
-
+end
 Line: A
 station name: Inwood - 207th St, index: 172
 station name: Dyckman St, index: 173
@@ -301,7 +301,7 @@ station name: Beach 90th St, index: 209
 station name: Beach 98th St, index: 210
 station name: Beach 105th St, index: 211
 station name: Rockaway Park - Beach 116th St, index: 212
-
+end
 Line: B
 station name: Bedford Park Boulevard, index: 213
 station name: Kingsbridge Rd, index: 214
@@ -340,7 +340,7 @@ station name: Newkirk Plaza, index: 250
 station name: Kings Highway, index: 251
 station name: Sheepshead Bay, index: 252
 station name: Brighton Beach, index: 253
-
+end
 Line: C
 station name: 168th St, index: 10
 station name: 163rd St - Amsterdam Ave, index: 254
@@ -382,7 +382,7 @@ station name: Liberty Ave, index: 274
 station name: Van Siclen Ave, index: 275
 station name: Shepherd Ave, index: 276
 station name: Euclid Ave, index: 191
-
+end
 Line: D
 station name: Norwood - 205th St, index: 277
 station name: Bedford Park Boulevard, index: 213
@@ -420,7 +420,7 @@ station name: Bay Pkwy, index: 288
 station name: 25th Ave, index: 289
 station name: Bay 50th St, index: 290
 station name: Coney Island - Stillwell Ave, index: 291
-
+end
 Line: E
 station name: Jamaica Ctr - Parsons / Archer, index: 292
 station name: Sutphin Boulevard - Archer Ave - JFK Airport, index: 293
@@ -444,7 +444,7 @@ station name: W Fourth St - Washington Sq, index: 182
 station name: Spring St, index: 258
 station name: Canal St, index: 183
 station name: World Trade Ctr, index: 301
-
+end
 Line: F
 station name: Jamaica - 179th St, index: 302
 station name: 169th St, index: 303
@@ -491,7 +491,7 @@ station name: Ave X, index: 331
 station name: Neptune Ave, index: 332
 station name: W Eighth St - New York Aquarium, index: 333
 station name: Coney Island - Stillwell Ave, index: 291
-
+end
 Line: G
 station name: Court Sq, index: 168
 station name: 21st St, index: 334
@@ -514,7 +514,7 @@ station name: 7 Ave, index: 319
 station name: 15th St - Prospect Park, index: 320
 station name: Fort Hamilton Pkwy, index: 321
 station name: Church Ave, index: 322
-
+end
 Line: J
 station name: Jamaica Ctr - Parsons / Archer, index: 292
 station name: Sutphin Boulevard - Archer Ave - JFK Airport, index: 293
@@ -546,7 +546,7 @@ station name: Canal St, index: 152
 station name: Brooklyn Bridge - Chambers St, index: 112
 station name: Fulton St, index: 64
 station name: Broad St, index: 367
-
+end
 Line: L
 station name: 14th St - 8 Av, index: 181
 station name: 14th St - 6 Av, index: 30
@@ -572,7 +572,7 @@ station name: Livonia Ave, index: 384
 station name: New Lots Ave, index: 385
 station name: E 105th St, index: 386
 station name: Canarsie - Rockaway Pkwy, index: 387
-
+end
 Line: M
 station name: Forest Hills - 71st Ave, index: 298
 station name: 67th Ave, index: 388
@@ -610,7 +610,7 @@ station name: Seneca Ave, index: 400
 station name: Forest Ave, index: 401
 station name: Fresh Pond Rd, index: 402
 station name: Middle Village - Metropolitan Ave, index: 403
-
+end
 Line: N
 station name: Astoria - Ditmars Boulevard, index: 404
 station name: Astoria Boulevard, index: 405
@@ -640,7 +640,7 @@ station name: Kings Highway, index: 419
 station name: Ave U, index: 420
 station name: 86th St, index: 421
 station name: Coney Island - Stillwell Ave, index: 291
-
+end
 Line: Q
 station name: 96th St, index: 422
 station name: 86th St, index: 423
@@ -671,7 +671,7 @@ station name: Brighton Beach, index: 253
 station name: Ocean Pkwy, index: 433
 station name: W Eighth St - New York Aquarium, index: 333
 station name: Coney Island - Stillwell Ave, index: 291
-
+end
 Line: R
 station name: Forest Hills - 71st Ave, index: 298
 station name: 67th Ave, index: 388
@@ -718,4 +718,4 @@ station name: Bay Ridge Ave, index: 447
 station name: 77th St, index: 448
 station name: 86th St, index: 449
 station name: Bay Ridge - 95th St, index: 450
-
+end

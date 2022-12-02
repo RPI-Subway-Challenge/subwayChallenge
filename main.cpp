@@ -77,12 +77,15 @@ int main(int argc, char* argv[]) {
     // counter << std::endl;
 
     //KNOWN ISSUES: =====================================================
-    // SKIPPED STATION IDS: 82, 122, 234-243(inclusive), 261-269, 377
+    // SKIPPED STATION IDS: 82, 122, 234-243(inclusive), 261-269(inclusive), 377
     // total skipped id count: 22 | actual station count = 428
+    // Park Pl on the S line in Brooklyn also DOES NOT EXIST -> can add manually
 
     //Matrix representation of stations, edges set to zero
     //Zeroth row is empty, using 1-based indexing
-    int stations[451][451] = {};
+    std::vector<std::vector<int>> stations (
+        451,
+        std::vector<int>(451));
 
     //Set edges
     for (int i = 0; i < lineData.size(); i++) {
@@ -94,33 +97,26 @@ int main(int argc, char* argv[]) {
                 int index = std::stoi(indexStr);
                 std::string indexStr2 = lineData[i+1].substr(lineData[i+1].rfind(": ") + 2);
                 int indexNext = std::stoi(indexStr2);
-                //Set edge between adjacent stations
+                //Set edges between adjacent stations
                 stations[index][indexNext] = 1;
+                stations[indexNext][index] = 1;
             }
         }
     }
     
-
     //                                                          M A N U A L   T R A V E R S A L
 
     //TESTING
 
-    // //starting id for testing: 270
-    // std::vector<int> path = testAlg(stations, 270);
-    // for (int i = 0; i < path.size(); i++) {
-    //     std::cout << path[i];
-    //     if (i != path.size()-1) { std::cout << " -> "; }
-    // }
-    // std::cout << "\n" << std::endl;
-
-    //starting id for testing: 22
-    // //PROOF THAT GRAPH IS DISCONNECTED. vvvvvvvvvvvvv
-    // std::vector<int> path2 = testAlg(stations, 22);
-    // for (int i = 0; i < path2.size(); i++) {
-    //     std::cout << path2[i];
-    //     if (i != path2.size()-1) { std::cout << " -> "; }
-    // }
-    // std::cout << std::endl;
+    //starting id for testing: 1
+    std::vector<int> path = testAlg(stations, 1);
+    for (int i = 0; i < path.size(); i++) {
+        std::cout << path[i];
+        if (i != path.size()-1) { std::cout << " -> "; }
+    }
+    std::cout << "\n" << std::endl;
+    std::cout << "Path size: " << path.size() << std::endl;
+    
 
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";

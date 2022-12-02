@@ -134,11 +134,11 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 }
 
 //BFS test algorithm
-std::vector<int> testAlg(std::vector<Station> stations, int start) {
+std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
     //Vector to store path tree
     std::vector<int> path;
     //Visited stations stored here (0 = unvisited, 1 = visited)
-    std::vector<int> visited(stations.size(), 0);
+    std::vector<int> visited(451, 0);
 
     //Queue for bfs
     std::queue<int> queue;
@@ -154,19 +154,22 @@ std::vector<int> testAlg(std::vector<Station> stations, int start) {
         queue.pop();
 
         //Find all neighbors of dequeued vertex
-        std::list<Trip> next = stations[s].getTrips();
-
-        for (const auto &trip: next) {
-            //Check if has been visited
-            int neighbor = trip.getEnd();
-            if (visited[neighbor] == 0) {
-                visited[neighbor] = 1;
-                queue.push(neighbor);
+        for (int i = 1; i < 451; i++) {
+            if (stations[s][i] == 1) {
+                if (visited[i] == 0) {
+                    visited[i] = 1;
+                    queue.push(i);
+                }
             }
         }
     }
     return path;
 }
+
+//Smart BFS algo --to be implemented
+// int smartBFS(int graph[451][451], int start) {
+
+// }
 
 // std::vector<Station> BFS(std::vector<Station> stations, int startingID, int goalID){
 

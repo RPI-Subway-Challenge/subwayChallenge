@@ -78,8 +78,12 @@ std::list<int> walkableRadius(int stationIndex, double radius, std::vector<Stati
 }
 */
 
-
-// takes vector of pairs walkable and returns index with longest distance
+/**
+ * @brief takes vector of pairs walkable and returns index with longest distance
+ * 
+ * @param walkable a vector of pairs of station index and distance
+ * @return size_t index of station with longest distance
+ */
 size_t findLongest(const std::vector<std::pair<int,double>> &walkable){
     return static_cast<size_t>(std::distance(walkable.begin(),
         std::ranges::max_element(walkable,
@@ -89,8 +93,16 @@ size_t findLongest(const std::vector<std::pair<int,double>> &walkable){
 
 
 
-// takes station returns vector of x nearest stations indicies
-// O(x*num of stations) for single station
+
+/**
+ * @brief takes station returns vector of x nearest stations indicies
+ * O(x*num of stations) for single station
+ * 
+ * @param stationIndex The index of the station to find the nearest stations to
+ * @param x number of nearest stations to find
+ * @param stationVec a vector of all stations
+ * @return std::vector<std::pair<int,double>> x nearest stations indicies and distances
+ */
 std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x, std::vector<Station> & stationVec){
 
     std::vector<std::pair<int,double>> walkable(x); // pair < neighborIndex, distance >
@@ -129,8 +141,16 @@ std::vector<std::pair<int,double>> walkableNumber(size_t stationIndex, size_t x,
     return walkable;
 }
 
-// create trip for all walkable station from a station for all stations given from walkableNumber
-// O(x*num of stations^2) for all stations
+
+/**
+ * @brief creates a trip for all walkable stations from a station for all stations given from walkableNumber
+ * O(x*num of stations^2) for all stations
+ * 
+ * @param stationIndex the index of the station to create trips from
+ * @param walkable a vector of pairs of station index and distance
+ * @param stationVec a vector of all stations
+ * @return std::vector<Trip> a vector of all trips from the given station
+ */
 void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 
     // Since no data is known about the stations atm, the trips are intializased as being open all days every hour
@@ -155,7 +175,15 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
     }
 }
 
-//BFS test algorithm
+
+/**
+ * @brief BFS test algorithm to find the shortest path
+ * 
+ * @param stations 
+ * @param start 
+ * @return
+ */
+
 std::vector<int> testAlg(std::vector<Station> stations, int start) {
     //Vector to store path tree
     std::vector<int> path;
@@ -253,6 +281,15 @@ std::vector<int> testAlg(std::vector<Station> stations, int start) {
 //      and returns heuristic value for the next station to visit
 // Lower value is better than higher value (arbitrary penalty value)
 // Function returns heuristic value for next station
+
+/**
+ * @brief 
+ * 
+ * @param stations 
+ * @param currId 
+ * @param nextId 
+ * @return int 
+ */
 int heuristic(std::vector<Station> & stations, int currId, int nextId){
     int sum = 0;
     const int lowPenaltyVal = 1;
@@ -315,10 +352,16 @@ int heuristic(std::vector<Station> & stations, int currId, int nextId){
     return sum;
 }
 
-
+/**
+ * @brief This function perform a move from the current station to the next station by Trip object
+ * 
+ * @param stations the vector of all stations
+ * @param startStation beginning station for this move
+ * @param tripTaken trip object for the trip taken
+ * @param currentTime a pointer to the current time, which is updated by this function
+ * @return Station* the station traveled to. null if an error occurs
+ */
 Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip& tripTaken, int& currentTime){
-    // This function takes the list for all station representation in main, start station, a trip object, and the current time.
-    // it is going to update the station traveled, currentTime, and return the station traveled to. It returns nullptr if error.
 
     //first, check if the startStation is visited
     if (startStation->isVisited() == false){

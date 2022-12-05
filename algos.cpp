@@ -14,18 +14,32 @@ using std::size_t;
 
 int heuristic(std::vector<Station> & stations, int currId, int nextId);
 
-// return manhattan distance between two stations
+/**
+ * @brief Calculates the manhattan distance between two stations, this is temporary and will
+ * be replaced with a more accurate distance function (hopefully with google map API)
+ * 
+ * @param s1 pointer to station 1
+ * @param s2 pointer to station 2
+ * @return the distance between the two stations
+ */
 double manhattanDistance(const Station &s1, const Station &s2){
     double diffX = std::abs( s1.getCords().first - s2.getCords().first );
     double diffY = std::abs( s1.getCords().second - s2.getCords().second );
     return diffX + diffY;
 }
 
-// Return actual distance (in MILES) between two stations
-//  Distance between LONGITUDE and LATITDUE coords is as follows
-//  3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
-//  .first  gives longitude
-//  .second gives latitude
+
+/**
+ * @brief Return actual distance (in MILES) between two stations
+ * Distance between LONGITUDE and LATITDUE coords is as follows:
+ * 3963.0 * arccos[(sin(lat1) * sin(lat2)) + cos(lat1) * cos(lat2) * cos(long2 – long1)]
+ * .first  gives longitude
+ * .second gives latitude
+ * 
+ * @param s1 pointer to station 1
+ * @param s2 pointer to station 2
+ * @return the distance between the two stations
+ */
 double realDistance(const Station& s1, const Station& s2){
     auto [long1, lat1] = s1.getCords();
     auto [long2, lat2] = s2.getCords();
@@ -35,7 +49,15 @@ double realDistance(const Station& s1, const Station& s2){
     return d;
 }
 
-// returns an estimated time to travel the given distance using proportional constant (k)
+
+/**
+ * @brief returns an estimated time to travel the given distance using proportional constant (k)
+ * It's temporary and will be replaced with a more accurate function (hopefully with google map API)
+ * 
+ * @param distance the distance to travel
+ * @param k const k
+ * @return the estimated time to travel the given distance (double)
+ */
 double timeDistance(double distance, int k){
     double travelTime = distance * k;
     return travelTime;

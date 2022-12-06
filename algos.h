@@ -41,7 +41,7 @@ concept Graph =
         {g.order()} -> std::convertible_to<size_t>;
         {g[nk]} -> std::convertible_to<typename T::NodeT>;
         {g[ek]} -> std::convertible_to<typename T::EdgeT>;
-        {g[nk].neighbors()} -> std::ranges::range; /* TODO */
+        {g[nk].neighbors()} -> std::ranges::range;
         {*g[nk].neighbors().begin()} -> std::convertible_to<typename T::EdgeKeyT>;
         {g[ek].head()} -> std::convertible_to<typename T::NodeKeyT>; /* TODO */
     };
@@ -65,8 +65,9 @@ constexpr auto findMinCost(
     auto cmp{[&] (const NodeKeyT &nk0, const NodeKeyT &nk1) {
         return costTo[nk0] < costTo[nk1];
     }};
-    boost::heap::fibonacci_heap<int, decltype(cmp)> pq{cmp};
-    std::unordered_map<NodeKeyT, typename decltype(pq)::handle_type> handles;
+    using PriorityQ = boost::heap::fibonacci_heap<int, decltype(cmp)>;
+    PriorityQ pq{cmp};
+    std::unordered_map<NodeKeyT, typename PriorityQ::handle_type> handles;
     costTo[src] = 0;
     handles[src] = pq.push(src);
     auto minCostNK{std::move(src)};
@@ -111,21 +112,21 @@ constexpr auto findMinCost(
  * @param src key to the source node. The referenced node must exist in the graph.
  * @param costFunc the function object to calculate the cost of an edge. It should take
  * an edge, preferably by const &, and returns the cost. Recommended example signature:
- * G::EdgeValT (const G::EdgeT &edge).
+ * CostT (const G::EdgeT &edge).
  */
-template<Graph G, bool Dense = std::same_as<typename G::NodeKeyT, size_t>>
-constexpr auto search(
-    const G &g, const typename G::NodeKeyT &src,
-    auto costFunc = [] (const G::EdgeT &e) {return e.val();}
-) requires /*std::copy_constructible<NodeKeyT> && std::movable<NodeKeyT> &&*/
-std::same_as<decltype(costFunc(typename G::EdgeT{})), typename G::EdgeValT> {
+template<
+    Graph G, bool Dense = std::same_as<typename G::NodeKeyT, size_t>,
+    class CostF = decltype([] (const G::EdgeT &e) {return e.val();})
+>
+constexpr auto search(const G &g, const typename G::NodeKeyT &src, CostF costFunc = {}) {
+    using CostT = decltype(costFunc(typename G::EdgeT{}));
     using EdgeTab = std::conditional_t<Dense,
         std::unique_ptr<typename G::EdgeKeyT []>,
         std::unordered_map<typename G::NodeKeyT, typename G::EdgeKeyT>
     >;
     using CostTab = std::conditional_t<Dense,
-        std::unique_ptr<typename G::EdgeValT []>,
-        std::unordered_map<typename G::NodeKeyT, typename G::EdgeValT>
+        std::unique_ptr<CostT []>,
+        std::unordered_map<typename G::NodeKeyT, CostT>
     >;
     auto edgeTo{[&] () {
         if constexpr (Map<EdgeTab>)
@@ -135,14 +136,13 @@ std::same_as<decltype(costFunc(typename G::EdgeT{})), typename G::EdgeValT> {
     auto costTo{[&] () {
         if constexpr (Map<CostTab>)
             return CostTab{};
-        using ValT = CostTab::element_type;
-        auto p{std::make_unique_for_overwrite<typename G::EdgeValT []>(g.order())};
-        static_assert(std::is_arithmetic_v<ValT>,
-            "Unsupported value type for cost, i.e., the edge value type");
-        if constexpr (std::integral<ValT>)
-            std::fill_n(p, g.order(), std::numeric_limits<ValT>::max());
-        else if constexpr (std::floating_point<ValT>)
-            std::fill_n(p, g.order(), std::numeric_limits<ValT>::infinity());
+        auto p{std::make_unique_for_overwrite<CostT []>(g.order())};
+        static_assert(std::is_arithmetic_v<CostT>,
+            "Unsupported value type for cost");
+        if constexpr (std::integral<CostT>)
+            std::fill_n(p, g.order(), std::numeric_limits<CostT>::max());
+        else if constexpr (std::floating_point<CostT>)
+            std::fill_n(p, g.order(), std::numeric_limits<CostT>::infinity());
         return p;
     } ()};
     return Result{ /* TODO make sure evaluation order is correct! */

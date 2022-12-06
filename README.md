@@ -12,7 +12,7 @@ Uses A* to find optimal path through representation of New York City subway syst
 		* for release: cmake -Bbuild -DBoost_ROOT={YOUR BOOST ROOT DIRECTORY} -DCMAKE_BUILD_TYPE=Release
 	* Build: cmake --build build -j
 
-	* Note: -DBoost_ROOT is only required for the first time you configure, unless you delete the build folder.
+	* Note: -DBoost_ROOT is only required for the first time you configure, unless you delete the build folder. This argument is also not needed if Boost_ROOT is added to CMAKE_PREFIX_PATH or the environment variable.
 
 * Run:
 	* ./main data.txt lineData.txt

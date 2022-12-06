@@ -108,15 +108,30 @@ int main(int argc, char* argv[]) {
 
     //TESTING
 
-    //starting id for testing: 1
-    std::vector<int> path = testAlg(stations, 1);
+    // //starting id for testing: 1
+    // std::vector<int> path = testAlg(stations, 1);
+    // for (int i = 0; i < path.size(); i++) {
+    //     std::cout << path[i];
+    //     if (i != path.size()-1) { std::cout << " -> "; }
+    // }
+    // std::cout << "\n" << std::endl;
+    // std::cout << "Path size: " << path.size() << std::endl;
+
+    //Actual start for route: 212
+    std::vector<int> path = shortestPath(stations, 212);
+    //Print result
     for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i];
-        if (i != path.size()-1) { std::cout << " -> "; }
+        std::cout << path[i] << "|" << stationInfo[path[i]];
+
+        if (i != path.size()-1 && stations[path[i]][path[i+1]] == 0) {
+            std::cout << " => backtrack";
+        }
+        if (i != path.size()-1) {
+            std::cout << " => ";
+        }
     }
-    std::cout << "\n" << std::endl;
-    std::cout << "Path size: " << path.size() << std::endl;
-    
+    std::cout << std::endl;
+
 
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";

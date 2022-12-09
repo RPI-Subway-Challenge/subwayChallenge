@@ -103,7 +103,20 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-    
+
+    //Manually set walking route possibilities: 207St(A)-207St(1), 
+    // BedfordPkBlvd(4)-BedfordPkBlvd(B/D), 96St(6)-96St(Q)
+
+    //207St
+    stations[172][6] = 1;
+    stations[6][172] = 1;
+    //BedfordPkBlvd
+    stations[97][213] = 1;
+    stations[213][97] = 1;
+    //96St
+    stations[422][142] = 1;
+    stations[142][422] = 1;
+
     //                                                          M A N U A L   T R A V E R S A L
 
     //TESTING
@@ -130,7 +143,6 @@ int main(int argc, char* argv[]) {
             std::cout << " => ";
         }
     }
-    std::cout << std::endl;
 
 
 	// int c;

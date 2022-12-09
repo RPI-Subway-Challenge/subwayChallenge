@@ -433,6 +433,28 @@ Station* moveByTrip(std::vector<Station>& stations, Station* startStation, Trip&
 // version 2 
 void branchReduction(std::vector<Station>& stations){
     // find all reducible starts and ends, this will gives a vector with all 
+    for (int i=0; i<stations.size(); i++){
+        if (stations[i].getNumTrainTrips() == 2){
+            std::vector<int> reducibleVec;
+            reducibleVec.push_back(i);
+            int currStationId = i;
+            int prevStationId = -1;
+            int nextStationId = -1;
+            while (stations[currStationId].getNumTrainTrips() == 2){
+                std::vector<Trip> tempTripVec = stations[currStationId].getTripVec();
+                if (tempTripVec[0].getEnd() == prevStationId){
+                    nextStationId = tempTripVec[1].getEnd();
+                }
+                else{
+                    nextStationId = tempTripVec[0].getEnd();
+                }
+                reducibleVec.push_back(nextStationId);
+                prevStationId = currStationId;
+                currStationId = nextStationId;
+            }
+            reducibleVecVec.push_back(reducibleVec);
+        }
+    }
 }
 
 

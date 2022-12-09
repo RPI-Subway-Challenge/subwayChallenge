@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
             std::cout << " => ";
         }
     }
-
+    std::cout << std::endl;
 
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";

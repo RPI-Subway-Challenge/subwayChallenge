@@ -41,6 +41,25 @@ public:
     using NodeValT = std::remove_cvref_t<decltype(NValF{}(std::declval<NRepT>()))>;
     using EdgeValT = std::remove_cvref_t<decltype(EValF{}(std::declval<ERepT>()))>;
 
+    template<class ViewT, class Rep>
+    struct View {
+        View(ViewT, const Rep &r): rep{r} {}
+        template<class RepItr>
+        struct Iterator: public std::iterator<std::input_iterator_tag, ViewT> {
+            explicit Iterator(RepItr i): itr{i} {}
+            Iterator& operator++() {++itr; return *this;}
+            Iterator operator++(int) {auto ret{*this}; ++*this; return ret;}
+            bool operator==(Iterator other) const {return itr == other.itr}
+            bool operator!=(Iterator other) const {return itr != other.itr}
+            reference operator*() const {return ViewT{*itr};}
+        private:
+            Iterator itr;
+        };
+        const Rep &rep;
+        auto begin() {return Iterator{rep.begin()};}
+        auto end() {return Iterator{rep.end()};}
+    };
+
     struct Node {
         using RepT = NRepT;
         using ValT = NodeValT;
@@ -53,7 +72,7 @@ public:
                 return valF(rep);
         }
         [[nodiscard]] constexpr decltype(auto) val() noexcept {return valF(rep);}
-        [[nodiscard]] const auto &outEdges() const {return rep.getTrips();}
+        [[nodiscard]] const auto &outEdges() const {return View{*this, rep.getTrips()};}
     private:
         RepT rep;
         [[no_unique_address]] NValF valF;

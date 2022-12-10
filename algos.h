@@ -12,8 +12,10 @@
 #include <unordered_map>
 #include <memory>
 #include <ranges>
-#include "station.h"
+#include <functional>
 #include <boost/heap/fibonacci_heap.hpp>
+#include "station.h"
+#include "subwayGraph.h"
 
 using std::size_t;
 
@@ -38,12 +40,17 @@ namespace ucs {
 template<class T>
 concept Graph = 
     requires (T g, typename T::NodeKeyT nk, typename T::EdgeKeyT ek) {
+        requires std::copyable<decltype(nk)> && std::copyable<decltype(ek)>;
         {g.order()} -> std::convertible_to<size_t>;
-        {g[nk]} -> std::convertible_to<typename T::NodeT>;
-        {g[ek]} -> std::convertible_to<typename T::EdgeT>;
-        {g[nk].neighbors()} -> std::ranges::range;
-        {*g[nk].neighbors().begin()} -> std::convertible_to<typename T::EdgeKeyT>;
-        {g[ek].head()} -> std::convertible_to<typename T::NodeKeyT>; /* TODO */
+        {g[nk]} -> std::same_as<const typename T::Node &>;
+        {g[ek]} -> std::same_as<const typename T::Edge &>;
+        {g[nk].val()} -> std::convertible_to<typename T::NodeValT>;
+        {g[ek].val()} -> std::convertible_to<typename T::EdgeValT>;
+        {g.key(g[nk])} -> std::same_as<decltype(nk)>;
+        {g.key(g[ek])} -> std::same_as<decltype(ek)>;
+        {g[ek].headKey()} -> std::convertible_to<typename T::Node>;
+        {g[nk].outEdges()} -> std::ranges::range;
+        {*g[nk].outEdges().begin()} -> std::convertible_to<typename T::Edge>;
     };
 
 template<class NodeKeyT, class EdgeTab, class CostTab>
@@ -65,33 +72,33 @@ constexpr auto findMinCost(
     auto cmp{[&] (const NodeKeyT &nk0, const NodeKeyT &nk1) {
         return costTo[nk0] < costTo[nk1];
     }};
-    using PriorityQ = boost::heap::fibonacci_heap<int, decltype(cmp)>;
+    using PriorityQ = boost::heap::fibonacci_heap<NodeKeyT, decltype(cmp)>;
     PriorityQ pq{cmp};
-    std::unordered_map<NodeKeyT, typename PriorityQ::handle_type> handles;
+    std::unordered_map<NodeKeyT, typename PriorityQ::handle_type> handleTo;
     costTo[src] = 0;
-    handles[src] = pq.push(src);
-    auto minCostNK{std::move(src)};
+    handleTo[src] = pq.push(src);
+    auto minCostNK{src};
     do {
         auto nk{pq.top()};
         pq.pop();
-        handles.erase(nk);
-        for (const auto &edgeKey: g[nk].neighbors()) {
-            auto newCost{costTo[nk] + costFunc(g[edgeKey])};
-            if (NodeKeyT &&successorKey{g[edgeKey].head()};
+        handleTo.erase(nk);
+        for (const auto &edge: g[nk].outEdges()) {
+            auto newCost{costTo[nk] + costFunc(edge)};
+            if (NodeKeyT successorK{edge.headKey()};
                 [&] () {
                     if constexpr (Map<CostTab>)
-                        if (!costTo.contains(successorKey)) return true;
-                    return newCost < costTo[successorKey];
+                        if (!costTo.contains(successorK)) return true;
+                    return newCost < costTo[successorK];
                 } ()
             ) {
-                costTo[successorKey] = newCost;
-                if (handles.contains(successorKey)) {
-                    pq.decrease(handles[successorKey]);
+                costTo[successorK] = newCost;
+                if (handleTo.contains(successorK)) {
+                    pq.decrease(handleTo[successorK]);
                 } else {
-                    handles[successorKey] = pq.push(successorKey);
+                    handleTo[successorK] = pq.push(successorK);
                 }
-                minCostNK = std::move(successorKey);
-                edgeTo[minCostNK] = edgeKey;
+                edgeTo[successorK] = g.key(edge);
+                minCostNK = successorK;
             }
         }
     } while (!pq.empty());
@@ -111,15 +118,15 @@ constexpr auto findMinCost(
  * @param g the input graph
  * @param src key to the source node. The referenced node must exist in the graph.
  * @param costFunc the function object to calculate the cost of an edge. It should take
- * an edge, preferably by const &, and returns the cost. Recommended example signature:
- * CostT (const G::EdgeT &edge).
+ * an edge by const &, and returns the cost. Example signature:
+ * CostT (const G::Edge &edge).
  */
 template<
     Graph G, bool Dense = std::same_as<typename G::NodeKeyT, size_t>,
-    class CostF = decltype([] (const G::EdgeT &e) {return e.val();})
+    class CostF = decltype([] (const G::Edge &e) {return e.val();})
 >
-constexpr auto search(const G &g, const typename G::NodeKeyT &src, CostF costFunc = {}) {
-    using CostT = decltype(costFunc(typename G::EdgeT{}));
+constexpr auto search(const G &g, typename G::NodeKeyT src, CostF costFunc = {}) {
+    using CostT = decltype(costFunc(typename G::Edge{}));
     using EdgeTab = std::conditional_t<Dense,
         std::unique_ptr<typename G::EdgeKeyT []>,
         std::unordered_map<typename G::NodeKeyT, typename G::EdgeKeyT>
@@ -131,7 +138,7 @@ constexpr auto search(const G &g, const typename G::NodeKeyT &src, CostF costFun
     auto edgeTo{[&] () {
         if constexpr (Map<EdgeTab>)
             return EdgeTab{};
-        return std::make_unique<typename G::EdgeKeyT []>(g.order());
+        return std::make_unique_for_overwrite<typename G::EdgeKeyT []>(g.order());
     } ()};
     auto costTo{[&] () {
         if constexpr (Map<CostTab>)
@@ -151,6 +158,19 @@ constexpr auto search(const G &g, const typename G::NodeKeyT &src, CostF costFun
     };
 }
 
+template<class NodeKeyT>
+constexpr auto pathTraceback(auto edgeTo, NodeKeyT src, NodeKeyT dst) {
+    std::deque<NodeKeyT> path;
+    return path;
+}
+
+}
+
+
+constexpr void findMinCostPath(std::vector<Station> &stations) {
+    const SubwayGraph g{
+        stations, {}, [] (Trip &eRep) -> decltype(auto) {return eRep.getDuration();}};
+    ucs::Result r{ucs::search(g, 0)};
 }
 
 #endif //SUBWAYCHALLENGE_ALGOS_H

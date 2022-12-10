@@ -3,68 +3,106 @@
 #include <cstddef>
 #include <vector>
 #include <concepts>
+#include <functional>
+#include <type_traits>
 #include "station.h"
 #include "trip.h"
 
 
 /**
- * @brief The coupler between the data structure and the search algorithm.
+ * @brief The coupler between the data structure and the search algorithm. Its behavior
+ * is designed to be like a directed graph.
  * 
- * @tparam NodeValT Node value type. Defaults to Station &. Reference or pointers should
- * be used as the graph does not own the value object.
+ * @tparam NRepT Node representation type. Defaults to Station &. Reference or pointers 
+ * should be used as the graph does not own the value object.
  * 
- * @tparam EdgeValT Edge value type. Defaults to Trip &. Reference or pointers should
- * be used as the graph does not own the value object.
+ * @tparam ERepT Edge representation type. Defaults to Trip &. Reference or pointers
+ * should be used as the graph does not own the value object.
+ * 
+ * @tparam NValF The value access function type for node. Returns the representation by
+ * default. Current design is that it cannot have captures. Example signature:
+ * NodeValT (const NRepT &)
+ * 
+ * @tparam EValF The value access function type for edge. Returns the representation by
+ * default. Current design is that it cannot have captures. Example signature:
+ * EdgeValT (const ERepT &)
  */
-template<class NValT = Station &, class EValT = Trip &>
+template<
+    class NRepT = Station &, class ERepT = Trip &,
+    class NValF = std::identity, class EValF = std::identity
+>
 class SubwayGraph {
 public:
-    struct NodeT {
-        using ValT = NValT;
-        NodeT(ValT &v): v{v} {}
-        [[nodiscard]] const ValT &val() const {return v;}
-        [[nodiscard]] ValT &val() {return v;}
-        [[nodiscard]] const auto &neighbors() const {return v.getTrips();}
-    private:
-        ValT v;
-    };
-
-    struct EdgeT {
-        using ValT = EValT;
-        EdgeT(ValT &v): v{v} {}
-        [[nodiscard]] const ValT &val() const {return v;}
-        [[nodiscard]] ValT &val() {return v;}
-    private:
-        ValT v;
-    };
+    struct Node;
+    struct Edge;
 
     using NodeKeyT = std::size_t;
-    using EdgeKeyT = EdgeT *;
-    using NodeValT = NValT;
-    using EdgeValT = EValT;
+    using EdgeKeyT = Edge *;
+    using NodeValT = std::remove_cvref_t<decltype(NValF{}(std::declval<NRepT>()))>;
+    using EdgeValT = std::remove_cvref_t<decltype(EValF{}(std::declval<ERepT>()))>;
 
-    SubwayGraph(std::vector<NValT> &stations): nodes{stations} {
+    struct Node {
+        using RepT = NRepT;
+        using ValT = NodeValT;
+
+        Node(RepT &r): rep{r} {}
+        [[nodiscard]] constexpr decltype(auto) val() const noexcept {
+            if constexpr (std::is_lvalue_reference_v<decltype(valF(rep))>)
+                return std::as_const(valF(rep));
+            else
+                return valF(rep);
+        }
+        [[nodiscard]] constexpr decltype(auto) val() noexcept {return valF(rep);}
+        [[nodiscard]] const auto &outEdges() const {return rep.getTrips();}
+    private:
+        RepT rep;
+        [[no_unique_address]] NValF valF;
+    };
+
+    struct Edge {
+        using RepT = ERepT;
+        using ValT = EdgeValT;
+        Edge(RepT &r): rep{r} {}
+        [[nodiscard]] constexpr decltype(auto) val() const noexcept {
+            if constexpr (std::is_lvalue_reference_v<decltype(valF(rep))>)
+                return std::as_const(valF(rep));
+            else
+                return valF(rep);
+        }
+        [[nodiscard]] constexpr decltype(auto) val() noexcept {return valF(rep);}
+        [[nodiscard]] NodeKeyT headKey() const {return rep.getEnd();}
+        [[nodiscard]] NodeKeyT tailKey() const {return rep.getStart();}
+    private:
+        RepT rep;
+        [[no_unique_address]] EValF valF;
+    };
+
+    constexpr explicit SubwayGraph(std::vector<NRepT> &stations, NValF = {}, EValF = {}):
+        nodes{stations}
+    {
         static_assert(!std::same_as<NodeKeyT, EdgeKeyT>,
-            "Error: NodeKey and EdgeKey has type clashes.");
-        static_assert(std::copyable<NodeKeyT> && std::copyable<EdgeKeyT>,
-            "Error: NodeKey and EdgeKey must be copyable");
+            "Error: NodeKey and EdgeKey has type clashes."); // otherwise the overloaded operator[] will be ambiguous
     }
 
     [[nodiscard]] constexpr
     std::size_t order() const noexcept                      {return nodes.size();}
 
     [[nodiscard]] constexpr
-    const NodeT &operator[](NodeKeyT nKey) const noexcept   {return {nodes[nKey]};}
+    const Node &operator[](NodeKeyT nKey) const noexcept    {return {nodes[nKey]};}
 
     [[nodiscard]] constexpr
-    NodeT &operator[](NodeKeyT nKey) noexcept               {return {nodes[nKey]};}
+    const Edge &operator[](EdgeKeyT eKey) const noexcept    {return {*eKey};}
 
     [[nodiscard]] constexpr
-    const EdgeT &operator[](EdgeKeyT eKey) const noexcept   {return {*eKey};}
+    NodeKeyT key(const Node &n) const {
+        return std::distance(&nodes[0], n.rep);
+    }
 
     [[nodiscard]] constexpr
-    EdgeT &operator[](EdgeKeyT eKey) noexcept               {return {*eKey};}
+    EdgeKeyT key(const Edge &e) const {
+        return &e.rep;
+    }
 
 private:
-    std::vector<NValT> &nodes;
+    std::vector<NRepT> &nodes;
 };

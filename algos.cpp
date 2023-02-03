@@ -134,11 +134,11 @@ void createStationsTrips(size_t x, int k, std::vector<Station> & stationVec){
 }
 
 //BFS test algorithm
-std::vector<int> testAlg(std::vector<Station> stations, int start) {
+std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
     //Vector to store path tree
     std::vector<int> path;
     //Visited stations stored here (0 = unvisited, 1 = visited)
-    std::vector<int> visited(stations.size(), 0);
+    std::vector<int> visited(451, 0);
 
     //Queue for bfs
     std::queue<int> queue;
@@ -154,15 +154,79 @@ std::vector<int> testAlg(std::vector<Station> stations, int start) {
         queue.pop();
 
         //Find all neighbors of dequeued vertex
-        std::list<Trip> next = stations[s].getTrips();
-
-        for (const auto &trip: next) {
-            //Check if has been visited
-            int neighbor = trip.getEnd();
-            if (visited[neighbor] == 0) {
-                visited[neighbor] = 1;
-                queue.push(neighbor);
+        for (int i = 1; i < 451; i++) {
+            if (stations[s][i] == 1) {
+                if (visited[i] == 0) {
+                    visited[i] = 1;
+                    queue.push(i);
+                }
             }
+        }
+    }
+    return path;
+}
+    
+//Greedy + BFS algorithm
+std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start) {
+    std::vector<int> path;
+    std::vector<int> visited(451, 0);
+
+    int current = start;
+    while (path.size() < 428) {
+        //Add station to visited
+        path.push_back(current);
+        visited[current] = 1;
+
+        //Find all neighbors
+        std::vector<int> neighbors;
+        for (int i = 1; i < stations.size(); i++) {
+            if (stations[current][i] == 1) {
+                neighbors.push_back(i);
+            }
+        }
+
+        //Iterate through neighbors
+        int availableNext = 0;
+        for (int n = 0; n < neighbors.size(); n++) {
+            //Greedy algorithm: take next unvisited station
+            if (visited[neighbors[n]] == 0) {
+                current = neighbors[n];
+                availableNext = 1;
+                break;
+            }
+        }
+
+        //If no unvisited stations are available, run bfs and find
+        // closest unvisited station
+        if (availableNext == 0) {
+            //Visited stations for bfs stored here (0 = unvisited, 1 = visited)
+            std::vector<int> visitedBFS(451, 0);
+
+            //Queue for bfs
+            std::queue<int> queue;
+
+            //Add starting node and mark as visited
+            visitedBFS[current] = 1;
+            queue.push(current);
+            int next = current;
+
+            while (!queue.empty()) {
+                //Pop a vertex from queue
+                next = queue.front();
+                queue.pop();
+                if (visited[next] == 0) { break; }
+
+                //Find all neighbors of dequeued vertex
+                for (int i = 1; i < stations.size(); i++) {
+                    if (stations[next][i] == 1) {
+                        if (visitedBFS[i] == 0) {
+                            visitedBFS[i] = 1;
+                            queue.push(i);
+                        }
+                    }
+                }
+            }
+            current = next;
         }
     }
     return path;

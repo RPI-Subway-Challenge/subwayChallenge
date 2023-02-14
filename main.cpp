@@ -134,14 +134,16 @@ int main(int argc, char* argv[]) {
     std::vector<int> path = shortestPath(stations, 212);
     //Print result
     for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i] << "|" << stationInfo[path[i]];
+        std::cout << i+1 << "/" << path.size() << " | " ;
+        std::cout << path[i] << " | " << stationInfo[path[i]];
 
         if (i != path.size()-1 && stations[path[i]][path[i+1]] == 0) {
             std::cout << " => backtrack";
         }
-        if (i != path.size()-1) {
-            std::cout << " => ";
-        }
+        // if (i != path.size()-1) {
+        //     std::cout << " => ";
+        // }
+        std::cout << std::endl;
     }
     std::cout << std::endl;
 

@@ -75,9 +75,14 @@ std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
     return path;
 }
     
+
+
+
+
 //      MICHAEL Greedy + BFS algorithm
 std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start) {
     std::vector<int> path;
+    std::list<int> fullPath;
     std::vector<int> visited(451, 0);
 
     int current = start;
@@ -95,24 +100,27 @@ std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start)
         }
 
         //Iterate through neighbors
-        int availableNext = 0;
+        bool availableNext = false;
         for (int n = 0; n < neighbors.size(); n++) {
             //Greedy algorithm: take next unvisited station
             if (visited[neighbors[n]] == 0) {
                 current = neighbors[n];
-                availableNext = 1;
+                availableNext = true;
                 break;
             }
         }
 
         //If no unvisited stations are available, run bfs and find
         // closest unvisited station
-        if (availableNext == 0) {
+        if (availableNext == false) {
             //Visited stations for bfs stored here (0 = unvisited, 1 = visited)
             std::vector<int> visitedBFS(451, 0);
 
             //Queue for bfs
             std::queue<int> queue;
+
+            // Path to unvisited station
+            std::list<int> pathToNext;
 
             //Add starting node and mark as visited
             visitedBFS[current] = 1;
@@ -123,7 +131,10 @@ std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start)
                 //Pop a vertex from queue
                 next = queue.front();
                 queue.pop();
-                if (visited[next] == 0) { break; }
+                // found unvisited
+                if (visited[next] == 0) {
+                    break;
+                }
 
                 //Find all neighbors of dequeued vertex
                 for (int i = 1; i < stations.size(); i++) {
@@ -140,6 +151,9 @@ std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start)
     }
     return path;
 }
+
+
+
 
 
 

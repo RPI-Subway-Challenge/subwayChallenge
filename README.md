@@ -8,7 +8,7 @@ Uses a greedy alg and a BFS search to find optimal path through representation o
 
 * Compile:
 	* Release: g++ *.cpp -O2 -std=c++20 -o main.out
-	* Debug: g++ *.cpp -g -std=c++20 -o main.out -Wall
+	* Debug: g++ *.cpp -g -std=c++2a -o main.out -Wall
 * Run:
 	* ./main.out data.txt lineData.txt
 

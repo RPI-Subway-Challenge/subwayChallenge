@@ -117,6 +117,21 @@ int main(int argc, char* argv[]) {
     stations[422][142] = 1;
     stations[142][422] = 1;
 
+
+    // Print adjacency matrix for Gephi visualization
+
+    // std::ofstream gephiFile;
+    // gephiFile.open("gephiSubway.txt");
+    // gephiFile << "Source,Target" << std::endl;
+    // for (int i = 0; i != 451; i++){
+    //     for (int j = 0; j != 451; j++){
+    //         if(stations[i][j] == 1){
+    //             gephiFile << i << "," << j << std::endl;
+    //         } 
+    //     }
+    // }
+
+
     //                                                          M A N U A L   T R A V E R S A L
 
     //TESTING

@@ -79,85 +79,6 @@ std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
 
 
 
-//      MICHAEL Greedy + BFS algorithm
-std::vector<int> shortestPath(std::vector<std::vector<int>> stations, int start) {
-    std::vector<int> path;
-    std::list<int> fullPath;
-    std::vector<int> visited(451, 0);
-
-    int current = start;
-    while (path.size() < 428) {
-        // Add station to visited
-        path.push_back(current);
-        visited[current] = 1;
-
-        // Find all neighbors
-        std::vector<int> neighbors;
-        for (int i = 1; i < stations.size(); i++) {
-            if (stations[current][i] == 1) {
-                neighbors.push_back(i);
-            }
-        }
-
-        // Iterate through neighbors
-        bool availableNext = false;
-        for (int n = 0; n < neighbors.size(); n++) {
-            // Greedy algorithm: take next unvisited station
-            if (visited[neighbors[n]] == 0) {
-                current = neighbors[n];
-                availableNext = true;
-                fullPath.push_back(current);
-                break;
-            }
-        }
-
-        // If no unvisited stations are available, run bfs and find
-        // closest unvisited station
-        if (availableNext == false) {
-            // Visited stations for bfs stored here (0 = unvisited, 1 = visited)
-            std::vector<int> visitedBFS(451, 0);
-
-            // Queue for bfs
-            std::queue<int> queue;
-
-            // Path to unvisited station
-            std::list<int> pathToNext;
-
-            // Add starting node and mark as visited
-            visitedBFS[current] = 1;
-            queue.push(current);
-            int next = current;
-
-            while (!queue.empty()) {
-                // Pop a vertex from queue
-                next = queue.front();
-                pathToNext.push_back(next);
-                queue.pop();
-                // found unvisited
-                if (visited[next] == 0) {
-                    break;
-                }
-
-                // Find all neighbors of dequeued vertex
-                for (int i = 1; i < stations.size(); i++) {
-                    if (stations[next][i] == 1) {
-                        if (visitedBFS[i] == 0) {
-                            visitedBFS[i] = 1;
-                            queue.push(i);
-                        }
-                    }
-                }
-            }
-            current = next;
-        }
-    }
-    return path;
-}
-
-
-
-
-
 std::list<int> bfs (int start, std::vector<int> & visited, std::vector<std::vector<int>> & stations) {
 
     std::queue<std::pair<int, std::list<int>>> q;
@@ -194,6 +115,63 @@ std::list<int> bfs (int start, std::vector<int> & visited, std::vector<std::vect
     }
     return {};
 }
+
+
+
+
+
+//      MICHAEL Greedy + BFS algorithm
+std::list<int> shortestPath(std::vector<std::vector<int>> stations, int start) {
+    std::list<int> path;
+    std::vector<int> visited(451, 0);
+    int visitedCount = 0;
+
+    int current = start;
+    while (visitedCount < 428) {
+        std::cout << visitedCount << std::endl;
+        std::list<int> nextPath = {};
+
+        // Add station to visited
+        path.push_back(current);
+        visited[current] = 1;
+        visitedCount++;
+
+        // Find all neighbors
+        std::vector<int> neighbors;
+        for (int i = 1; i < stations.size(); i++) {
+            if (stations[current][i] == 1) {
+                neighbors.push_back(i);
+            }
+        }
+
+        // Iterate through neighbors
+        bool availableNext = false;
+        for (int n = 0; n < neighbors.size(); n++) {
+            // Greedy algorithm: take next unvisited station
+            if (visited[neighbors[n]] == 0) {
+                current = neighbors[n];
+                availableNext = true;
+                nextPath.push_back(current);
+                break;
+            }
+        }
+
+        // If no unvisited stations are available, run bfs and find
+        // closest unvisited station
+        if (availableNext == false) {
+
+            
+
+            nextPath = bfs(current, visited, stations);
+
+
+        }
+        // append path to next unvisited station to big path
+        path.insert(path.end(), nextPath.begin(), nextPath.end());
+    }
+    return path;
+}
+
 
 
 

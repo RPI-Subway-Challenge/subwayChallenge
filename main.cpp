@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    //Manually set walking route possibilities: 207St(A)-207St(1), 
+    // Manually set walking route possibilities: 207St(A)-207St(1), 
     // BedfordPkBlvd(4)-BedfordPkBlvd(B/D), 96St(6)-96St(Q)
 
     //207St
@@ -145,22 +145,37 @@ int main(int argc, char* argv[]) {
     // std::cout << "\n" << std::endl;
     // std::cout << "Path size: " << path.size() << std::endl;
 
-    //Actual start for route: 212
-    std::vector<int> path = shortestPath(stations, 212);
-    //Print result
-    for (int i = 0; i < path.size(); i++) {
-        std::cout << i+1 << "/" << path.size() << " | " ;
-        std::cout << path[i] << " | " << stationInfo[path[i]];
 
-        if (i != path.size()-1 && stations[path[i]][path[i+1]] == 0) {
-            std::cout << " => backtrack";
-        }
-        // if (i != path.size()-1) {
-        //     std::cout << " => ";
-        // }
-        std::cout << std::endl;
+    //                                                          R U N    A L G O R I T H M
+
+    //Actual start for route: 212
+    std::cout << "al-GO!" << std::endl;
+    std::list<int> path = shortestPath(stations, 212);
+
+    std::list<int>::iterator iter;
+    for (iter = path.begin(); iter != path.end(); iter++){
+        std::cout << *iter << " ";
     }
     std::cout << std::endl;
+
+
+    // ! uncomment for old printing
+    // //Print result
+    // for (int i = 0; i < path.size(); i++) {
+    //     std::cout << i+1 << "/" << path.size() << " | " ;
+    //     std::cout << path[i] << " | " << stationInfo[path[i]];
+
+    //     if (i != path.size()-1 && stations[path[i]][path[i+1]] == 0) {
+    //         std::cout << " => backtrack";
+    //     }
+    //     // if (i != path.size()-1) {
+    //     //     std::cout << " => ";
+    //     // }
+    //     std::cout << std::endl;
+    // }
+    // std::cout << std::endl;
+
+
 
 	// int c;
     // std::cout << "Please enter the id of a starting station\n";

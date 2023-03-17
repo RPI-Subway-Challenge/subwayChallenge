@@ -149,14 +149,32 @@ int main(int argc, char* argv[]) {
     //                                                          R U N    A L G O R I T H M
 
     //Actual start for route: 212
-    std::cout << "al-GO!" << std::endl;
-    std::list<int> path = shortestPath(stations, 212);
+    int startStation = 212;
+    std::vector<int> path = bfs(startStation, stations);
 
-    std::list<int>::iterator iter;
-    for (iter = path.begin(); iter != path.end(); iter++){
-        std::cout << *iter << " ";
+    std::cout << stations.size() << std::endl;
+
+    std::cout << path.size() << std::endl;
+
+    for (int i : path) {
+        std::cout << i << " ";
     }
     std::cout << std::endl;
+
+
+    // revisit check
+    int revisitedCount = 0;
+    for(int i = 0; i != stations.size(); i++){
+        int occurCount = 0;
+        for(int j = 0; j != path.size(); j++){
+            if(path[j] == i){
+                occurCount++;
+            }
+        }
+        std::cout << i << " : " << occurCount << std::endl;
+        if(occurCount > 1){revisitedCount += occurCount-1;}
+    }
+    std::cout << "REVISITED : " << revisitedCount << std::endl;
 
 
     // ! uncomment for old printing

@@ -79,98 +79,33 @@ std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
 
 
 
-std::list<int> bfs (int start, std::vector<int> & visited, std::vector<std::vector<int>> & stations) {
+std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
 
-    std::queue<std::pair<int, std::list<int>>> q;
-    std::list<int> path;
+    std::queue<int> q;
+    std::vector<bool> visited(stations.size(), false);
+    std::vector<int> path;
 
-    visited[start] = 1;
-    path.push_back(start);
+    q.push(start);
+    visited[start] = true;
 
-    q.push({start, path});
-
-    while(!q.empty()){
-        int current = q.front().first;
-        path = q.front().second;
+    while (!q.empty()) {
+        int current = q.front();
         q.pop();
-
-        // check path from current to all nodes
-        for(int i = 0; i != 428; i++){      // ! could be 428?
-            if(i != current){
-                // check if there is a path from current to i
-                if(stations[current][i] == 1){
-                    visited[i] = 1;
-                    std::list<int> newPath = path;
-                    newPath.push_back(i);
-
-                    // check if i is unvisited
-                    if(visited[i] == 0){
-                        return newPath;
-                    }else{
-                        q.push({i,newPath});
-                    }
-                }
-            }
-        }
-    }
-    return {};
-}
-
-
-
-
-
-//      MICHAEL Greedy + BFS algorithm
-std::list<int> shortestPath(std::vector<std::vector<int>> stations, int start) {
-    std::list<int> path;
-    std::vector<int> visited(451, 0);
-    int visitedCount = 0;
-
-    int current = start;
-    while (visitedCount < 428) {
-        std::cout << visitedCount << std::endl;
-        std::list<int> nextPath = {};
-
-        // Add station to visited
         path.push_back(current);
-        visited[current] = 1;
-        visitedCount++;
 
-        // Find all neighbors
-        std::vector<int> neighbors;
-        for (int i = 1; i < stations.size(); i++) {
-            if (stations[current][i] == 1) {
-                neighbors.push_back(i);
+        for (int i = 0; i < stations[current].size(); i++) {
+            if (stations[current][i] == 1 && !visited[i]) {
+                q.push(i);
+                visited[i] = true;
             }
         }
-
-        // Iterate through neighbors
-        bool availableNext = false;
-        for (int n = 0; n < neighbors.size(); n++) {
-            // Greedy algorithm: take next unvisited station
-            if (visited[neighbors[n]] == 0) {
-                current = neighbors[n];
-                availableNext = true;
-                nextPath.push_back(current);
-                break;
-            }
-        }
-
-        // If no unvisited stations are available, run bfs and find
-        // closest unvisited station
-        if (availableNext == false) {
-
-            
-
-            nextPath = bfs(current, visited, stations);
-
-
-        }
-        // append path to next unvisited station to big path
-        path.insert(path.end(), nextPath.begin(), nextPath.end());
     }
+
     return path;
 }
+
+
+
 
 
 

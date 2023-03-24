@@ -150,13 +150,46 @@ int main(int argc, char* argv[]) {
 
     //Actual start for route: 212
     int startStation = 212;
+
+    // std::vector<int> sim = aToB(stations, 212, 400);
+
+    // std::cout << sim[0] << " :::::: " << sim[sim.size()-1] << std::endl;
+
+    // for(int i = 0; i != sim.size(); i++){
+    //     std::cout << i << " : " << sim[i] << std::endl;
+    // }
+
     std::vector<int> path = bfs(startStation, stations);
+
+
+    std::vector<int> fullPath;
+    fullPath.push_back(startStation);
+    for(int i = 1; i != path.size(); i++){
+        std::vector<int> pathToNew = aToB(stations, path[i-1], path[i]);
+
+        for(int j = 0; j != pathToNew.size(); j++){
+            if(pathToNew[j] != path[i-1] && pathToNew[j] != path[i]){
+                fullPath.push_back(pathToNew[j]);
+            }
+        }
+
+        fullPath.push_back(path[i]);
+
+    }
+
+    // turn path into full path, including revisited stations
+    // std::vector<int> fullPath;
+    // for(int i = 0; i != path.size()-1; i++){
+    //     std::vector<int> segment = aToB(path[i], path[i+1], stations);
+    //     fullPath.insert(fullPath.begin(), segment.begin(), segment.end());
+    // }
+
 
     std::cout << stations.size() << std::endl;
 
     std::cout << path.size() << std::endl;
 
-    for (int i : path) {
+    for (int i : fullPath) {
         std::cout << i << " ";
     }
     std::cout << std::endl;
@@ -166,12 +199,12 @@ int main(int argc, char* argv[]) {
     int revisitedCount = 0;
     for(int i = 0; i != stations.size(); i++){
         int occurCount = 0;
-        for(int j = 0; j != path.size(); j++){
-            if(path[j] == i){
+        for(int j = 0; j != fullPath.size(); j++){
+            if(fullPath[j] == i){
                 occurCount++;
             }
         }
-        std::cout << i << " : " << occurCount << std::endl;
+        // std::cout << i << " : " << occurCount << std::endl;
         if(occurCount > 1){revisitedCount += occurCount-1;}
     }
     std::cout << "REVISITED : " << revisitedCount << std::endl;

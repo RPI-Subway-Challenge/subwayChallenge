@@ -78,6 +78,45 @@ std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
 
 
 
+// std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
+//     std::queue<int> q;
+//     std::vector<bool> visited(stations.size(), false);
+//     std::vector<int> parent(stations.size(), -1);
+//     std::vector<int> path;
+
+//     q.push(start);
+//     visited[start] = true;
+
+//     while (!q.empty()) {
+//         int current = q.front();
+//         q.pop();
+
+//         for (int i = 0; i < stations[current].size(); i++) {
+//             if (stations[current][i] == 1 && !visited[i]) {
+//                 q.push(i);
+//                 visited[i] = true;
+//                 parent[i] = current;
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < parent.size(); i++) {
+//         if (parent[i] != -1) {
+//             std::vector<int> subpath;
+//             int j = i;
+//             while (j != start) {
+//                 subpath.insert(subpath.begin(), j);
+//                 j = parent[j];
+//             }
+//             subpath.insert(subpath.begin(), start);
+//             path.insert(path.end(), subpath.begin(), subpath.end());
+//         }
+//     }
+
+//     return path;
+// }
+
+
 
 std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
 
@@ -106,6 +145,41 @@ std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
 
 
 
+
+std::vector<int> aToB(std::vector<std::vector<int>> & graph, int start, int end) {
+    std::queue<int> q;
+    std::vector<bool> visited(graph.size(), false);
+    std::vector<int> parent(graph.size(), -1);
+
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+
+        for (int neighbor = 0; neighbor < graph.size(); ++neighbor) {
+            if (graph[node][neighbor] == 1 && !visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+                parent[neighbor] = node;
+            }
+        }
+    }
+
+    // build shortest path from start to end
+    std::vector<int> path;
+    if (!visited[end]) {
+        return path; // no path exists
+    }
+
+    for (int node = end; node != -1; node = parent[node]) {
+        path.push_back(node);
+    }
+
+    reverse(path.begin(), path.end());
+    return path;
+}
 
 
 

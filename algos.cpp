@@ -76,45 +76,41 @@ std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start) {
 }
     
 
+int getDegree(int neighbor, std::vector<std::vector<int>> & stations){
+    int degree = 0;
+    for(int i = 0; i != stations.size(); i++){
+        if(stations[neighbor][i] == 1 && neighbor != i){
+            degree++;
+        }
+    }
+    return degree;
+}
 
 
-// std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
-//     std::queue<int> q;
-//     std::vector<bool> visited(stations.size(), false);
-//     std::vector<int> parent(stations.size(), -1);
-//     std::vector<int> path;
 
-//     q.push(start);
-//     visited[start] = true;
+// take vector of indicies and sort from smallest degree to largest
+std::vector<int> degreeSort(std::vector<int> neighbors, std::vector<std::vector<int>> & stations){
 
-//     while (!q.empty()) {
-//         int current = q.front();
-//         q.pop();
+    std::vector<int> degrees(neighbors.size());
+    for (int i = 0; i < neighbors.size(); i++) {
+        int degree = 0;
+        for (int j = 0; j < stations.size(); j++) {
+            if (stations[neighbors[i]][j] == 1) {
+                degree++;
+            }
+        }
+        degrees[i] = degree;
+    }
 
-//         for (int i = 0; i < stations[current].size(); i++) {
-//             if (stations[current][i] == 1 && !visited[i]) {
-//                 q.push(i);
-//                 visited[i] = true;
-//                 parent[i] = current;
-//             }
-//         }
-//     }
+    // Sort the nodes by their degree
+    std::sort(neighbors.begin(), neighbors.end(), [&](int a, int b) {
+        return degrees[a] < degrees[b];
+    });
 
-//     for (int i = 0; i < parent.size(); i++) {
-//         if (parent[i] != -1) {
-//             std::vector<int> subpath;
-//             int j = i;
-//             while (j != start) {
-//                 subpath.insert(subpath.begin(), j);
-//                 j = parent[j];
-//             }
-//             subpath.insert(subpath.begin(), start);
-//             path.insert(path.end(), subpath.begin(), subpath.end());
-//         }
-//     }
+    return neighbors;
 
-//     return path;
-// }
+}
+
 
 
 
@@ -132,12 +128,16 @@ std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
         q.pop();
         path.push_back(current);
 
+        std::vector<int> neighbors;
         for (int i = 0; i < stations[current].size(); i++) {
             if (stations[current][i] == 1 && !visited[i]) {
                 q.push(i);
+                neighbors.push_back(i);
                 visited[i] = true;
             }
         }
+        neighbors = degreeSort(neighbors,stations);
+        // q.push(neighbors)
     }
 
     return path;

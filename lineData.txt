@@ -297,6 +297,9 @@ station name: Beach 44th St, index: 205
 station name: Beach 36th St, index: 206
 station name: Beach 25th St, index: 207
 station name: Far Rockaway - Mott Ave, index: 208
+end
+Line: A-RockawayPark
+station name: Broad Channel, index: 202
 station name: Beach 90th St, index: 209
 station name: Beach 98th St, index: 210
 station name: Beach 105th St, index: 211

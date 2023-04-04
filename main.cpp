@@ -19,7 +19,39 @@
 //CHANGED STATION INITIALIZATON BECAUSE STATION ID WAS ARBITRARY
 using std::size_t;
 
-// void createTrips();
+
+
+
+
+void dfs(std::vector<std::vector<int>> adj_matrix, int current, std::vector<bool> &visited, std::vector<int> &path) {
+    visited[current] = true;
+    path.push_back(current);
+
+    // 202 -> 209
+    // if (current == 202 && !visited[209] && !visited[201]) { dfs(adj_matrix, 209, visited, path); }
+
+    // else{
+        for (int i = 0; i < adj_matrix[current].size(); i++) {
+            if (adj_matrix[current][i] == 1 && !visited[i]) {
+                dfs(adj_matrix, i, visited, path);
+            }
+        }
+    // }
+}
+
+
+std::vector<int> dfsPath(int start, std::vector<std::vector<int>> adj_matrix) {
+    std::vector<bool> visited(adj_matrix.size(), false);
+    std::vector<int> path;
+
+    dfs(adj_matrix, start, visited, path);
+
+    return path;
+}
+
+
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -151,8 +183,8 @@ int main(int argc, char* argv[]) {
 
     //                                                          R U N    A L G O R I T H M
 
-    //Actual start for route: 212
-    int startStation = 212;
+    //Actual start for route: 208, 212, 95, 403, 115
+    int startStation = 208;
 
     // std::vector<int> sim = aToB(stations, 212, 400);
 
@@ -162,7 +194,8 @@ int main(int argc, char* argv[]) {
     //     std::cout << i << " : " << sim[i] << std::endl;
     // }
 
-    std::vector<int> path = bfs(startStation, stations);
+    // std::vector<int> path = bfs(startStation, stations);
+    std::vector<int> path = dfsPath(startStation, stations);
 
 
     std::vector<int> fullPath;

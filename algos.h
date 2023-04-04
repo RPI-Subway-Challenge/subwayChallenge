@@ -12,8 +12,8 @@ double realDistance(const Station& s1, const Station& s2);
 
 int heuristic(std::vector<Station> & stations, int currId, int nextId);
 std::vector<int> testAlg(std::vector<std::vector<int>> stations, int start);
-std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations);
 std::vector<int> aToB (std::vector<std::vector<int>> & stations, int start, int end);
+
 
 // Functions for transversal in main
 

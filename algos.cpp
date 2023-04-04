@@ -114,36 +114,6 @@ std::vector<int> degreeSort(std::vector<int> neighbors, std::vector<std::vector<
 
 
 
-std::vector<int> bfs (int start, std::vector<std::vector<int>> & stations) {
-
-    std::queue<int> q;
-    std::vector<bool> visited(stations.size(), false);
-    std::vector<int> path;
-
-    q.push(start);
-    visited[start] = true;
-
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop();
-        path.push_back(current);
-
-        std::vector<int> neighbors;
-        for (int i = 0; i < stations[current].size(); i++) {
-            if (stations[current][i] == 1 && !visited[i]) {
-                q.push(i);
-                neighbors.push_back(i);
-                visited[i] = true;
-            }
-        }
-        neighbors = degreeSort(neighbors,stations);
-        // q.push(neighbors)
-    }
-
-    return path;
-}
-
-
 
 
 std::vector<int> aToB(std::vector<std::vector<int>> & graph, int start, int end) {
